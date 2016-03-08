@@ -1,0 +1,8 @@
+﻿<Window x:Class="m0.UIWpf.Dialog.EditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="edit dialog" Height="350" Width="350" WindowStartupLocation="CenterOwner" Background="{StaticResource 0VeryLightHighlightBrush}" Foreground="{StaticResource 0ForegroundBrush}">
+    <Grid>
+        
+    </Grid>
+</Window>

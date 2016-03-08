@@ -1,0 +1,27 @@
+﻿<UserControl xmlns:Visualisers="clr-namespace:m0.UIWpf.Visualisers"  x:Class="m0.UIWpf.Dialog.NewVertex"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Background="{StaticResource 0BackgroundBrush}" Foreground="{StaticResource 0ForegroundBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0" Name="Content" FontFamily="Consolas" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" AcceptsReturn="True">
+        </TextBox>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Click="Button_Click_1">New Vertex</Button>
+            <TextBlock Margin="30,0,5,0">Meta Vertex:</TextBlock>
+            <Border BorderThickness="1" BorderBrush="{StaticResource 0ForegroundBrush}">
+                <Visualisers:EdgeVisualiser x:Name="Schema" Width="300"/>
+            </Border>
+        </StackPanel>
+
+    </Grid>
+    
+</UserControl>
