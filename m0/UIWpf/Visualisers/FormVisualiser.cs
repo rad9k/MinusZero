@@ -152,12 +152,29 @@ namespace m0.UIWpf.Visualisers
         {
             Grid g = new Grid();
 
+            bool notFirstColumn = false;
+
+            int columnCount = 0;
+
             for (int i = 0; i < ColumnNumber; i++)
             {
+                if (notFirstColumn)
+                {
+                    ColumnDefinition cd = new ColumnDefinition();
+                    cd.Width = new GridLength(10);
+                    g.ColumnDefinitions.Add(cd);
+
+                    columnCount++;
+                }
+                
                 g.ColumnDefinitions.Add(new ColumnDefinition());
                 StackPanel s = new StackPanel();
-                Grid.SetColumn(s, i );
+                Grid.SetColumn(s, columnCount);
                 g.Children.Add(s);
+
+                columnCount++;
+
+                notFirstColumn = true;
             }
 
             return g;
@@ -186,20 +203,18 @@ namespace m0.UIWpf.Visualisers
                 Content = CreateColumnedContent();
         }
 
-        protected int getTargetColumnAndIncreaseControlCount(string group, string section)
-        {
-            TabInfo t = TabList[group];
-
-            t.CurrentNumberOfControls++;
-
-            return (int) (t.CurrentNumberOfControls * (double) ColumnNumber / t.TotalNumberOfControls);
-        }
-
         protected Panel GetUIPlace(string group,string section)
         {
             TabInfo t = TabList[group];
 
-            int targetColumn = getTargetColumnAndIncreaseControlCount(section, group);
+            
+            int targetColumn = (int)((double)t.CurrentNumberOfControls * (double)ColumnNumber / (double)t.TotalNumberOfControls);
+
+            if (targetColumn >= ColumnNumber)
+                targetColumn = ColumnNumber-1;
+
+            t.CurrentNumberOfControls++;
+
 
             if(HasTabs)
                 return (Panel)((Grid)t.TabItem.Content).Children[targetColumn];
@@ -248,11 +263,6 @@ namespace m0.UIWpf.Visualisers
 
             Panel place = GetUIPlace(section, group);
 
-            
-
-        //    Grid.SetColumn(metaControl, targetColumn);
-
-            //Grid.SetColumn(dataControl, targetColumn);
 
             place.Children.Add(metaControl);
         
@@ -299,7 +309,7 @@ namespace m0.UIWpf.Visualisers
 
         void OnLoad(object sender, RoutedEventArgs e)
         {
-            Vertex.Get("ColumnNumber:").Value = (int)this.ActualWidth/400;
+            Vertex.Get("ColumnNumber:").Value = (int)this.ActualWidth/300;
         }   
 
 
@@ -321,7 +331,7 @@ namespace m0.UIWpf.Visualisers
             if ((sender == Vertex.Get("BaseEdge:")) && (e.Type == VertexChangeType.EdgeAdded) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "To")))
                 UpdateBaseEdge();
 
-            if (sender == Vertex.Get(@"BaseEdge:\To:") && (e.Type == VertexChangeType.EdgeAdded || e.Type == VertexChangeType.EdgeRemoved))
+            if (sender == Vertex.Get(@"BaseEdge:\To:") && (/*e.Type == VertexChangeType.EdgeAdded ||*/ e.Type == VertexChangeType.EdgeRemoved))
                 UpdateBaseEdge();
 
             if (sender == Vertex.Get(@"ColumnNumber:") && (e.Type == VertexChangeType.ValueChanged))
