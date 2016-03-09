@@ -268,15 +268,15 @@ namespace m0
                 {
                     IVertex tta = tt.AddVertex(r.Get("System*Attribute"), "a" + x + " " + y);
                     tta.AddVertex(r.Get("System*$Group"), x.ToString());
-                    tta.AddVertex(r.Get("System*$Section"), x.ToString());
+                    tta.AddVertex(r.Get("System*$Section"), y.ToString());
 
                     IVertex ttb = tt.AddVertex(r.Get("System*Attribute"), "b" + x + " " + y);
                     ttb.AddVertex(r.Get("System*$Group"), x.ToString());
-                    ttb.AddVertex(r.Get("System*$Section"), x.ToString());
+                    ttb.AddVertex(r.Get("System*$Section"), y.ToString());
 
                     IVertex ttc = tt.AddVertex(r.Get("System*Attribute"), "c" + x + " " + y);
                     ttc.AddVertex(r.Get("System*$Group"), x.ToString());
-                    ttc.AddVertex(r.Get("System*$Section"), x.ToString());
+                    ttc.AddVertex(r.Get("System*$Section"), y.ToString());
                 }
 
             VertexOperations.AddInstance(r.Get("TEST"), tt);

@@ -17,12 +17,12 @@ namespace m0.UIWpf.Visualisers
     {
         public int TotalNumberOfControls;
         public int CurrentNumberOfControls;
-        public IDictionary<string, Control> Sections;
+        public IDictionary<string, Panel> Sections;
         public TabItem TabItem;
 
         public TabInfo()
         {
-            Sections=new Dictionary<string,Control>();
+            Sections=new Dictionary<string,Panel>();
             TotalNumberOfControls=0;
             CurrentNumberOfControls = 0;
         }
@@ -215,6 +215,35 @@ namespace m0.UIWpf.Visualisers
 
             t.CurrentNumberOfControls++;
 
+            if (section != null)
+            {
+                if (t.Sections.ContainsKey(section))
+                    return ((Panel)t.Sections[section]);
+
+                Panel toAdd;
+
+                if (HasTabs)
+                    toAdd=(Panel)((Grid)t.TabItem.Content).Children[targetColumn];
+                else
+                    toAdd=(Panel)((Grid)this.Content).Children[0];
+
+                GroupBox g = new GroupBox();
+
+                g.BorderBrush = (Brush)FindResource("0ForegroundBrush");
+
+                toAdd.Children.Add(g);
+
+                g.Header = section;
+
+                StackPanel gp = new StackPanel();
+
+                g.Content = gp;
+
+                t.Sections.Add(section, gp);
+
+                return gp;
+            }
+
 
             if(HasTabs)
                 return (Panel)((Grid)t.TabItem.Content).Children[targetColumn];
@@ -224,8 +253,8 @@ namespace m0.UIWpf.Visualisers
 
         protected void AddEdge(IVertex meta, bool isSet)
         {
-            string section = (string)meta.Get("$Section:").Value;
-            string group = (string)meta.Get("$Group:").Value;
+            string group = (string)GraphUtil.GetValue(meta.Get("$Group:"));
+            string section = (string)GraphUtil.GetValue(meta.Get("$Section:"));  
 
             IVertex r = MinusZero.Instance.Root;
 
@@ -335,6 +364,9 @@ namespace m0.UIWpf.Visualisers
                 UpdateBaseEdge();
 
             if (sender == Vertex.Get(@"ColumnNumber:") && (e.Type == VertexChangeType.ValueChanged))
+                UpdateBaseEdge();
+
+            if (sender == Vertex.Get(@"SectionsAsTabs:") && (e.Type == VertexChangeType.ValueChanged))
                 UpdateBaseEdge();
 
             if (sender == Vertex.Get("ZoomVisualiserContent:") && e.Type == VertexChangeType.ValueChanged)
