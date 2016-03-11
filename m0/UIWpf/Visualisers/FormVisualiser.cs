@@ -35,17 +35,55 @@ namespace m0.UIWpf.Visualisers
             return Vertex.Get(@"BaseEdge:\Meta:") == null || Vertex.Get(@"BaseEdge:\Meta:").Count() == 0;
         }
 
+        private string getGroup(IVertex meta)
+        {
+            if (SectionsAsTabs){
+                string _section = (string)GraphUtil.GetValue(meta.Get("$Section:")); 
+                string _group = (string)GraphUtil.GetValue(meta.Get("$Group:"));
+
+                if(_group==null && _section==null)
+                    return "";
+
+                if (_group == null)
+                    return "| " + _section;
+
+                if (_section == null)
+                    return _group;
+
+                return _group + " | " + _section;
+            }
+            else
+            {
+                string _group=(string)GraphUtil.GetValue(meta.Get("$Group:"));
+
+                if (_group == null)
+                    return "";
+                else
+                    return _group;
+            }
+        }
+
+        private string getSection(IVertex meta)
+        {
+            if (SectionsAsTabs)
+                return null;
+            else
+                return (string)GraphUtil.GetValue(meta.Get("$Section:")); 
+        }
+
         private void PreFillFormAnalyseEdge(IVertex meta, bool isSet)
         {
-            string group = (string)GraphUtil.GetValue(meta.Get("$Group:"));
-            string section = (string)GraphUtil.GetValue(meta.Get("$Section:"));            
+            string group = getGroup(meta);
+            string section = getSection(meta);      
 
             TabInfo t;
 
-            if (group != null)
-                HasTabs = true;
-            else
+            if (group == null || group=="")
                 HasTabs = false;
+            else
+                HasTabs = true;
+
+         
 
             if (TabList.ContainsKey(group))
                 t = TabList[group];
@@ -253,8 +291,8 @@ namespace m0.UIWpf.Visualisers
 
         protected void AddEdge(IVertex meta, bool isSet)
         {
-            string group = (string)GraphUtil.GetValue(meta.Get("$Group:"));
-            string section = (string)GraphUtil.GetValue(meta.Get("$Section:"));  
+            string group = getGroup(meta);
+            string section = getSection(meta);  
 
             IVertex r = MinusZero.Instance.Root;
 
@@ -290,7 +328,7 @@ namespace m0.UIWpf.Visualisers
                 dataControl = w;
             }
 
-            Panel place = GetUIPlace(section, group);
+            Panel place = GetUIPlace(group,section);
 
 
             place.Children.Add(metaControl);

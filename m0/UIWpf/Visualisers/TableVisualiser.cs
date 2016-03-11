@@ -90,7 +90,7 @@ namespace m0.UIWpf.Visualisers
             Vertex.Get("AlternatingRows:").Value = "True";
             Vertex.Get("ZoomVisualiserContent:").Value = 100;
 
-            GraphUtil.ReplaceEdge(Vertex, "GridStyle", MinusZero.Instance.Root.Get(@"System\Meta\Visualiser\GridStyleEnum\AllAndRound"));
+            GraphUtil.ReplaceEdge(Vertex, "GridStyle", MinusZero.Instance.Root.Get(@"System\Meta\Visualiser\GridStyleEnum\Horizontal"));
         }
 
         protected override void PlatformClassInitialize(){
