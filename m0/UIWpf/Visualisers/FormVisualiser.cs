@@ -215,6 +215,12 @@ namespace m0.UIWpf.Visualisers
                 notFirstColumn = true;
             }
 
+            ColumnDefinition cdd = new ColumnDefinition();
+            cdd.Width = new GridLength(5);
+            g.ColumnDefinitions.Add(cdd);
+
+            columnCount++;
+
             return g;
         }
 
@@ -330,7 +336,7 @@ namespace m0.UIWpf.Visualisers
 
             Panel place = GetUIPlace(group,section);
 
-
+ 
             place.Children.Add(metaControl);
         
             place.Children.Add(dataControl);
