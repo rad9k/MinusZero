@@ -141,6 +141,11 @@ namespace m0.UIWpf.Visualisers
                 this.GridLinesVisibility = DataGridGridLinesVisibility.All;
                 this.BorderBrush = (Brush)FindResource("0ForegroundBrush");
             }
+            else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Round"))
+            {
+                this.BorderThickness = new System.Windows.Thickness(1);
+                this.BorderBrush = (Brush)FindResource("0ForegroundBrush");
+            }
             else
             {
                 this.BorderThickness = new System.Windows.Thickness(0);

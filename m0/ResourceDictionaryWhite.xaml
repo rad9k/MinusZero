@@ -30,6 +30,10 @@
     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource 0Selection}"/>
     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="{StaticResource 0Background}"/>
 
+    <Path x:Key="glass" Data="M-179,-56 C-249,-16 -322,-102 -322,-102 L-227.5,-131.69537 -132.5,-138.5428 -97.25,-81.967177 -127.625,-46.967719 -166.625,-25.968044 -187.625,-38.256299" Fill="#FFF4F4F5" Height="113.577" Stretch="Fill" Stroke="Black" Width="225.75"/>
+   
+
+
     <Style x:Key="0ListMetaColumnRight" TargetType="DataGridCell">
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Foreground" Value="{StaticResource 0GrayBrush}" />

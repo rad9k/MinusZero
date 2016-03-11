@@ -40,7 +40,22 @@ namespace m0.UIWpf.Visualisers
                 if (e.To.Get("$Hide:") == null)
                 AddColumn((string)e.To.Value, "To[" + (string)e.To.Value+"]");
 
+            AddTemplateButtons();
             
+        }
+
+        protected virtual void AddTemplateButtons()
+        {
+            DataGridTemplateColumn valueColumn = new DataGridTemplateColumn();
+
+            valueColumn.CellStyle = (Style)FindResource("0ListValueColumn");
+
+            valueColumn.CellTemplate = new DataTemplate();
+            FrameworkElementFactory factory = new FrameworkElementFactory(typeof(Button));
+            //factory.SetBinding(VisualiserViewWrapper.BaseEdgeProperty, new Binding(bindingString));
+            valueColumn.CellTemplate.VisualTree = factory;          
+
+            Columns.Add(valueColumn);
         }
 
        protected virtual void AddColumn(string columnName, string bindingString)
@@ -90,7 +105,7 @@ namespace m0.UIWpf.Visualisers
             Vertex.Get("AlternatingRows:").Value = "True";
             Vertex.Get("ZoomVisualiserContent:").Value = 100;
 
-            GraphUtil.ReplaceEdge(Vertex, "GridStyle", MinusZero.Instance.Root.Get(@"System\Meta\Visualiser\GridStyleEnum\AllAndRound"));
+            GraphUtil.ReplaceEdge(Vertex, "GridStyle", MinusZero.Instance.Root.Get(@"System\Meta\Visualiser\GridStyleEnum\Round"));
         }
 
         protected override void PlatformClassInitialize(){
