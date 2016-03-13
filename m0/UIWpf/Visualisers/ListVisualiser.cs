@@ -144,7 +144,7 @@ namespace m0.UIWpf.Visualisers
             else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Round"))
             {
                 this.BorderThickness = new System.Windows.Thickness(1);
-                this.BorderBrush = (Brush)FindResource("0ForegroundBrush");
+                this.BorderBrush = (Brush)FindResource("0LightGrayBrush");
             }
             else
             {

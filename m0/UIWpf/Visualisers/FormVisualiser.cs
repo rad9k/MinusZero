@@ -273,6 +273,8 @@ namespace m0.UIWpf.Visualisers
 
                 GroupBox g = new GroupBox();
 
+                //Expander g = new Expander();
+
                 g.BorderBrush = (Brush)FindResource("0ForegroundBrush");
 
                 toAdd.Children.Add(g);

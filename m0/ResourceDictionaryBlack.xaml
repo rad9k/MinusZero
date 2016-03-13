@@ -71,12 +71,7 @@
                 <Setter Property="BorderBrush" Value="{StaticResource 0BackgroundBrush}" />
             </Trigger>
         </Style.Triggers>
-    </Style>
-
-    <Style TargetType="{x:Type ListBox}">
-        <Setter Property="Background" Value="{StaticResource 0BackgroundBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource 0ForegroundBrush}" />
-    </Style>
+    </Style>    
 
     <Style TargetType="{x:Type TabItem}">
         <Setter Property="Background" Value="{StaticResource 0BackgroundBrush}"/>
@@ -90,6 +85,11 @@
     </Style>
 
     <Style TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="{StaticResource 0BackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource 0ForegroundBrush}" />
+    </Style>
+
+    <Style TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{StaticResource 0BackgroundBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource 0ForegroundBrush}" />
     </Style>
