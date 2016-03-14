@@ -30,6 +30,16 @@ namespace m0.UIWpf.Visualisers
 
     public class FormVisualiser: ContentControl, IPlatformClass
     {
+        bool SectionsAsTabs;
+        bool MetaOnLeft;
+
+        bool HasTabs { get; set; }
+        int ColumnNumber { get; set; }
+        IDictionary<string, TabInfo> TabList { get; set; }
+
+        TabControl TabControl;
+
+
         private bool isFormTyped()
         {
             return Vertex.Get(@"BaseEdge:\Meta:") == null || Vertex.Get(@"BaseEdge:\Meta:").Count() == 0;
@@ -130,7 +140,7 @@ namespace m0.UIWpf.Visualisers
             }
         }
 
-        bool SectionsAsTabs;
+        
 
         public void UpdateBaseEdge()
         {
@@ -142,6 +152,11 @@ namespace m0.UIWpf.Visualisers
                     SectionsAsTabs = true;
                 else
                     SectionsAsTabs = false;
+
+                if ((string)Vertex.Get(@"MetaOnLeft:").Value == "True")
+                    MetaOnLeft = true;
+                else
+                    MetaOnLeft = false;
 
                 ColumnNumber=GraphUtil.GetIntegerValue(Vertex.Get(@"ColumnNumber:"));
 
@@ -176,15 +191,14 @@ namespace m0.UIWpf.Visualisers
                                 AddEdge(e.To, false);
                 }
 
-                
+                CorrectMetaWidth();       
             }
         }
 
-        bool HasTabs { get; set; }
-        int ColumnNumber { get; set; }
-        IDictionary<string,TabInfo> TabList { get; set; }
+        protected void CorrectMetaWidth()
+        {
 
-        TabControl TabControl;
+        }
 
         protected object CreateColumnedContent()
         {
@@ -338,10 +352,23 @@ namespace m0.UIWpf.Visualisers
 
             Panel place = GetUIPlace(group,section);
 
- 
-            place.Children.Add(metaControl);
-        
-            place.Children.Add(dataControl);
+            if (MetaOnLeft)
+            {
+                StackPanel s=new StackPanel();
+                s.Orientation=Orientation.Horizontal;
+
+                s.Children.Add(metaControl);
+
+                s.Children.Add(dataControl);
+
+                place.Children.Add(s);
+            }
+            else
+            {
+                place.Children.Add(metaControl);
+
+                place.Children.Add(dataControl);
+            }
 
 
             Border b = new Border();
@@ -413,6 +440,9 @@ namespace m0.UIWpf.Visualisers
                 UpdateBaseEdge();
 
             if (sender == Vertex.Get(@"SectionsAsTabs:") && (e.Type == VertexChangeType.ValueChanged))
+                UpdateBaseEdge();
+
+            if (sender == Vertex.Get(@"MetaOnLeft:") && (e.Type == VertexChangeType.ValueChanged))
                 UpdateBaseEdge();
 
             if (sender == Vertex.Get("ZoomVisualiserContent:") && e.Type == VertexChangeType.ValueChanged)
