@@ -13,25 +13,25 @@ using System.Windows.Media;
 
 namespace m0.UIWpf.Visualisers
 {
-    class ControlInfo
+    public class ControlInfo
     {
-        public Control MetaControl;
-        public Control DataControl;
+        public FrameworkElement MetaControl;
+        public FrameworkElement DataControl;
         public int Column;
     }
 
-    class TabInfo
+    public class TabInfo
     {
         public int TotalNumberOfControls;
         public int CurrentNumberOfControls;
         public IDictionary<string, Panel> Sections;
-        public IDictionary<IVertex, Control> ControlInfo;
+        public IDictionary<IVertex, ControlInfo> ControlInfos;
         public TabItem TabItem;
 
         public TabInfo()
         {
             Sections=new Dictionary<string,Panel>();
-            Controls = new Dictionary<IVertex, Control>();
+            ControlInfos = new Dictionary<IVertex, ControlInfo>();
             TotalNumberOfControls=0;
             CurrentNumberOfControls = 0;
         }
@@ -51,6 +51,10 @@ namespace m0.UIWpf.Visualisers
         TabControl TabControl;
 
         double marginOnRight = 10;
+        double marginBetweenColumns = 5;
+        double sectionControlBorderWidth = 16;
+        double metaVsDataSeparator = 40;
+        double controlLineVsControlLineSeparator = 4;
 
 
         private bool isFormTyped()
@@ -207,21 +211,31 @@ namespace m0.UIWpf.Visualisers
                                 AddEdge(e.To, false);
                 }
 
-                CorrectMetaWidth();       
+               
             }
         }
 
-        protected void CorrectMetaWidth()
+        protected void CorrectMetaWidth(TabInfo i)
         {
-            double oneColumnWidth = (this.ActualWidth - marginOnRight) / ColumnNumber;
+            double oneColumnWidth = ((this.ActualWidth - marginOnRight) / ColumnNumber) - marginBetweenColumns;
+                      
+                    double[] maxMetaWidthInColumn = new double[ColumnNumber];
 
-            foreach (TabInfo i in TabList.Values)
-            {
-                double[] maxMetaWidthInColumn = new double[ColumnNumber];
+                    foreach (ControlInfo ci in i.ControlInfos.Values)
+                        if (ci.MetaControl.ActualWidth > maxMetaWidthInColumn[ci.Column])
+                            maxMetaWidthInColumn[ci.Column] = ci.MetaControl.ActualWidth;
+
+                    foreach (KeyValuePair<IVertex, ControlInfo> ci in i.ControlInfos)
+                    {
+                        ci.Value.MetaControl.Width = maxMetaWidthInColumn[ci.Value.Column];
+
+                        if (getSection(ci.Key) == null)
+                            ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator;
+                        else
+                            ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - sectionControlBorderWidth;
+                    }
                 
-               
-
-            }
+            
         }
 
         protected object CreateColumnedContent()
@@ -254,7 +268,7 @@ namespace m0.UIWpf.Visualisers
             }
 
             ColumnDefinition cdd = new ColumnDefinition();
-            cdd.Width = new GridLength(5);
+            cdd.Width = new GridLength(marginBetweenColumns);
             g.ColumnDefinitions.Add(cdd);
 
             columnCount++;
@@ -276,6 +290,10 @@ namespace m0.UIWpf.Visualisers
                     i.Header = t.Key ;
                     TabControl.Items.Add(i);
                     t.Value.TabItem = i;
+                    i.Tag = t.Value;
+
+                    if(MetaOnLeft)
+                        i.SizeChanged += tabItem_SizeChanged;
                            
 
                     i.Content = CreateColumnedContent();
@@ -283,6 +301,14 @@ namespace m0.UIWpf.Visualisers
             }
             else
                 Content = CreateColumnedContent();
+        }
+
+        private void tabItem_SizeChanged(object sender, EventArgs e)
+        {
+            TabItem i = (TabItem)sender;
+            TabInfo t = (TabInfo)i.Tag;
+
+            CorrectMetaWidth(t);
         }
 
         protected Panel GetUIPlace(string group,string section, ControlInfo ci)
@@ -378,12 +404,19 @@ namespace m0.UIWpf.Visualisers
 
             ControlInfo ci = new ControlInfo();
 
+            ci.MetaControl = metaControl;
+            ci.DataControl = dataControl;
+            
+            TabList[group].ControlInfos.Add(meta, ci);
+
             Panel place = GetUIPlace(group,section,ci);
 
 
 
             if (MetaOnLeft)
             {
+                metaControl.TextAlignment = TextAlignment.Right;
+
                 StackPanel s=new StackPanel();
                 s.Orientation=Orientation.Horizontal;
 
@@ -391,7 +424,7 @@ namespace m0.UIWpf.Visualisers
 
                 Border b2 = new Border();
 
-                b2.BorderThickness = new System.Windows.Thickness(2, 2, 2, 2);
+                b2.BorderThickness = new System.Windows.Thickness(metaVsDataSeparator, 0, 0, 0);
 
                 s.Children.Add(b2);
 
@@ -409,7 +442,7 @@ namespace m0.UIWpf.Visualisers
 
             Border b = new Border();
 
-            b.BorderThickness = new System.Windows.Thickness(2, 2, 2, 2);
+            b.BorderThickness = new System.Windows.Thickness(0, controlLineVsControlLineSeparator, 0, 0);
 
             place.Children.Add(b);
         }
