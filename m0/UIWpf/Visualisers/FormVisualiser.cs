@@ -13,16 +13,25 @@ using System.Windows.Media;
 
 namespace m0.UIWpf.Visualisers
 {
+    class ControlInfo
+    {
+        public Control MetaControl;
+        public Control DataControl;
+        public int Column;
+    }
+
     class TabInfo
     {
         public int TotalNumberOfControls;
         public int CurrentNumberOfControls;
         public IDictionary<string, Panel> Sections;
+        public IDictionary<IVertex, Control> ControlInfo;
         public TabItem TabItem;
 
         public TabInfo()
         {
             Sections=new Dictionary<string,Panel>();
+            Controls = new Dictionary<IVertex, Control>();
             TotalNumberOfControls=0;
             CurrentNumberOfControls = 0;
         }
@@ -30,6 +39,8 @@ namespace m0.UIWpf.Visualisers
 
     public class FormVisualiser: ContentControl, IPlatformClass
     {
+        bool isLoaded;
+
         bool SectionsAsTabs;
         bool MetaOnLeft;
 
@@ -38,6 +49,8 @@ namespace m0.UIWpf.Visualisers
         IDictionary<string, TabInfo> TabList { get; set; }
 
         TabControl TabControl;
+
+        double marginOnRight = 10;
 
 
         private bool isFormTyped()
@@ -144,6 +157,9 @@ namespace m0.UIWpf.Visualisers
 
         public void UpdateBaseEdge()
         {
+            if (!isLoaded)
+                return;
+
             IVertex basTo = Vertex.Get(@"BaseEdge:\To:");            
 
             if (basTo != null)
@@ -197,7 +213,15 @@ namespace m0.UIWpf.Visualisers
 
         protected void CorrectMetaWidth()
         {
+            double oneColumnWidth = (this.ActualWidth - marginOnRight) / ColumnNumber;
 
+            foreach (TabInfo i in TabList.Values)
+            {
+                double[] maxMetaWidthInColumn = new double[ColumnNumber];
+                
+               
+
+            }
         }
 
         protected object CreateColumnedContent()
@@ -213,7 +237,7 @@ namespace m0.UIWpf.Visualisers
                 if (notFirstColumn)
                 {
                     ColumnDefinition cd = new ColumnDefinition();
-                    cd.Width = new GridLength(10);
+                    cd.Width = new GridLength(marginOnRight);
                     g.ColumnDefinitions.Add(cd);
 
                     columnCount++;
@@ -261,7 +285,7 @@ namespace m0.UIWpf.Visualisers
                 Content = CreateColumnedContent();
         }
 
-        protected Panel GetUIPlace(string group,string section)
+        protected Panel GetUIPlace(string group,string section, ControlInfo ci)
         {
             TabInfo t = TabList[group];
 
@@ -272,6 +296,8 @@ namespace m0.UIWpf.Visualisers
                 targetColumn = ColumnNumber-1;
 
             t.CurrentNumberOfControls++;
+
+            ci.Column = targetColumn;
 
             if (section != null)
             {
@@ -350,7 +376,11 @@ namespace m0.UIWpf.Visualisers
                 dataControl = w;
             }
 
-            Panel place = GetUIPlace(group,section);
+            ControlInfo ci = new ControlInfo();
+
+            Panel place = GetUIPlace(group,section,ci);
+
+
 
             if (MetaOnLeft)
             {
@@ -358,6 +388,12 @@ namespace m0.UIWpf.Visualisers
                 s.Orientation=Orientation.Horizontal;
 
                 s.Children.Add(metaControl);
+
+                Border b2 = new Border();
+
+                b2.BorderThickness = new System.Windows.Thickness(2, 2, 2, 2);
+
+                s.Children.Add(b2);
 
                 s.Children.Add(dataControl);
 
@@ -411,6 +447,8 @@ namespace m0.UIWpf.Visualisers
 
         void OnLoad(object sender, RoutedEventArgs e)
         {
+            isLoaded = true;
+
             Vertex.Get("ColumnNumber:").Value = (int)this.ActualWidth/300;
         }   
 
