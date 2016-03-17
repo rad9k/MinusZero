@@ -53,7 +53,7 @@ namespace m0.UIWpf.Visualisers
         double marginOnRight = 10;
         double marginBetweenColumns = 5;
         double sectionControlBorderWidth = 16;
-        double metaVsDataSeparator = 40;
+        double metaVsDataSeparator = 140;
         double controlLineVsControlLineSeparator = 4;
 
 
@@ -217,7 +217,9 @@ namespace m0.UIWpf.Visualisers
 
         protected void CorrectMetaWidth(TabInfo i)
         {
-            double oneColumnWidth = ((this.ActualWidth - marginOnRight) / ColumnNumber) - marginBetweenColumns;
+            //i.TabItem.UpdateLayout();
+
+            double oneColumnWidth = ((this.ActualWidth - marginOnRight - 5) / ColumnNumber) - marginBetweenColumns;
                       
                     double[] maxMetaWidthInColumn = new double[ColumnNumber];
 

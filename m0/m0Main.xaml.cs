@@ -114,6 +114,19 @@ namespace m0
 
         }
 
+        private string randomChars()
+        {
+            Random r = new Random();
+            int x=r.Next(5);
+
+            string xxx = "";
+
+            for(int xx=0;xx<x;xx++)
+                xxx+=xx;
+
+            return xxx;
+        }
+
         private void CreateTestData()
         {
             IVertex r=MinusZero.Instance.Root;
@@ -266,15 +279,15 @@ namespace m0
             for(int x=0;x<3;x++)
                 for (int y = 0; y < 3; y++)
                 {
-                    IVertex tta = tt.AddVertex(r.Get("System*Attribute"), "a" + x + " " + y);
+                    IVertex tta = tt.AddVertex(r.Get("System*Attribute"), "a" + x + " " + y + ";" + randomChars());
                     tta.AddVertex(r.Get("System*$Group"), x.ToString());
                     //tta.AddVertex(r.Get("System*$Section"), y.ToString());
 
-                    IVertex ttb = tt.AddVertex(r.Get("System*Attribute"), "b" + x + " " + y);
+                    IVertex ttb = tt.AddVertex(r.Get("System*Attribute"), "b" + x + " " + y + ";" + randomChars());
                     ttb.AddVertex(r.Get("System*$Group"), x.ToString());
                     //ttb.AddVertex(r.Get("System*$Section"), y.ToString());
 
-                    IVertex ttc = tt.AddVertex(r.Get("System*Attribute"), "c" + x + " " + y);
+                    IVertex ttc = tt.AddVertex(r.Get("System*Attribute"), "c" + x + " " + y + ";" + randomChars());
                     ttc.AddVertex(r.Get("System*$Group"), x.ToString());
                     //ttc.AddVertex(r.Get("System*$Section"), y.ToString());
                     ttc.AddVertex(r.Get("System*$MaxCardinality"), 6);
