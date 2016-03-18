@@ -40,20 +40,34 @@ namespace m0.UIWpf.Visualisers
                 if (e.To.Get("$Hide:") == null)
                 AddColumn((string)e.To.Value, "To[" + (string)e.To.Value+"]");
 
-            AddTemplateButtons();
-            
+            AddDeleteTemplateButton();
+            AddInfoTemplateButton();  
         }
 
-        protected virtual void AddTemplateButtons()
+        protected virtual void AddDeleteTemplateButton()
         {
-            DataGridTemplateColumn valueColumn = new DataGridTemplateColumn();
+            DataGridTemplateColumn valueColumn = new DataGridTemplateColumn(); // DELETE
 
             valueColumn.CellStyle = (Style)FindResource("0ListValueColumn");
 
             valueColumn.CellTemplate = new DataTemplate();
-            FrameworkElementFactory factory = new FrameworkElementFactory(typeof(Button));
-            //factory.SetBinding(VisualiserViewWrapper.BaseEdgeProperty, new Binding(bindingString));
-            valueColumn.CellTemplate.VisualTree = factory;          
+            FrameworkElementFactory factory = new FrameworkElementFactory(typeof(Controls.DeleteButton));
+            factory.SetBinding(Controls.DeleteButton.BaseEdgeProperty, new Binding(""));
+            valueColumn.CellTemplate.VisualTree = factory;
+
+            Columns.Add(valueColumn);
+        }
+
+        protected virtual void AddInfoTemplateButton()
+        {
+            DataGridTemplateColumn valueColumn = new DataGridTemplateColumn(); //INFO
+
+            valueColumn.CellStyle = (Style)FindResource("0ListValueColumn");
+
+            valueColumn.CellTemplate = new DataTemplate();
+            FrameworkElementFactory factory = new FrameworkElementFactory(typeof(Controls.InfoButton));
+            factory.SetBinding(Controls.DeleteButton.BaseEdgeProperty, new Binding(""));
+            valueColumn.CellTemplate.VisualTree = factory;
 
             Columns.Add(valueColumn);
         }

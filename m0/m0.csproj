@@ -135,6 +135,8 @@
       <DependentUpon>SelectDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIWpf\Geometry2D.cs" />
+    <Compile Include="UIWpf\Visualisers\Controls\InfoButton.cs" />
+    <Compile Include="UIWpf\Visualisers\Controls\DeleteButton.cs" />
     <Compile Include="UIWpf\Visualisers\FormVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\TableFastVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\VertexVisualiser.cs" />

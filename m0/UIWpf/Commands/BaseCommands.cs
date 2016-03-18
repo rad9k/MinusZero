@@ -111,7 +111,7 @@ namespace m0.UIWpf.Commands
             foreach (IVertex v in CutPasteStore)
             {
                 if(DoCut)
-                    GraphUtil.DeleteEdge(v.Get("From:"), v.Get("Meta:"), v.Get("To:"));
+                    VertexOperations.DeleteEdge(v.Get("From:"), v.Get("Meta:"), v.Get("To:"));
 
                 baseVertex.Get("To:").AddEdge(v.Get("Meta:"), v.Get("To:"));
             }
@@ -122,12 +122,12 @@ namespace m0.UIWpf.Commands
         public static IVertex Delete(IVertex baseVertex, IVertex inputVertex)
         {
             if (inputVertex.Get("SelectedEdges:").Count() == 0)
-                GraphUtil.DeleteEdge(baseVertex.Get("From:"), baseVertex.Get("Meta:"), baseVertex.Get("To:"));
+                VertexOperations.DeleteEdge(baseVertex.Get("From:"), baseVertex.Get("Meta:"), baseVertex.Get("To:"));
             else
             {
                 IList<IEdge> selected=GeneralUtil.CreateAndCopyList(inputVertex.Get("SelectedEdges:"));
                 foreach (IEdge v in selected)
-                    GraphUtil.DeleteEdge(v.To.Get("From:"), v.To.Get("Meta:"), v.To.Get("To:"));
+                    VertexOperations.DeleteEdge(v.To.Get("From:"), v.To.Get("Meta:"), v.To.Get("To:"));
             }
 
             return null;

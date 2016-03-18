@@ -10,6 +10,11 @@ namespace m0.ZeroTypes
 {
     public class VertexOperations
     {
+        public static void DeleteEdge(IVertex source, IVertex metaVertex, IVertex toVertex)
+        {
+            GraphUtil.DeleteEdge(source, metaVertex, toVertex);
+        }
+
         public static IVertex GetChildEdges(IVertex metaVertex)
         {                        
             IVertex edgeTarget = metaVertex.Get("$EdgeTarget:");
