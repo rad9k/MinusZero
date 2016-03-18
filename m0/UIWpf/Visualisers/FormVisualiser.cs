@@ -20,17 +20,23 @@ namespace m0.UIWpf.Visualisers
         public int Column;
     }
 
+    public class SectionInfo
+    {
+        public Panel Panel;
+        public int Column;
+    }
+
     public class TabInfo
     {
         public int TotalNumberOfControls;
         public int CurrentNumberOfControls;
-        public IDictionary<string, Panel> Sections;
+        public IDictionary<string, SectionInfo> Sections;
         public IDictionary<IVertex, ControlInfo> ControlInfos;
         public TabItem TabItem;
 
         public TabInfo()
         {
-            Sections=new Dictionary<string,Panel>();
+            Sections=new Dictionary<string,SectionInfo>();
             ControlInfos = new Dictionary<IVertex, ControlInfo>();
             TotalNumberOfControls=0;
             CurrentNumberOfControls = 0;
@@ -52,8 +58,8 @@ namespace m0.UIWpf.Visualisers
 
         double marginOnRight = 10;
         double marginBetweenColumns = 5;
-        double sectionControlBorderWidth = 16;
-        double metaVsDataSeparator = 140;
+        double sectionControlBorderWidth = 17;
+        double metaVsDataSeparator = 4;
         double controlLineVsControlLineSeparator = 4;
 
 
@@ -109,8 +115,6 @@ namespace m0.UIWpf.Visualisers
                 HasTabs = false;
             else
                 HasTabs = true;
-
-         
 
             if (TabList.ContainsKey(group))
                 t = TabList[group];
@@ -215,11 +219,9 @@ namespace m0.UIWpf.Visualisers
             }
         }
 
-        protected void CorrectMetaWidth(TabInfo i)
+        protected void CorrectWidth(TabInfo i)
         {
-            //i.TabItem.UpdateLayout();
-
-            double oneColumnWidth = ((this.ActualWidth - marginOnRight - 5) / ColumnNumber) - marginBetweenColumns;
+            double oneColumnWidth = ((this.ActualWidth - marginOnRight) / ColumnNumber) - marginBetweenColumns;
                       
                     double[] maxMetaWidthInColumn = new double[ColumnNumber];
 
@@ -232,9 +234,9 @@ namespace m0.UIWpf.Visualisers
                         ci.Value.MetaControl.Width = maxMetaWidthInColumn[ci.Value.Column];
 
                         if (getSection(ci.Key) == null)
-                            ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator;
+                                ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator - 4;          
                         else
-                            ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - sectionControlBorderWidth;
+                            ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator - sectionControlBorderWidth;
                     }
                 
             
@@ -310,7 +312,7 @@ namespace m0.UIWpf.Visualisers
             TabItem i = (TabItem)sender;
             TabInfo t = (TabInfo)i.Tag;
 
-            CorrectMetaWidth(t);
+            CorrectWidth(t);
         }
 
         protected Panel GetUIPlace(string group,string section, ControlInfo ci)
@@ -330,7 +332,11 @@ namespace m0.UIWpf.Visualisers
             if (section != null)
             {
                 if (t.Sections.ContainsKey(section))
-                    return ((Panel)t.Sections[section]);
+                {
+                    ci.Column = t.Sections[section].Column;
+
+                    return ((Panel)t.Sections[section].Panel);
+                }
 
                 Panel toAdd;
 
@@ -347,13 +353,24 @@ namespace m0.UIWpf.Visualisers
 
                 toAdd.Children.Add(g);
 
+                Border b = new Border(); // separator
+
+                b.BorderThickness = new System.Windows.Thickness(0, controlLineVsControlLineSeparator, 0, 0);
+
+                toAdd.Children.Add(b);
+
+
                 g.Header = section;
 
                 StackPanel gp = new StackPanel();
 
                 g.Content = gp;
 
-                t.Sections.Add(section, gp);
+                SectionInfo si = new SectionInfo();
+                si.Panel = gp;
+                si.Column = targetColumn;
+
+                t.Sections.Add(section, si);
 
                 return gp;
             }

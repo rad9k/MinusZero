@@ -277,11 +277,11 @@ namespace m0
             IVertex tt = r.Get("TEST").AddVertex(r.Get("System*Class"), "TestClass");
 
             for(int x=0;x<3;x++)
-                for (int y = 0; y < 3; y++)
+                for (int y = 0; y < 10; y++)
                 {
                     IVertex tta = tt.AddVertex(r.Get("System*Attribute"), "a" + x + " " + y + ";" + randomChars());
                     tta.AddVertex(r.Get("System*$Group"), x.ToString());
-                    //tta.AddVertex(r.Get("System*$Section"), y.ToString());
+                    tta.AddVertex(r.Get("System*$Section"), y.ToString());
 
                     IVertex ttb = tt.AddVertex(r.Get("System*Attribute"), "b" + x + " " + y + ";" + randomChars());
                     ttb.AddVertex(r.Get("System*$Group"), x.ToString());
@@ -289,7 +289,7 @@ namespace m0
 
                     IVertex ttc = tt.AddVertex(r.Get("System*Attribute"), "c" + x + " " + y + ";" + randomChars());
                     ttc.AddVertex(r.Get("System*$Group"), x.ToString());
-                    //ttc.AddVertex(r.Get("System*$Section"), y.ToString());
+                    ttc.AddVertex(r.Get("System*$Section"), y.ToString());
                     ttc.AddVertex(r.Get("System*$MaxCardinality"), 6);
                 }
 
