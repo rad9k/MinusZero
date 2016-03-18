@@ -66,7 +66,7 @@ namespace m0.UIWpf.Visualisers
 
             valueColumn.CellTemplate = new DataTemplate();
             FrameworkElementFactory factory = new FrameworkElementFactory(typeof(Controls.InfoButton));
-            factory.SetBinding(Controls.DeleteButton.BaseEdgeProperty, new Binding(""));
+            factory.SetBinding(Controls.InfoButton.BaseEdgeProperty, new Binding(""));
             valueColumn.CellTemplate.VisualTree = factory;
 
             Columns.Add(valueColumn);

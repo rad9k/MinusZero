@@ -25,7 +25,7 @@ namespace m0.UIWpf.Visualisers.Controls
 
         public static void BaseEdgeChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs _e)
         {
-            DeleteButton _this = (DeleteButton)d;
+            InfoButton _this = (InfoButton)d;
             IEdge e = (IEdge)_e.NewValue;
         }
 
@@ -42,10 +42,21 @@ namespace m0.UIWpf.Visualisers.Controls
             Foreground = (Brush)FindResource("0ForegroundBrush"); 
         }
 
-       // void FormVisualiser getParentFormVisuali
+        protected DependencyObject getParentFormVisualiser(DependencyObject e)
+        {
+            if(e==null)
+                return null;
+
+            if(e is FormVisualiser)
+                return e;
+
+            return getParentFormVisualiser(VisualTreeHelper.GetParent(e));
+        }
 
         protected override void OnClick(){
-          //  FormVisualiser v=
+            FormVisualiser v=(FormVisualiser)getParentFormVisualiser(this);
+
+            Edge.ReplaceEdgeEdges(v.Vertex.Get("BaseEdge:"), BaseEdge);
         }
         
         
