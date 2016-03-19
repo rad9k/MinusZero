@@ -9,6 +9,7 @@ using m0.UIWpf.Visualisers;
 using m0.Graph;
 using m0.ZeroTypes;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace m0.UIWpf.Visualisers.Controls
 {
@@ -31,15 +32,20 @@ namespace m0.UIWpf.Visualisers.Controls
 
         public InfoButton()
         {
-            Content = "i";
+            Image i = new Image();
+            BitmapImage b = new BitmapImage(new Uri("mag.gif", UriKind.Relative));
+            int q = b.PixelHeight; // will not load without this
+            i.Source = b;            
+            
+            Content = i;
+
+            this.Style = (Style)Application.Current.FindResource("TransparentStyle");
+
             BorderThickness = new Thickness(0);
             this.Margin = new Thickness(0);
             this.Padding = new Thickness(0);
 
-            Brush ob = new SolidColorBrush();
-            ob.Opacity = 1;
-            Background = ob;
-            Foreground = (Brush)FindResource("0ForegroundBrush"); 
+        
         }
 
         protected DependencyObject getParentFormVisualiser(DependencyObject e)

@@ -32,13 +32,13 @@ namespace m0.UIWpf.Visualisers.Controls
         public DeleteButton()
         {
             Content = "X";
+
+            this.Style = (Style)Application.Current.FindResource("TransparentStyle"); 
+
             BorderThickness = new Thickness(0);
             this.Margin = new Thickness(0);
             this.Padding = new Thickness(0);
 
-            Brush ob = new SolidColorBrush();
-            ob.Opacity = 1;
-            Background = ob;
             Foreground = (Brush)FindResource("0DeleteBrush"); 
         }
 

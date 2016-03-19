@@ -33,6 +33,10 @@
     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource 0Selection}"/>
     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="{StaticResource 0Background}"/>
 
+    <Style x:Key="TransparentStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+
+    </Style>
+
     <Style x:Key="0ListMetaColumnRight" TargetType="DataGridCell">
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Foreground" Value="{StaticResource 0GrayBrush}" />
