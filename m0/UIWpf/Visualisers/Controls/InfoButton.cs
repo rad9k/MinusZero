@@ -10,6 +10,7 @@ using m0.Graph;
 using m0.ZeroTypes;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using m0.UIWpf.Commands;
 
 namespace m0.UIWpf.Visualisers.Controls
 {
@@ -62,7 +63,15 @@ namespace m0.UIWpf.Visualisers.Controls
         protected override void OnClick(){
             FormVisualiser v=(FormVisualiser)getParentFormVisualiser(this);
 
-            Edge.ReplaceEdgeEdges(v.Vertex.Get("BaseEdge:"), BaseEdge);
+            if (v != null)
+                Edge.ReplaceEdgeEdges(v.Vertex.Get("BaseEdge:"), BaseEdge);
+            else
+            {
+                IVertex v2 = MinusZero.Instance.CreateTempVertex();
+                Edge.AddEdgeEdges(v2, BaseEdge);
+
+                BaseCommands.Open(v2,null);
+            }
         }
         
         
