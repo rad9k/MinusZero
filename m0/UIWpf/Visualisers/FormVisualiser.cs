@@ -15,9 +15,10 @@ namespace m0.UIWpf.Visualisers
 {
     public class ControlInfo
     {
+        public FrameworkElement GapControl;
         public FrameworkElement MetaControl;
         public FrameworkElement DataControl;
-        public int Column;
+        public int Column;        
     }
 
     public class SectionInfo
@@ -56,7 +57,7 @@ namespace m0.UIWpf.Visualisers
 
         TabControl TabControl;
 
-        double marginOnRight = 10;
+        double marginOnRight = 1;
         double marginBetweenColumns = 5;
         double sectionControlBorderWidth = 17;
         double metaVsDataSeparator = 4;
@@ -220,7 +221,7 @@ namespace m0.UIWpf.Visualisers
         }
 
         protected void CorrectWidth(TabInfo i)
-        {
+        {            
             double oneColumnWidth = ((this.ActualWidth - marginOnRight) / ColumnNumber) - marginBetweenColumns;
                       
                     double[] maxMetaWidthInColumn = new double[ColumnNumber];
@@ -229,16 +230,33 @@ namespace m0.UIWpf.Visualisers
                         if (ci.MetaControl.ActualWidth > maxMetaWidthInColumn[ci.Column])
                             maxMetaWidthInColumn[ci.Column] = ci.MetaControl.ActualWidth;
 
-                    foreach (KeyValuePair<IVertex, ControlInfo> ci in i.ControlInfos)
-                    {
+            
+            if(i.Sections.Count()==0)
+            foreach (KeyValuePair<IVertex, ControlInfo> ci in i.ControlInfos) // if there are no sections
+                    {                       
                         ci.Value.MetaControl.Width = maxMetaWidthInColumn[ci.Value.Column];
-
-                        if (getSection(ci.Key) == null)
-                                ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator - 4;          
-                        else
-                            ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator - sectionControlBorderWidth;
+                        ci.Value.GapControl.Width = 0;
+                        
+                        ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator - 5;                                  
                     }
-                
+            else
+                foreach (KeyValuePair<IVertex, ControlInfo> ci in i.ControlInfos) // if there are sections
+                {
+                    ci.Value.MetaControl.Width = maxMetaWidthInColumn[ci.Value.Column];
+
+                    if (getSection(ci.Key) == null)
+                    {
+                        ci.Value.GapControl.Width = (sectionControlBorderWidth / 2) - 2;
+                        ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator - 9 - sectionControlBorderWidth / 2;
+                    }
+                    else
+                    {
+                        ci.Value.GapControl.Width = 0;
+                        ci.Value.DataControl.Width = oneColumnWidth - maxMetaWidthInColumn[ci.Value.Column] - metaVsDataSeparator - sectionControlBorderWidth;
+                    }
+
+                }
+
             
         }
 
@@ -255,7 +273,7 @@ namespace m0.UIWpf.Visualisers
                 if (notFirstColumn)
                 {
                     ColumnDefinition cd = new ColumnDefinition();
-                    cd.Width = new GridLength(marginOnRight);
+                    cd.Width = new GridLength(marginBetweenColumns);
                     g.ColumnDefinitions.Add(cd);
 
                     columnCount++;
@@ -272,7 +290,7 @@ namespace m0.UIWpf.Visualisers
             }
 
             ColumnDefinition cdd = new ColumnDefinition();
-            cdd.Width = new GridLength(marginBetweenColumns);
+            cdd.Width = new GridLength(marginOnRight);
             g.ColumnDefinitions.Add(cdd);
 
             columnCount++;
@@ -433,11 +451,15 @@ namespace m0.UIWpf.Visualisers
 
 
             if (MetaOnLeft)
-            {
+            {                
                 metaControl.TextAlignment = TextAlignment.Right;
 
                 StackPanel s=new StackPanel();
                 s.Orientation=Orientation.Horizontal;
+
+                ci.GapControl = new StackPanel();
+                
+                s.Children.Add(ci.GapControl);
 
                 s.Children.Add(metaControl);
 
