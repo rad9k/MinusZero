@@ -120,6 +120,9 @@ namespace m0.UIWpf.Visualisers
         {
             CreateView();
 
+            this.HorizontalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
+            this.VerticalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
+
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Vertical"))
             {
                 this.BorderThickness = new System.Windows.Thickness(0);
@@ -144,7 +147,7 @@ namespace m0.UIWpf.Visualisers
             else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Round"))
             {
                 this.BorderThickness = new System.Windows.Thickness(1);
-                this.BorderBrush = (Brush)FindResource("0LightGrayBrush");
+                this.BorderBrush = (Brush)FindResource("0LightGrayBrush");                
             }
             else
             {

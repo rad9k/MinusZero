@@ -125,7 +125,8 @@ namespace m0.UIWpf.Visualisers
                 TabList.Add(group, t);
             }
 
-            t.TotalNumberOfControls++;
+            if(isSet==false)
+                t.TotalNumberOfControls++;
 
         }
 
