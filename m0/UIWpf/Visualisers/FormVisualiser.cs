@@ -398,7 +398,7 @@ namespace m0.UIWpf.Visualisers
             if(HasTabs)
                 return (Panel)((Grid)t.TabItem.Content).Children[targetColumn];
             else
-                return (Panel)((Grid)this.Content).Children[0];
+                return (Panel)((Grid)this.Content).Children[targetColumn];
         }
 
         protected void AddEdge(IVertex meta, bool isSet)
