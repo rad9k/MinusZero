@@ -59,7 +59,10 @@ namespace m0.UIWpf.Visualisers
             if (bv != null && bv.Value != null)
                 this.Text = bv.Value.ToString();
             else
-                this.Text = "Ø";
+                if (bv != null)
+                    this.Text = "Ø6";
+                else
+                    this.Text = "";
         }
 
         protected void VertexChange(object sender, VertexChangeEventArgs e)
