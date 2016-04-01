@@ -167,8 +167,8 @@ namespace m0.UIWpf.Visualisers
 
         public void UpdateBaseEdge()
         {
-            if (!isLoaded)
-                return;
+          //  if (!isLoaded)
+            //    return;
 
             IVertex basTo = Vertex.Get(@"BaseEdge:\To:");            
 
@@ -504,7 +504,7 @@ namespace m0.UIWpf.Visualisers
 
                 SetVertexDefaultValues();
 
-                this.Loaded += new RoutedEventHandler(OnLoad);
+               // this.Loaded += new RoutedEventHandler(OnLoad);
 
                 // DO NOT WANT CONTEXTMENU HERE
                 // this.ContextMenu = new m0ContextMenu(this);
@@ -524,7 +524,7 @@ namespace m0.UIWpf.Visualisers
         {
             isLoaded = true;
 
-            Vertex.Get("ColumnNumber:").Value = (int)this.ActualWidth/300;
+            Vertex.Get("ColumnNumber:").Value = (int)this.ActualWidth/300;         
         }   
 
 

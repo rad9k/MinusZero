@@ -277,7 +277,7 @@ namespace m0
             IVertex tt = r.Get("TEST").AddVertex(r.Get("System*Class"), "TestClass");
 
             for(int x=0;x<3;x++)
-                for (int y = 0; y < 10; y++)
+                for (int y = 0; y < 10+x; y++)
                 {
                     IVertex tta = tt.AddVertex(r.Get("System*Attribute"), "a" + x + " " + y + ";" + randomChars());
                     tta.AddVertex(r.Get("System*$Group"), x.ToString());
