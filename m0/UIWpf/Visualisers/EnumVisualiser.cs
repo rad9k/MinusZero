@@ -75,7 +75,7 @@ namespace m0.UIWpf.Visualisers
 
                             GraphUtil.CreateOrReplaceEdge(fromv, metav, tag);
 
-                            GraphUtil.ReplaceEdge(bev, "To", tag);                            
+                            GraphUtil.CreateOrReplaceEdge(bev, MinusZero.Instance.Root.Get(@"System\Meta\ZeroTypes\Edge\To"), tag);                            
                         }
                     }                    
                 }

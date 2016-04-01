@@ -68,7 +68,7 @@ namespace m0.UIWpf.Visualisers
 
             IVertex bv = Vertex.Get(@"BaseEdge:\To:");
 
-            if (bv == null||bv.Value==null)
+            if (bv == null || bv.Value == null/*||((String)bv.Value) == "$Empty"*/)
             {
                 IVertex from= Vertex.Get(@"BaseEdge:\From:");
                 IVertex meta= Vertex.Get(@"BaseEdge:\Meta:");
@@ -99,7 +99,7 @@ namespace m0.UIWpf.Visualisers
         private void UpdateBaseEdge(){
             IVertex bv = Vertex.Get(@"BaseEdge:\To:");
 
-            if (bv != null && bv.Value != null)
+            if (bv != null && bv.Value != null /*&& ((String)bv.Value) != "$Empty"*/)
             {
                 this.Text = bv.Value.ToString();
                 IsNull = false;

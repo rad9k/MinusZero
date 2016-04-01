@@ -60,9 +60,9 @@ namespace m0.UIWpf.Visualisers
                 this.Text = bv.Value.ToString();
             else
                 if (bv != null)
-                    this.Text = "Ø6";
+                    this.Text = "ØØØ";
                 else
-                    this.Text = "";
+                    this.Text = "Ø";
         }
 
         protected void VertexChange(object sender, VertexChangeEventArgs e)
@@ -71,6 +71,7 @@ namespace m0.UIWpf.Visualisers
                 UpdateBaseEdge();
 
             if ((sender == Vertex.Get("BaseEdge:")) && (e.Type == VertexChangeType.EdgeAdded) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "To"))
+                || (sender == Vertex.Get("BaseEdge:")) && (e.Type == VertexChangeType.EdgeRemoved) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "To"))
                 || (sender == Vertex.Get(@"BaseEdge:\To:") && e.Type == VertexChangeType.ValueChanged))
                 UpdateBaseEdge();
         }

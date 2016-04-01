@@ -54,7 +54,7 @@ namespace m0.UIWpf.Visualisers
         {
             IVertex bv = Vertex.Get(@"BaseEdge:\To:");
 
-            if (bv != null && bv.Value != null)
+            if (bv != null && bv.Value != null /*&& ((String)bv.Value)!="$Empty"*/)
                 this.Text = bv.Value.ToString();
             else
                 this.Text = "Ø";

@@ -219,6 +219,14 @@ namespace m0.Graph
                 source.DeleteEdge(e);
         }
 
+        static public void DeleteEdgeByMeta(IVertex source, string MetaValue)
+        {
+            IEdge e = FindEdgeByMetaValue(source, MetaValue);
+
+            if (e != null)
+                source.DeleteEdge(e);
+        }
+
         static public void DeleteEdge(IVertex source, IVertex metaVertex, IVertex toVertex)
         {
             IEdge e = FindEdge(source, metaVertex, toVertex);
@@ -396,7 +404,7 @@ namespace m0.Graph
 
         public static void AddHandlerIfDelegateListDoesNotContainsIt(IVertex baseVertex, VertexChange _delegate)
         {
-            if (!GeneralUtil.DoDelegateListContainDelegate(baseVertex.GetChangeDelegateInvocationList(), _delegate))
+            if (baseVertex!=null&& !GeneralUtil.DoDelegateListContainDelegate(baseVertex.GetChangeDelegateInvocationList(), _delegate))
                 baseVertex.Change += _delegate;
         }
         

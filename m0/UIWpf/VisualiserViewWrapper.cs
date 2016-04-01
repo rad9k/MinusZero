@@ -33,7 +33,6 @@ namespace m0.UIWpf
             VisualiserViewWrapper _this = (VisualiserViewWrapper)d;
             IEdge e = (IEdge)_e.NewValue;
 
-
             IPlatformClass pc;
 
             IVertex defvis = e.Meta.Get(@"DefaultViewVisualiser:");
