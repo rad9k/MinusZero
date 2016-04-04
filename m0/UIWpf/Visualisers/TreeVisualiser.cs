@@ -147,7 +147,7 @@ namespace m0.UIWpf.Visualisers
                 ll.Padding = new Thickness(0);
 
                 ll.Foreground = (Brush)FindResource("0ForegroundBrush");
-                ll.FontWeight = FontWeight.FromOpenTypeWeight(500);
+                
 
                 s.Children.Add(ll);
             }
@@ -160,7 +160,8 @@ namespace m0.UIWpf.Visualisers
                 l1.Padding = new Thickness(0);
 
                 l1.Foreground = (Brush)FindResource("0GrayBrush");
-                l1.FontStyle = FontStyles.Italic; 
+                l1.FontStyle = FontStyles.Italic;
+                l1.FontWeight = FontWeight.FromOpenTypeWeight(500);
 
                 Label l2 = new Label();
                 
@@ -169,7 +170,7 @@ namespace m0.UIWpf.Visualisers
                 l2.Padding = new Thickness(0);
 
                 l2.Foreground = (Brush)FindResource("0ForegroundBrush");
-                l2.FontWeight = FontWeight.FromOpenTypeWeight(500);
+                
 
                 s.Children.Add(l1);
                 s.Children.Add(l2);

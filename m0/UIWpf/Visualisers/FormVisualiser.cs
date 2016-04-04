@@ -34,6 +34,7 @@ namespace m0.UIWpf.Visualisers
         public IDictionary<string, SectionInfo> Sections;
         public IDictionary<IVertex, ControlInfo> ControlInfos;
         public TabItem TabItem;
+        public bool WidthCorrectionDone;
 
         public TabInfo()
         {
@@ -217,12 +218,31 @@ namespace m0.UIWpf.Visualisers
                                 AddEdge(e.To, false);
                 }
 
-               
+                if(MetaOnLeft){
+                    if (!HasTabs)
+                        CorrectWidth(TabList[""]);
+                }
             }
         }
 
         protected void CorrectWidth(TabInfo i)
-        {            
+        {
+            if (i.WidthCorrectionDone)
+                return;
+
+            if (i.ControlInfos.Count() == 0)
+                return;
+
+            if (!HasTabs)
+                this.UpdateLayout();
+
+           if (i.ControlInfos.First().Value.MetaControl.ActualWidth == 0)
+                return;
+            
+            i.WidthCorrectionDone = true;
+
+           
+
             double oneColumnWidth = ((this.ActualWidth - marginOnRight) / ColumnNumber) - marginBetweenColumns;
                       
                     double[] maxMetaWidthInColumn = new double[ColumnNumber];
@@ -317,7 +337,8 @@ namespace m0.UIWpf.Visualisers
 
                     if(MetaOnLeft)
                         i.SizeChanged += tabItem_SizeChanged;
-                           
+                        //i.RequestBringIntoView += tabItem_SizeChanged;
+                            
 
                     i.Content = CreateColumnedContent();
                 }
@@ -410,6 +431,8 @@ namespace m0.UIWpf.Visualisers
 
             TextBlock metaControl = new TextBlock();
             metaControl.Text = (string)meta.Value;
+            metaControl.FontStyle = FontStyles.Italic;
+            metaControl.FontWeight = FontWeight.FromOpenTypeWeight(500);
             metaControl.Foreground = (Brush)FindResource("0GrayBrush");
             metaControl.FontStyle = FontStyles.Italic;
 
@@ -504,7 +527,7 @@ namespace m0.UIWpf.Visualisers
 
                 SetVertexDefaultValues();
 
-               // this.Loaded += new RoutedEventHandler(OnLoad);
+                this.Loaded += new RoutedEventHandler(OnLoad);
 
                 // DO NOT WANT CONTEXTMENU HERE
                 // this.ContextMenu = new m0ContextMenu(this);
@@ -524,7 +547,7 @@ namespace m0.UIWpf.Visualisers
         {
             isLoaded = true;
 
-            Vertex.Get("ColumnNumber:").Value = (int)this.ActualWidth/300;         
+            //Vertex.Get("ColumnNumber:").Value = (int)this.ActualWidth/300;
         }   
 
 
