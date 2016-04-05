@@ -432,7 +432,7 @@ namespace m0.UIWpf.Visualisers
             TextBlock metaControl = new TextBlock();
             metaControl.Text = (string)meta.Value;
             metaControl.FontStyle = FontStyles.Italic;
-            metaControl.FontWeight = FontWeight.FromOpenTypeWeight(500);
+            metaControl.FontWeight = UIWpf.MetaWeight;
             metaControl.Foreground = (Brush)FindResource("0GrayBrush");
             metaControl.FontStyle = FontStyles.Italic;
 
@@ -563,6 +563,12 @@ namespace m0.UIWpf.Visualisers
 
         protected void VertexChange(object sender, VertexChangeEventArgs e)
         {
+            if ((sender == Vertex) && (e.Type == VertexChangeType.EdgeAdded) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "BaseEdge"))
+                || ((sender == Vertex.Get("BaseEdge:")) && (e.Type == VertexChangeType.EdgeAdded) && ((GeneralUtil.CompareStrings(e.Edge.Meta.Value, "To")))))
+            {
+                UpdateBaseEdge();
+            }
+
             if ((sender == Vertex) && (e.Type == VertexChangeType.EdgeAdded) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "BaseEdge")))
                 UpdateBaseEdge();
 

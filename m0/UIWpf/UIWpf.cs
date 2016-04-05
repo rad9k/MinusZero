@@ -17,6 +17,9 @@ namespace m0.UIWpf
 {
     public class UIWpf
     {
+        public static FontWeight MetaWeight = FontWeight.FromOpenTypeWeight(550);
+        public static FontWeight ValueWeight = FontWeights.Normal;
+
         public static void InitializeUIWpf()
         {
             Dnd.MinimumHorizontalDragDistance = SystemParameters.MinimumHorizontalDragDistance * 2;

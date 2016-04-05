@@ -40,10 +40,15 @@ namespace m0.UIWpf.Commands
 
                         if (selEdgesFirst != null)
                         {
-                            IVertex firstSelectedVertexEdge = selEdgesFirst.Get("To:");
+                            IVertex firstSelectedVertexEdgeTo = selEdgesFirst.Get("To:");
 
-                            if (firstSelectedVertexEdge != null)
-                                GraphUtil.ReplaceEdge(baseSynchronisedVertex.Get("BaseEdge:"), "To", firstSelectedVertexEdge);
+                            if (firstSelectedVertexEdgeTo != null)
+                                GraphUtil.ReplaceEdge(baseSynchronisedVertex.Get("BaseEdge:"), "To", firstSelectedVertexEdgeTo);
+
+                            IVertex firstSelectedVertexEdgeMeta = selEdgesFirst.Get("Meta:");
+
+                            if (firstSelectedVertexEdgeMeta != null)
+                                GraphUtil.ReplaceEdge(baseSynchronisedVertex.Get("BaseEdge:"), "Meta", firstSelectedVertexEdgeMeta);
                         }                        
                     }
             }                

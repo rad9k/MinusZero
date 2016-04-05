@@ -22,7 +22,7 @@ namespace m0.UIWpf.Visualisers
 {
     public class ListVisualiser : DataGrid, IPlatformClass, IDisposable, IHasLocalizableEdges, IHasSelectableEdges
     {
-       
+        protected DataGrid ThisDataGrid;
 
         protected bool TurnOffSelectedItemsUpdate = false;
 
@@ -34,7 +34,7 @@ namespace m0.UIWpf.Visualisers
             GraphUtil.RemoveAllEdges(sv);
         }
 
-        protected override void OnSelectionChanged(SelectionChangedEventArgs e){
+        protected void _OnSelectionChanged(object sender, SelectionChangedEventArgs e){
             if (!TurnOffSelectedVertexesUpdate)
             {
                 TurnOffSelectedItemsUpdate = true;
@@ -50,13 +50,11 @@ namespace m0.UIWpf.Visualisers
                    // Edge.AddEdge(sv, ee);
 
                 TurnOffSelectedItemsUpdate = false;
-            }
-
-            base.OnSelectionChanged(e);
+            }            
         }
 
         protected virtual void CreateView(){
-            Columns.Clear();
+            ThisDataGrid.Columns.Clear();
 
             DataGridTextColumn metaColumn = new DataGridTextColumn();
 
@@ -73,8 +71,8 @@ namespace m0.UIWpf.Visualisers
                 metaColumn.CellStyle = (Style)FindResource("0ListMetaColumnLeft");
 
             //metaColumn.Foreground = (Brush)FindResource("0GrayBrush");            
-            
-            Columns.Add(metaColumn);
+
+            ThisDataGrid.Columns.Add(metaColumn);
 
             //DataGridTextColumn valueColumn = new DataGridTextColumn();
             //valueColumn.Binding = new Binding("To.Value");
@@ -112,47 +110,47 @@ namespace m0.UIWpf.Visualisers
 
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("ShowHeader:"), "True"))
                  valueColumn.Header = "value";
-            
-            Columns.Add(valueColumn); 
+
+            ThisDataGrid.Columns.Add(valueColumn); 
         }
 
         protected void ResetView()
         {
             CreateView();
 
-            this.HorizontalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
-            this.VerticalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
+            ThisDataGrid.HorizontalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
+            ThisDataGrid.VerticalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
 
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Vertical"))
             {
-                this.BorderThickness = new System.Windows.Thickness(0);
-                this.GridLinesVisibility = DataGridGridLinesVisibility.Vertical;                
+                ThisDataGrid.BorderThickness = new System.Windows.Thickness(0);
+                ThisDataGrid.GridLinesVisibility = DataGridGridLinesVisibility.Vertical;                
             }
             else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Horizontal"))
             {
-                this.BorderThickness = new System.Windows.Thickness(0);
-                this.GridLinesVisibility = DataGridGridLinesVisibility.Horizontal;                
+                ThisDataGrid.BorderThickness = new System.Windows.Thickness(0);
+                ThisDataGrid.GridLinesVisibility = DataGridGridLinesVisibility.Horizontal;                
             }
             else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "All"))
             {
-                this.BorderThickness = new System.Windows.Thickness(0);
-                this.GridLinesVisibility = DataGridGridLinesVisibility.All;                
+                ThisDataGrid.BorderThickness = new System.Windows.Thickness(0);
+                ThisDataGrid.GridLinesVisibility = DataGridGridLinesVisibility.All;                
             }
             else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "AllAndRound"))
             {
-                this.BorderThickness = new System.Windows.Thickness(1);
-                this.GridLinesVisibility = DataGridGridLinesVisibility.All;
-                this.BorderBrush = (Brush)FindResource("0ForegroundBrush");
+                ThisDataGrid.BorderThickness = new System.Windows.Thickness(1);
+                ThisDataGrid.GridLinesVisibility = DataGridGridLinesVisibility.All;
+                ThisDataGrid.BorderBrush = (Brush)FindResource("0ForegroundBrush");
             }
             else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Round"))
             {
-                this.BorderThickness = new System.Windows.Thickness(1);
-                this.BorderBrush = (Brush)FindResource("0LightGrayBrush");                
+                ThisDataGrid.BorderThickness = new System.Windows.Thickness(1);
+                ThisDataGrid.BorderBrush = (Brush)FindResource("0LightGrayBrush");                
             }
             else
             {
-                this.BorderThickness = new System.Windows.Thickness(0);
-                this.GridLinesVisibility = DataGridGridLinesVisibility.None;                
+                ThisDataGrid.BorderThickness = new System.Windows.Thickness(0);
+                ThisDataGrid.GridLinesVisibility = DataGridGridLinesVisibility.None;                
             }
         }
 
@@ -172,7 +170,7 @@ namespace m0.UIWpf.Visualisers
 
             TurnOffSelectedVertexesUpdate = true;
 
-            this.SelectedItems.Clear();
+            ThisDataGrid.SelectedItems.Clear();
 
             IVertex b=Vertex.Get(@"BaseEdge:\To:");
 
@@ -180,7 +178,7 @@ namespace m0.UIWpf.Visualisers
             foreach(IEdge e in Vertex.Get("SelectedEdges:")){
                 IEdge ee = GraphUtil.FindEdgeByToVertex(b, e.To.Get("To:"));
                 if (ee != null)
-                    this.SelectedItems.Add(ee);
+                    ThisDataGrid.SelectedItems.Add(ee);
             }
 
             TurnOffSelectedVertexesUpdate = false;
@@ -206,23 +204,26 @@ namespace m0.UIWpf.Visualisers
             ClassVertex.AddIsClassAndAllAttributes(Vertex, mz.Root.Get(@"System\Meta\Visualiser\ListVisualiser"));
 
             ClassVertex.AddIsClassAndAllAttributes(Vertex.Get("BaseEdge:"), mz.Root.Get(@"System\Meta\ZeroTypes\Edge"));
+           
+            ThisDataGrid = this;            
         }
 
+        
         public ListVisualiser()
         {
-            this.AllowDrop = true;
+            ThisDataGrid.AllowDrop = true;
 
-            this.AutoGenerateColumns = false;
+            ThisDataGrid.AutoGenerateColumns = false;
 
-            this.RowBackground = (Brush)FindResource("0BackgroundBrush");
-            this.Background = (Brush)FindResource("0BackgroundBrush");
-            this.HorizontalGridLinesBrush = (Brush)FindResource("0ForegroundBrush");
-            this.VerticalGridLinesBrush = (Brush)FindResource("0ForegroundBrush");     
-                        
-            this.HeadersVisibility = DataGridHeadersVisibility.Column;
-            
-            this.SelectedValuePath = "To";
-            VirtualizingStackPanel.SetIsVirtualizing(this,false); 
+            ThisDataGrid.RowBackground = (Brush)FindResource("0BackgroundBrush");
+            ThisDataGrid.Background = (Brush)FindResource("0BackgroundBrush");
+            ThisDataGrid.HorizontalGridLinesBrush = (Brush)FindResource("0ForegroundBrush");
+            ThisDataGrid.VerticalGridLinesBrush = (Brush)FindResource("0ForegroundBrush");
+
+            ThisDataGrid.HeadersVisibility = DataGridHeadersVisibility.Column;
+
+            ThisDataGrid.SelectedValuePath = "To";
+            VirtualizingStackPanel.SetIsVirtualizing(ThisDataGrid, false); 
             MinusZero mz=MinusZero.Instance;
 
             if (mz != null&&mz.IsInitialized)
@@ -233,13 +234,15 @@ namespace m0.UIWpf.Visualisers
 
                 CreateView();
 
-                this.ContextMenu = new m0ContextMenu(this);
+                ThisDataGrid.ContextMenu = new m0ContextMenu(this);
 
-                this.PreviewMouseLeftButtonDown += dndPreviewMouseLeftButtonDown;
-                this.MouseMove += dndPreviewMouseMove; // !!!!!!!!!!!!!!!!!! otherwise sliders do not work
-                this.Drop += dndDrop;
+                ThisDataGrid.PreviewMouseLeftButtonDown += dndPreviewMouseLeftButtonDown;
+                ThisDataGrid.MouseMove += dndPreviewMouseMove; // !!!!!!!!!!!!!!!!!! otherwise sliders do not work
+                ThisDataGrid.Drop += dndDrop;
 
-                this.MouseEnter += dndMouseEnter;
+                ThisDataGrid.MouseEnter += dndMouseEnter;
+
+                ThisDataGrid.SelectionChanged += _OnSelectionChanged;
             }
         }
 
@@ -255,12 +258,12 @@ namespace m0.UIWpf.Visualisers
                     IVertex data=VertexOperations.DoFilter(bas, Vertex.Get(@"FilterQuery:"));
 
                     if (data != null)
-                        ItemsSource = data.ToList();
+                        ThisDataGrid.ItemsSource = data.ToList();
                     else
-                        ItemsSource = null;
+                        ThisDataGrid.ItemsSource = null;
                 }
-                else 
-                  ItemsSource = bas.ToList(); // if there is no .ToList DataGrid can not edit
+                else
+                    ThisDataGrid.ItemsSource = bas.ToList(); // if there is no .ToList DataGrid can not edit
             }           
         }
 
@@ -343,31 +346,17 @@ namespace m0.UIWpf.Visualisers
             }
         }
 
-        /*DataGridRow EditRow;
-
-        protected override void OnBeginningEdit(DataGridBeginningEditEventArgs e)
-        {
-            EditRow = e.Row;    
-            base.OnBeginningEdit(e);
-        }
-
-        protected virtual void OnRowEditEnding(DataGridRowEditEndingEventArgs e)
-        {
-            EditRow = null;
-            base.OnRowEditEnding(e);
-        }*/
-
         public IVertex GetEdgeByLocation(Point point)
         {
-            var headersPresenter = UIWpf.FindVisualChild<DataGridColumnHeadersPresenter>(this);
+            var headersPresenter = UIWpf.FindVisualChild<DataGridColumnHeadersPresenter>(ThisDataGrid);
             double headerActualHeight = headersPresenter.ActualHeight;
 
             if (point.Y <= headerActualHeight) // if header
                 return null;
-            
-            foreach (var item in Items)
+
+            foreach (var item in ThisDataGrid.Items)
             {
-                var row = ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+                var row = ThisDataGrid.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
 
                 if (row != null)
                 {
