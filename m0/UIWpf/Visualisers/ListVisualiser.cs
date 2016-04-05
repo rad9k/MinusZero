@@ -20,7 +20,7 @@ using System.Windows.Controls.Primitives;
 
 namespace m0.UIWpf.Visualisers
 {
-    public class ListVisualiser : DataGrid, IPlatformClass, IDisposable, IHasLocalizableEdges, IHasSelectableEdges
+    public class ListVisualiser : StackPanel,  IPlatformClass, IDisposable, IHasLocalizableEdges, IHasSelectableEdges
     {
         protected DataGrid ThisDataGrid;
 

@@ -436,7 +436,7 @@ namespace m0.UIWpf.Visualisers
             metaControl.Foreground = (Brush)FindResource("0GrayBrush");
             metaControl.FontStyle = FontStyles.Italic;
 
-            Control dataControl=null;
+            System.Windows.FrameworkElement dataControl = null;
                        
             if(isSet)
             {
