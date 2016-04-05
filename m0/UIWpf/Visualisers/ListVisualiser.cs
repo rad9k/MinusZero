@@ -45,7 +45,7 @@ namespace m0.UIWpf.Visualisers
 
                 IVertex baseVertex = Vertex.Get(@"BaseEdge:\To:");
 
-                foreach (IEdge ee in SelectedItems)
+                foreach (IEdge ee in ThisDataGrid.SelectedItems)
                     Edge.AddEdge(sv, baseVertex, ee.Meta, ee.To); // becouse of possible FilterQuery
                    // Edge.AddEdge(sv, ee);
 
@@ -205,7 +205,7 @@ namespace m0.UIWpf.Visualisers
 
             ClassVertex.AddIsClassAndAllAttributes(Vertex.Get("BaseEdge:"), mz.Root.Get(@"System\Meta\ZeroTypes\Edge"));
            
-            ThisDataGrid = this;            
+            ThisDataGrid = new DataGrid();            
         }
 
         
@@ -364,7 +364,7 @@ namespace m0.UIWpf.Visualisers
                    
                     if (VisualTreeHelper.HitTest(roww, TranslatePoint(point, roww)) != null)
                         {
-                            if (point.X >= Columns.First().ActualWidth && roww.IsEditing)
+                            if (point.X >= ThisDataGrid.Columns.First().ActualWidth && roww.IsEditing)
                                 return null;
 
                             IVertex v = MinusZero.Instance.CreateTempVertex();

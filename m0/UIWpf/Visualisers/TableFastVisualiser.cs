@@ -62,7 +62,7 @@ namespace m0.UIWpf.Visualisers
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("ShowHeader:"), "True"))
                 valueColumn.Header = columnName + " ";
 
-            Columns.Add(valueColumn);
+            ThisDataGrid.Columns.Add(valueColumn);
         }
 
        

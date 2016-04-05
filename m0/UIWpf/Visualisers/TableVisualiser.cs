@@ -26,11 +26,11 @@ namespace m0.UIWpf.Visualisers
 
         protected override void CreateView(){
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("AlternatingRows:"), "True"))
-                this.AlternatingRowBackground = (Brush)FindResource("0AlternatingBackgroundBrush");
+                this.ThisDataGrid.AlternatingRowBackground = (Brush)FindResource("0AlternatingBackgroundBrush");
             else
-                this.AlternatingRowBackground = (Brush)FindResource("0BackgroundBrush");            
+                this.ThisDataGrid.AlternatingRowBackground = (Brush)FindResource("0BackgroundBrush");
 
-            Columns.Clear();
+            ThisDataGrid.Columns.Clear();
 
             AddColumn("", ""); // Vertex level column
 
@@ -55,7 +55,7 @@ namespace m0.UIWpf.Visualisers
             factory.SetBinding(Controls.DeleteButton.BaseEdgeProperty, new Binding(""));
             valueColumn.CellTemplate.VisualTree = factory;
 
-            Columns.Add(valueColumn);
+            ThisDataGrid.Columns.Add(valueColumn);
         }
 
         protected virtual void AddInfoTemplateButton()
@@ -69,7 +69,7 @@ namespace m0.UIWpf.Visualisers
             factory.SetBinding(Controls.InfoButton.BaseEdgeProperty, new Binding(""));
             valueColumn.CellTemplate.VisualTree = factory;
 
-            Columns.Add(valueColumn);
+            ThisDataGrid.Columns.Add(valueColumn);
         }
 
        protected virtual void AddColumn(string columnName, string bindingString)
@@ -108,7 +108,7 @@ namespace m0.UIWpf.Visualisers
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("ShowHeader:"), "True"))
                 valueColumn.Header = columnName + " ";
 
-            Columns.Add(valueColumn);
+            ThisDataGrid.Columns.Add(valueColumn);
         }
 
         protected override void SetVertexDefaultValues()
@@ -175,12 +175,12 @@ namespace m0.UIWpf.Visualisers
                     IVertex data=VertexOperations.DoFilter(bas, Vertex.Get(@"FilterQuery:"));
 
                     if (data != null)
-                        ItemsSource = data.ToList();
+                        ThisDataGrid.ItemsSource = data.ToList();
                     else
-                        ItemsSource = null;
+                        ThisDataGrid.ItemsSource = null;
                 }
-                else 
-                  ItemsSource = bas.ToList(); // if there is no .ToList DataGrid can not edit
+                else
+                    ThisDataGrid.ItemsSource = bas.ToList(); // if there is no .ToList DataGrid can not edit
 
                 ResetView();
             }           
