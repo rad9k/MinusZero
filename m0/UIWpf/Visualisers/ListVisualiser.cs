@@ -118,8 +118,8 @@ namespace m0.UIWpf.Visualisers
         {
             CreateView();
 
-            ThisDataGrid.HorizontalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
-            ThisDataGrid.VerticalGridLinesBrush = (Brush)FindResource("0LightGrayBrush");
+            ThisDataGrid.HorizontalGridLinesBrush = (Brush)FindResource("0ForegroundBrush");
+            ThisDataGrid.VerticalGridLinesBrush = (Brush)FindResource("0ForegroundBrush");
 
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Vertical"))
             {
@@ -145,7 +145,8 @@ namespace m0.UIWpf.Visualisers
             else if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("GridStyle:"), "Round"))
             {
                 ThisDataGrid.BorderThickness = new System.Windows.Thickness(1);
-                ThisDataGrid.BorderBrush = (Brush)FindResource("0LightGrayBrush");                
+                ThisDataGrid.BorderBrush = (Brush)FindResource("0LightGrayBrush");
+                ThisDataGrid.GridLinesVisibility = DataGridGridLinesVisibility.None; 
             }
             else
             {
@@ -205,12 +206,16 @@ namespace m0.UIWpf.Visualisers
 
             ClassVertex.AddIsClassAndAllAttributes(Vertex.Get("BaseEdge:"), mz.Root.Get(@"System\Meta\ZeroTypes\Edge"));
            
-            ThisDataGrid = new DataGrid();            
+        
         }
 
         
         public ListVisualiser()
         {
+            ThisDataGrid = new DataGrid();
+
+            this.Children.Add(ThisDataGrid);
+
             ThisDataGrid.AllowDrop = true;
 
             ThisDataGrid.AutoGenerateColumns = false;
