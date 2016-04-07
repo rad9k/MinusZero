@@ -50,6 +50,10 @@ namespace m0.UIWpf.Visualisers.Controls
 
             if (v != null)
             {
+                IVertex baseVertex=v.Vertex.Get(@"BaseEdge:\To:");
+                IVertex toShowEdgesMeta = v.Vertex.Get(@"ToShowEdgesMeta:\Meta:");
+
+                VertexOperations.AddInstance(baseVertex, toShowEdgesMeta);
 
             }
         }
