@@ -22,7 +22,14 @@ namespace m0.UIWpf.Visualisers
 {
     public class TableVisualiser : ListVisualiser
     {
-       
+        protected override void AddFooter()
+        {
+            m0.UIWpf.Visualisers.Controls.NewButton button = new m0.UIWpf.Visualisers.Controls.NewButton();
+
+            button.HorizontalAlignment = HorizontalAlignment.Left;
+
+            this.Children.Add(button);
+        }
 
         protected override void CreateView(){
             if (GraphUtil.GetValueAndCompareStrings(Vertex.Get("AlternatingRows:"), "True"))

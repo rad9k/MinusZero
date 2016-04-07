@@ -193,6 +193,8 @@ namespace m0.UIWpf.Visualisers
             GraphUtil.ReplaceEdge(Vertex, "GridStyle", MinusZero.Instance.Root.Get(@"System\Meta\Visualiser\GridStyleEnum\None"));
         }
 
+        protected virtual void AddFooter() { }
+
         protected virtual void PlatformClassInitialize()
         {
             MinusZero mz = MinusZero.Instance;
@@ -214,7 +216,11 @@ namespace m0.UIWpf.Visualisers
         {
             ThisDataGrid = new DataGrid();
 
-            this.Children.Add(ThisDataGrid);
+            this.Children.Add(ThisDataGrid); 
+            
+            AddFooter();
+
+            
 
             ThisDataGrid.AllowDrop = true;
 
