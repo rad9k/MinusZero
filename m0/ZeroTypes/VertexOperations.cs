@@ -57,7 +57,7 @@ namespace m0.ZeroTypes
         {        
             int MaxCardinality=GraphUtil.GetIntegerValue(metaVertex.Get(@"$MaxCardinality:"));
                         
-            if (MaxCardinality != GraphUtil.NullInt)
+            if (MaxCardinality != -1 && MaxCardinality!=GraphUtil.NullInt)
             {
                 int cnt=0;
 
@@ -77,7 +77,7 @@ namespace m0.ZeroTypes
 
             int MaxTargetCardinality = GraphUtil.GetIntegerValue(metaVertex.Get(@"$MaxTargetCardinality:"));
 
-            if (MaxTargetCardinality != GraphUtil.NullInt)
+            if (MaxTargetCardinality != -1 && MaxTargetCardinality != GraphUtil.NullInt)
             {
                 int cnt = 0;
 

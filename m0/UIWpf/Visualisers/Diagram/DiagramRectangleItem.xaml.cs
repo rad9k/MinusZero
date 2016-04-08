@@ -104,9 +104,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
                     TheGrid.Children.Remove(InternalFrame);
                 }
-            }
-
-            PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
+            }            
        
             base.VertexSetedUp();
         }

@@ -19,8 +19,6 @@
 
             <Border x:Name="InternalFrame" Grid.Row="1" BorderBrush="{StaticResource 0ForegroundBrush}" BorderThickness="0.5"/>
 
-            <!--<Visualisers:ListVisualiser Grid.Row="2" x:Name="ContentVisualiser" />-->
-
         </Grid>
 
     </Border>

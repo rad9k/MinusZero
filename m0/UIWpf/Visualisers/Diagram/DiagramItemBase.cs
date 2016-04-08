@@ -23,7 +23,9 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         public virtual IVertex Vertex { get; set; }
 
-        public virtual void VertexSetedUp() { } // to be called after Vertex is setted up
+        public virtual void VertexSetedUp() {
+            PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
+        } // to be called after Vertex is setted up
 
         public bool IsSelected;
 

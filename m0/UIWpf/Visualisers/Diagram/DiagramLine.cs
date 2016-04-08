@@ -186,7 +186,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             Diagram.TheCanvas.Children.Add(LineEndings);
             Diagram.TheCanvas.Children.Add(Line);
-           // Diagram.TheCanvas.Children.Add(Label);
+            Diagram.TheCanvas.Children.Add(Label);
         }
 
         public override void RemoveFromCanvas()

@@ -475,13 +475,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 }
 
                 if (ClickTarget == ClickTargetEnum.AnchorRightTop_CreateDiagramLine)
-                {
-                    /*ClickedItem.MoveAndResizeItem(
-                        Canvas.GetLeft(ClickedItem),
-                        (e.GetPosition(TheCanvas).Y - ClickPositionY_ItemCordinates),
-                        e.GetPosition(TheCanvas).X - Canvas.GetLeft(ClickedItem) - ClickPositionX_AnchorCordinates ,
-                       ClickedItem.ActualHeight - ((e.GetPosition(TheCanvas).Y - ClickPositionY_ItemCordinates) - Canvas.GetTop(ClickedItem)));*/
-
+                {                    
                     CreateAndUpdateDiagramLine(e.GetPosition(TheCanvas).X, e.GetPosition(TheCanvas).Y);
                 }
 
