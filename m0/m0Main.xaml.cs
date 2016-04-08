@@ -416,9 +416,9 @@ namespace m0
             return d.SelectedOption;
         }
 
-        public void EditDialog(IVertex baseVertex)
+        public void EditDialog(IEdge baseEdge)
         {
-            EditDialog d = new EditDialog(baseVertex);
+            EditDialog d = new EditDialog(baseEdge);
         }
     }
 }

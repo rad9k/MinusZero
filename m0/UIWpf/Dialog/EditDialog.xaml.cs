@@ -1,4 +1,5 @@
 ﻿using m0.Foundation;
+using m0.ZeroTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,15 @@ namespace m0.UIWpf.Dialog
     /// </summary>
     public partial class EditDialog : Window
     {
-        public EditDialog(IVertex baseVertex)
+        public EditDialog(IEdge baseEdge)
         {
             InitializeComponent();
 
             Owner = m0Main.Instance;
 
-         
+            this.Title = "new " + baseEdge.Meta.Value + " dialog";
+
+            Edge.ReplaceEdgeEdges(FormVisuliser.Vertex.Get("BaseEdge:"), baseEdge);
 
             ShowDialog();
         }

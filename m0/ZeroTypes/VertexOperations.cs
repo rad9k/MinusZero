@@ -109,7 +109,7 @@ namespace m0.ZeroTypes
                 n.AddEdge(MinusZero.Instance.Root.Get(@"System\Meta\UML\Vertex\$EdgeTarget"), toVertex);
 
                 if(showDialog)
-                    MinusZero.Instance.DefaultShow.EditDialog(n);
+                    MinusZero.Instance.DefaultShow.EditDialog(e);
 
                 return e;
             }
