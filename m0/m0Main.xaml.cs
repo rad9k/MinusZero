@@ -416,9 +416,9 @@ namespace m0
             return d.SelectedOption;
         }
 
-        public void EditDialog(IEdge baseEdge)
+        public void EditDialog(IEdge baseEdge, bool positionAtCursor)
         {
-            EditDialog d = new EditDialog(baseEdge);
+            EditDialog d = new EditDialog(baseEdge, positionAtCursor);
         }
     }
 }

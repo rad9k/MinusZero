@@ -18,6 +18,6 @@ namespace m0.Foundation
 
         IVertex SelectDialog(IVertex info, IVertex options, Point position);
 
-        void EditDialog(IEdge baseEdge);
+        void EditDialog(IEdge baseEdge, bool positionAtCursor);
     }
 }

@@ -24,18 +24,18 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         IVertex baseedge;
 
-        Point _position;
+        Point _mousePosition;
 
         void OnLoad(object sender, RoutedEventArgs e)
         {
-            UIWpf.SetWindowPosition(this, _position);
+            UIWpf.SetWindowPosition(this, _mousePosition);
         }
 
         public NewDiagramItem(IVertex _baseedge, bool isSet, DragEventArgs e)
         {
             InitializeComponent();
 
-            _position = UIWpf.GetMousePositionDnd(e);
+            _mousePosition = UIWpf.GetMousePositionDnd(e);
 
             baseedge = _baseedge;
 
