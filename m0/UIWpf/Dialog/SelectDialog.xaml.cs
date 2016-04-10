@@ -21,11 +21,11 @@ namespace m0.UIWpf.Dialog
     {
         public IVertex SelectedOption = null;
 
-        Point _position;
+        Point _mousePosition;
 
         void OnLoad(object sender, RoutedEventArgs e)
         {
-            UIWpf.SetWindowPosition(this, _position);
+            UIWpf.SetWindowPosition(this, _mousePosition);
         }
 
         public SelectDialog(IVertex info, IVertex options, Point position)
@@ -34,11 +34,13 @@ namespace m0.UIWpf.Dialog
             {
                 InitializeComponent();
 
-                _position = position;
-
-                this.Loaded += new RoutedEventHandler(OnLoad);
-
-                //Owner = m0Main.Instance;
+                if (position != null)
+                {
+                    _mousePosition = position;
+                    this.Loaded += new RoutedEventHandler(OnLoad);
+                }
+                else
+                    Owner = m0Main.Instance;
 
                 Info.Content = info.Value;
 

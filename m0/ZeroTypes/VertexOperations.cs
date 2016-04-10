@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace m0.ZeroTypes
 {
@@ -98,7 +99,7 @@ namespace m0.ZeroTypes
             return null;
         }
 
-        public static IEdge AddEdgeOrVertexByMeta(IVertex baseVertex, IVertex metaVertex, IVertex toVertex, bool showDialog, bool positionAtCursor)
+        public static IEdge AddEdgeOrVertexByMeta(IVertex baseVertex, IVertex metaVertex, IVertex toVertex, bool showDialog, Point position)
         {
             if (metaVertex.Get(@"$VertexTarget:") != null)
             {                
@@ -109,7 +110,7 @@ namespace m0.ZeroTypes
                 n.AddEdge(MinusZero.Instance.Root.Get(@"System\Meta\UML\Vertex\$EdgeTarget"), toVertex);
 
                 if(showDialog)
-                    MinusZero.Instance.DefaultShow.EditDialog(e, positionAtCursor);
+                    MinusZero.Instance.DefaultShow.EditDialog(e, position);
 
                 return e;
             }

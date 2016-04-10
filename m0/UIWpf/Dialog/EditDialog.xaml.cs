@@ -27,7 +27,7 @@ namespace m0.UIWpf.Dialog
             UIWpf.SetWindowPosition(this, _mousePosition);
         }
 
-        public EditDialog(IEdge baseEdge, bool positionAtCursor)
+        public EditDialog(IEdge baseEdge, Point position)
         {
             InitializeComponent();            
 
@@ -35,8 +35,11 @@ namespace m0.UIWpf.Dialog
 
             Edge.ReplaceEdgeEdges(FormVisuliser.Vertex.Get("BaseEdge:"), baseEdge);
 
-            if(positionAtCursor)
+            if (position!=null)
+            {
+                _mousePosition = position;
                 this.Loaded += new RoutedEventHandler(OnLoad);
+            }
             else
                 Owner = m0Main.Instance;
 

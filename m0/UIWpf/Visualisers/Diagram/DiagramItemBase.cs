@@ -92,7 +92,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                     if (test == null)
                     {
                         CanAutomaticallyAddEdges = false; // for VertexChange
-                        IEdge edge = VertexOperations.AddEdgeOrVertexByMeta(Vertex.Get(@"BaseEdge:\To:"), a.Get("OptionEdge:"), toEdge.Get("To:"), true,true);
+                        IEdge edge = VertexOperations.AddEdgeOrVertexByMeta(Vertex.Get(@"BaseEdge:\To:"), a.Get("OptionEdge:"), toEdge.Get("To:"), true, UIWpf.GetMousePosition());
                         CanAutomaticallyAddEdges = true; 
 
                         AddDiagramLineVertex(edge, a.Get(@"OptionDiagramLineDefinition:"), toItem);
