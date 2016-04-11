@@ -84,7 +84,9 @@ namespace m0.UIWpf.Visualisers.Diagram
                 info.Value = "choose diagram line:";
 
                 
-                IVertex a = MinusZero.Instance.DefaultShow.SelectDialog(info, v, UIWpf.GetMousePosition());
+            Point mousePosition=UIWpf.GetMousePosition();
+
+            IVertex a = MinusZero.Instance.DefaultShow.SelectDialog(info, v, mousePosition);
 
                 if (a != null){
                     IVertex test = VertexOperations.TestIfNewEdgeValid(Vertex.Get(@"BaseEdge:\To:"), a.Get("OptionEdge:"), toEdge.Get("To:"));
@@ -92,7 +94,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                     if (test == null)
                     {
                         CanAutomaticallyAddEdges = false; // for VertexChange
-                        IEdge edge = VertexOperations.AddEdgeOrVertexByMeta(Vertex.Get(@"BaseEdge:\To:"), a.Get("OptionEdge:"), toEdge.Get("To:"), true, UIWpf.GetMousePosition());
+                        IEdge edge = VertexOperations.AddEdgeOrVertexByMeta(Vertex.Get(@"BaseEdge:\To:"), a.Get("OptionEdge:"), toEdge.Get("To:"), true, mousePosition);
                         CanAutomaticallyAddEdges = true; 
 
                         AddDiagramLineVertex(edge, a.Get(@"OptionDiagramLineDefinition:"), toItem);

@@ -5,9 +5,10 @@
         Title="edit dialog" Height="350" Width="350"  Background="{StaticResource 0VeryLightHighlightBrush}" Foreground="{StaticResource 0ForegroundBrush}">
     <Grid>
         <Label Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.121,2.27"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="57,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276"/>
+        <TextBox x:Name="Name" Height="26" Margin="57,10,11,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <Visualisers:FormVisualiser x:Name="FormVisuliser" Content="FormVisualiser" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Height="258" Width="323"/>
+        <Visualisers:FormVisualiser x:Name="FormVisuliser" Content="FormVisualiser" Margin="10,53,11,48.4"/>
+        <Button Content="OK" Margin="0,0,10,10.4" HorizontalAlignment="Right" Width="107" Height="33" VerticalAlignment="Bottom" Click="Button_Click"/>
 
     </Grid>
 </Window>

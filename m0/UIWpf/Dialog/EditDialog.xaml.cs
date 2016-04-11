@@ -20,6 +20,7 @@ namespace m0.UIWpf.Dialog
     /// </summary>
     public partial class EditDialog : Window
     {
+        IEdge baseEdge;
         Point _mousePosition;
 
         void OnLoad(object sender, RoutedEventArgs e)
@@ -27,8 +28,10 @@ namespace m0.UIWpf.Dialog
             UIWpf.SetWindowPosition(this, _mousePosition);
         }
 
-        public EditDialog(IEdge baseEdge, Point position)
+        public EditDialog(IEdge _baseEdge, Point position)
         {
+            baseEdge = _baseEdge;
+
             InitializeComponent();            
 
             this.Title = "new " + baseEdge.Meta.Value + " dialog";
@@ -44,6 +47,13 @@ namespace m0.UIWpf.Dialog
                 Owner = m0Main.Instance;
 
             ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            baseEdge.To.Value = Name.Text;
+
+            Close();
         }
     }
 }
