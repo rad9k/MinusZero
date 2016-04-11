@@ -227,7 +227,7 @@ namespace m0
             IVertex sm = Root.Get(@"System\Meta");
 
             //,Class:HasBaseVertex{Attribute:BaseVertex{$MinCardinality:1,$MaxCardinality:1}}
-            GeneralUtil.ParseAndExcute(sm, sm, "{ZeroTypes{AtomType:String,AtomType:Integer,AtomType:Decimal,AtomType:Float,AtomType:Boolean,Vertex:Vertex,Class:Edge{Attribute:From{$MinCardinality:0,$MaxCardinality:1},Attribute:Meta{$MinCardinality:1,$MaxCardinality:1},Attribute:To{$MinCardinality:1,$MaxCardinality:1}},Class:DateTime{Attribute:Year{$MinCardinality:1,$MaxCardinality:1},Attribute:Month{$MinCardinality:1,$MaxCardinality:1},Attribute:Day{$MinCardinality:1,$MaxCardinality:1},Attribute:Hour{$MinCardinality:1,$MaxCardinality:1},Attribute:Minute{$MinCardinality:1,$MaxCardinality:1},Attribute:Second{$MinCardinality:1,$MaxCardinality:1},Attribute:Millisecond{$MinCardinality:0,$MaxCardinality:1}},Enum:EnumBase,Class:$PlatformClass,Class:HasBaseEdge{Attribute:BaseEdge{$MinCardinality:1,$MaxCardinality:1}},Class:HasSelectedEdges{Attribute:SelectedEdges{$MinCardinality:1,$MaxCardinality:1}},Class:HasFilter{Attribute:FilterQuery{$MinCardinality:0,$MaxCardinality:1}}}}");
+            GeneralUtil.ParseAndExcute(sm, sm, "{ZeroTypes{AtomType:String,AtomType:Integer,AtomType:Decimal,AtomType:Float,AtomType:Boolean,Vertex:Vertex,Class:Edge{Attribute:From{$MinCardinality:0,$MaxCardinality:1},Attribute:Meta{$MinCardinality:1,$MaxCardinality:1},Attribute:To{$MinCardinality:1,$MaxCardinality:1}},Class:DateTime{Attribute:Year{$MinCardinality:1,$MaxCardinality:1},Attribute:Month{$MinCardinality:1,$MaxCardinality:1},Attribute:Day{$MinCardinality:1,$MaxCardinality:1},Attribute:Hour{$MinCardinality:1,$MaxCardinality:1},Attribute:Minute{$MinCardinality:1,$MaxCardinality:1},Attribute:Second{$MinCardinality:1,$MaxCardinality:1},Attribute:Millisecond{$MinCardinality:0,$MaxCardinality:1}},Enum:EnumBase,Class:$PlatformClass,Class:HasBaseEdge{Attribute:BaseEdge{$MinCardinality:1,$MaxCardinality:1}},Class:HasSelectedEdges{Attribute:SelectedEdges{$MinCardinality:1,$MaxCardinality:1}},Class:HasFilter{Attribute:FilterQuery{$MinCardinality:0,$MaxCardinality:1}},Class:Color{Attribute:Red{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Green{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Blue{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Opacity{$MinCardinality:0,$MaxCardinality:1}}}}");
 
             sm.Get(@"ZeroTypes\String").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\AtomType"));
             sm.Get(@"ZeroTypes\Integer").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\AtomType"));
@@ -243,6 +243,7 @@ namespace m0
             sm.Get(@"ZeroTypes\HasSelectedEdges").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             sm.Get(@"ZeroTypes\HasFilter").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             sm.Get(@"ZeroTypes\$PlatformClass").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
+            sm.Get(@"ZeroTypes\Color").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
 
             sm.Get(@"ZeroTypes\DateTime\Year").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Integer"));
             sm.Get(@"ZeroTypes\DateTime\Month").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Integer"));
@@ -260,6 +261,12 @@ namespace m0
             sm.Get(@"ZeroTypes\HasBaseEdge\BaseEdge").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Edge"));
             sm.Get(@"ZeroTypes\HasSelectedEdges\SelectedEdges").AddEdge(sm.Get(@"*$VertexTarget"), sm.Get(@"ZeroTypes\Edge"));
             sm.Get(@"ZeroTypes\HasFilter\FilterQuery").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\String"));
+
+            sm.Get(@"ZeroTypes\Color\Red").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Integer"));
+            sm.Get(@"ZeroTypes\Color\Green").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Integer"));
+            sm.Get(@"ZeroTypes\Color\Blue").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Integer"));
+            sm.Get(@"ZeroTypes\Color\Opacity").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Integer"));
+
         }
 
         void CreateSystemMetaVisualiserDiagram()
@@ -270,7 +277,7 @@ namespace m0
 
             IVertex smv = Root.Get(@"System\Meta\Visualiser");
 
-            GeneralUtil.ParseAndExcute(smv, sm, "{DiagramInternal{Class:DiagramItemBase{Attribute:Definition{$MinCardinality:1,$MaxCardinality:1},Attribute:PositionX{$MinCardinality:1,$MaxCardinality:1},Attribute:PositionY{$MinCardinality:1,$MaxCardinality:1},Attribute:SizeX{$MinCardinality:1,$MaxCardinality:1},Attribute:SizeY{$MinCardinality:1,$MaxCardinality:1},Attribute:DiagramLine{$MinCardinality:0,$MaxCardinality:-1},OptionEdge,OptionDiagramLineDefinition},Class:DiagramItemDefinition{Attribute:DirectVertexTestQuery{$MinCardinality:0,$MaxCardinality:1},Attribute:MetaVertexTestQuery{$MinCardinality:0,$MaxCardinality:1},Attribute:DiagramItemClass{$MinCardinality:1,$MaxCardinality:1},Attribute:DiagramItemVertex{$MinCardinality:0,$MaxCardinality:1},Attribute:InstanceCreation{$MinCardinality:1,$MaxCardinality:1},Attribute:DiagramLineDefinition{$MinCardinality:0,$MaxCardinality:-1}},Enum:InstanceCreationEnum{EnumValue:Instance,EnumValue:InstanceAndDirect,EnumValue:Direct},Class:DiagramLineBase{Attribute:Definition{$MinCardinality:1,$MaxCardinality:1},Attribute:ToDiagramItem{$MinCardinality:1,$MaxCardinality:1}},Class:DiagramLineDefinition{Attribute:EdgeTestQuery{$MinCardinality:1,$MaxCardinality:1},Attribute:ToDiagramItemTestQuery{$MinCardinality:0,$MaxCardinality:1},Attribute:DiagramLineClass{$MinCardinality:1,$MaxCardinality:1},Attribute:DiagramLineVertex{$MinCardinality:0,$MaxCardinality:1}},Class:DiagramRectangleItem{Attribute:ShowMeta{$MinCardinality:0,$MaxCardinality:1},Attribute:RoundEdgeSize{$MinCardinality:0,$MaxCardinality:1},Attribute:VisualiserClass{$MinCardinality:0,$MaxCardinality:1},Attribute:VisualiserVertex{$MinCardinality:0,$MaxCardinality:1}},Class:DiagramLine{Attribute:StartAnchor{$MinCardinality:0,$MaxCardinality:1},Attribute:EndAnchor{$MinCardinality:0,$MaxCardinality:1},Attribute:IsDashed{$MinCardinality:0,$MaxCardinality:1}},Enum:LineEndEnum{EnumValue:Straight,EnumValue:Arrow,EnumValue:Triangle,EnumValue:FilledTriangle,EnumValue:Diamond,EnumValue:FilledDiamond}}}");
+            GeneralUtil.ParseAndExcute(smv, sm, "{DiagramInternal{Class:DiagramItemBase{Attribute:Definition{$MinCardinality:1,$MaxCardinality:1},Attribute:PositionX{$MinCardinality:1,$MaxCardinality:1},Attribute:PositionY{$MinCardinality:1,$MaxCardinality:1},Attribute:SizeX{$MinCardinality:1,$MaxCardinality:1},Attribute:SizeY{$MinCardinality:1,$MaxCardinality:1},Attribute:LineWidth{MinValue:1,MaxValue:10,$MinCardinality:0,$MaxCardinality:1},Attribute:ForegroundColor{$MinCardinality:0,$MaxCardinality:1},Attribute:BackgroundColor{$MinCardinality:0,$MaxCardinality:1},Attribute:DiagramLine{$MinCardinality:0,$MaxCardinality:-1},OptionEdge,OptionDiagramLineDefinition},Class:DiagramItemDefinition{Attribute:DirectVertexTestQuery{$MinCardinality:0,$MaxCardinality:1},Attribute:MetaVertexTestQuery{$MinCardinality:0,$MaxCardinality:1},Attribute:DiagramItemClass{$MinCardinality:1,$MaxCardinality:1},Attribute:DiagramItemVertex{$MinCardinality:0,$MaxCardinality:1},Attribute:InstanceCreation{$MinCardinality:1,$MaxCardinality:1},Attribute:DiagramLineDefinition{$MinCardinality:0,$MaxCardinality:-1}},Enum:InstanceCreationEnum{EnumValue:Instance,EnumValue:InstanceAndDirect,EnumValue:Direct},Class:DiagramLineBase{Attribute:Definition{$MinCardinality:1,$MaxCardinality:1},Attribute:LineWidth{MinValue:1,MaxValue:10,$MinCardinality:0,$MaxCardinality:1},Attribute:ForegroundColor{$MinCardinality:0,$MaxCardinality:1},Attribute:BackgroundColor{$MinCardinality:0,$MaxCardinality:1},Attribute:ToDiagramItem{$MinCardinality:1,$MaxCardinality:1}},Class:DiagramLineDefinition{Attribute:EdgeTestQuery{$MinCardinality:1,$MaxCardinality:1},Attribute:ToDiagramItemTestQuery{$MinCardinality:0,$MaxCardinality:1},Attribute:DiagramLineClass{$MinCardinality:1,$MaxCardinality:1},Attribute:DiagramLineVertex{$MinCardinality:0,$MaxCardinality:1}},Class:DiagramRectangleItem{Attribute:ShowMeta{$MinCardinality:0,$MaxCardinality:1},Attribute:RoundEdgeSize{$MinCardinality:0,$MaxCardinality:1},Attribute:VisualiserClass{$MinCardinality:0,$MaxCardinality:1},Attribute:VisualiserVertex{$MinCardinality:0,$MaxCardinality:1}},Class:DiagramLine{Attribute:StartAnchor{$MinCardinality:0,$MaxCardinality:1},Attribute:EndAnchor{$MinCardinality:0,$MaxCardinality:1},Attribute:IsDashed{$MinCardinality:0,$MaxCardinality:1}},Enum:LineEndEnum{EnumValue:Straight,EnumValue:Arrow,EnumValue:Triangle,EnumValue:FilledTriangle,EnumValue:Diamond,EnumValue:FilledDiamond}}}");
 
             smv.Get(@"DiagramInternal\InstanceCreationEnum").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\EnumBase"));
             smv.Get(@"DiagramInternal\LineEndEnum").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\EnumBase"));
@@ -283,6 +290,9 @@ namespace m0
             smv.Get(@"DiagramInternal\DiagramItemBase\PositionY").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
             smv.Get(@"DiagramInternal\DiagramItemBase\SizeX").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
             smv.Get(@"DiagramInternal\DiagramItemBase\SizeY").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
+            smv.Get(@"DiagramInternal\DiagramItemBase\LineWidth").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
+            smv.Get(@"DiagramInternal\DiagramItemBase\BackgroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
+            smv.Get(@"DiagramInternal\DiagramItemBase\ForegroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
             smv.Get(@"DiagramInternal\DiagramItemBase\DiagramLine").AddEdge(sm.Get(@"*$EdgeTarget"), smv.Get(@"DiagramInternal\DiagramLineBase"));
            
             smv.Get(@"DiagramInternal\DiagramItemDefinition").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
@@ -297,6 +307,9 @@ namespace m0
             smv.Get(@"DiagramInternal\DiagramLineBase").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\$PlatformClass"));
             smv.Get(@"DiagramInternal\DiagramLineBase").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\HasBaseEdge"));
             smv.Get(@"DiagramInternal\DiagramLineBase\Definition").AddEdge(sm.Get(@"*$EdgeTarget"), smv.Get(@"DiagramInternal\DiagramLineDefinition"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\LineWidth").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\BackgroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\ForegroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
             smv.Get(@"DiagramInternal\DiagramLineBase\ToDiagramItem").AddEdge(sm.Get(@"*$EdgeTarget"), smv.Get(@"DiagramInternal\DiagramItemBase"));
 
             smv.Get(@"DiagramInternal\DiagramLineDefinition").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));

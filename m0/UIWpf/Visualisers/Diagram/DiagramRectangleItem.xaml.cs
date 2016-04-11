@@ -121,7 +121,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             this.Frame.Background = (Brush)FindResource("0BackgroundBrush");
 
-            this.Frame.Background = (Brush)FindResource("0BackgroundBrush");
+            this.Title.Foreground = (Brush)FindResource("0BackgroundBrush");
         }
 
         public override void Select()

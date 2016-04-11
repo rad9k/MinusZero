@@ -23,6 +23,12 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         public virtual IVertex Vertex { get; set; }
 
+        public double LineWidth;
+
+        public Brush BackgroundColor;
+
+        public Brush ForegroundColor;
+
         public virtual void VertexSetedUp() {
             PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
         } // to be called after Vertex is setted up
