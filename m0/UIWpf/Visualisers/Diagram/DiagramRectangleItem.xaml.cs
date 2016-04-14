@@ -92,13 +92,14 @@ namespace m0.UIWpf.Visualisers.Diagram
             {
                 int esize = GraphUtil.GetIntegerValue(Vertex.Get("RoundEdgeSize:"));
 
+                
                 this.Frame.CornerRadius = new CornerRadius(esize);
 
                 if (Vertex.Get("VisualiserClass:") != null)
                 {
                     this.Title.Margin = new Thickness(esize, esize, esize, 0);
 
-                    ((Control)this.ContentVisualiser).Margin = new Thickness(esize, 0, esize, esize);
+                    ((FrameworkElement)this.ContentVisualiser).Margin = new Thickness(esize, 0, esize, esize);
 
                     TheGrid.RowDefinitions[0].Height = new GridLength(18 + esize);
                 }
@@ -114,7 +115,18 @@ namespace m0.UIWpf.Visualisers.Diagram
                 }
             }
 
-           
+            this.Frame.Background = BackgroundColor;
+
+            this.Title.Foreground = ForegroundColor;
+
+            this.InternalFrame.BorderBrush = ForegroundColor;
+
+            if (LineWidth != 0)
+            {
+                this.Frame.BorderThickness = new Thickness(LineWidth);
+                this.InternalFrame.BorderThickness = new Thickness(LineWidth / 2);
+                this.TheGrid.RowDefinitions[1].Height = new GridLength(LineWidth);
+            }
         }
 
       
@@ -122,10 +134,6 @@ namespace m0.UIWpf.Visualisers.Diagram
         public DiagramRectangleItem()
         {
             InitializeComponent();
-
-            this.Frame.Background = (Brush)FindResource("0BackgroundBrush");
-
-            this.Title.Foreground = (Brush)FindResource("0ErrorBrush");
         }
 
         public override void Select()
@@ -143,9 +151,9 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             base.Unselect();
 
-            this.Title.Foreground = (Brush)FindResource("0ForegroundBrush");
+            this.Frame.Background = BackgroundColor;
 
-            this.Frame.Background = (Brush)FindResource("0BackgroundBrush");
+            this.Title.Foreground = ForegroundColor;
 
             this.Title.Cursor = Cursors.Arrow;
         }
@@ -164,10 +172,11 @@ namespace m0.UIWpf.Visualisers.Diagram
         public override void Unhighlight()
         {
             this.Frame.BorderBrush = (Brush)FindResource("0ForegroundBrush");
-            this.InternalFrame.BorderBrush = (Brush)FindResource("0ForegroundBrush");
-            this.Title.Foreground = (Brush)FindResource("0ForegroundBrush");
+            this.InternalFrame.BorderBrush = ForegroundColor;
 
-            this.Frame.Background = (Brush)FindResource("0BackgroundBrush");
+            this.Frame.Background = BackgroundColor;
+
+            this.Title.Foreground = ForegroundColor;
 
             base.Unhighlight();
         }

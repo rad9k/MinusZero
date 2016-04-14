@@ -30,103 +30,113 @@ namespace m0.UIWpf.Visualisers.Diagram
         private void VertexChange(object sender, VertexChangeEventArgs args)
         {
             if (args.Type == VertexChangeType.EdgeAdded && GeneralUtil.CompareStrings(args.Edge.Meta.Value,"IsDashed")){
-                if(GeneralUtil.CompareStrings(Vertex.Get("IsDashed:"),"True"))
-                     Line.StrokeDashArray = new DoubleCollection(new double[] { 5, 3 });
+                UpdateLine();
             }
 
             if (args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value,"StartAnchor") || GeneralUtil.CompareStrings(args.Edge.Meta.Value,"EndAnchor")))
             {
-                string StartAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"StartAnchor:"));
-                string EndAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"EndAnchor:"));
-
-                if (StartAnchor == "Arrow")
-                {
-                    LineEndings.StartEnding = LineEndEnum.Arrow;
-                    Line.StartEnding = LineEndEnum.Arrow;
-                }
-
-                if (EndAnchor == "Arrow")
-                {
-                    LineEndings.EndEnding = LineEndEnum.Arrow;
-                    Line.EndEnding = LineEndEnum.Arrow;
-                }
-
-                if (StartAnchor == "Triangle")
-                {
-                    LineEndings.StartEnding = LineEndEnum.Triangle;
-                    Line.StartEnding = LineEndEnum.Triangle;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");  
-                }
-
-                if (EndAnchor == "Triangle")
-                {
-                    LineEndings.EndEnding = LineEndEnum.Triangle;
-                    Line.EndEnding = LineEndEnum.Triangle;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush"); 
-                }
-
-                if (StartAnchor == "FilledTriangle")
-                {
-                    LineEndings.StartEnding = LineEndEnum.FilledTriangle;
-                    Line.StartEnding = LineEndEnum.FilledTriangle;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
-                }
-
-                if (EndAnchor == "FilledTriangle")
-                {
-                    LineEndings.EndEnding = LineEndEnum.FilledTriangle;
-                    Line.EndEnding = LineEndEnum.FilledTriangle;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
-                }
-
-                if (StartAnchor == "Diamond")
-                {
-                    LineEndings.StartEnding = LineEndEnum.Diamond;
-                    Line.StartEnding = LineEndEnum.Diamond;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                }
-
-                if (EndAnchor == "Diamond")
-                {
-                    LineEndings.EndEnding = LineEndEnum.Diamond;
-                    Line.EndEnding = LineEndEnum.Diamond;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                }
-
-                if (StartAnchor == "FilledDiamond")
-                {
-                    LineEndings.StartEnding = LineEndEnum.FilledDiamond;
-                    Line.StartEnding = LineEndEnum.FilledDiamond;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
-                }
-
-                if (EndAnchor == "FilledDiamond")
-                {
-                    LineEndings.EndEnding = LineEndEnum.FilledDiamond;
-                    Line.EndEnding = LineEndEnum.FilledDiamond;
-
-                    FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
-                    HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
-                }
-
-
-                if (FillBrush != null)
-                    LineEndings.Fill = FillBrush;
+                UpdateLineEnds();
             }
+        }
+
+        private void UpdateLine()
+        {
+            if (GeneralUtil.CompareStrings(Vertex.Get("IsDashed:"), "True"))
+                Line.StrokeDashArray = new DoubleCollection(new double[] { 5, 3 });
+        }
+
+        private void UpdateLineEnds()
+        {
+            string StartAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"StartAnchor:"));
+            string EndAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"EndAnchor:"));
+
+            if (StartAnchor == "Arrow")
+            {
+                LineEndings.StartEnding = LineEndEnum.Arrow;
+                Line.StartEnding = LineEndEnum.Arrow;
+            }
+
+            if (EndAnchor == "Arrow")
+            {
+                LineEndings.EndEnding = LineEndEnum.Arrow;
+                Line.EndEnding = LineEndEnum.Arrow;
+            }
+
+            if (StartAnchor == "Triangle")
+            {
+                LineEndings.StartEnding = LineEndEnum.Triangle;
+                Line.StartEnding = LineEndEnum.Triangle;
+
+                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+            }
+
+            if (EndAnchor == "Triangle")
+            {
+                LineEndings.EndEnding = LineEndEnum.Triangle;
+                Line.EndEnding = LineEndEnum.Triangle;
+
+                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+            }
+
+            if (StartAnchor == "FilledTriangle")
+            {
+                LineEndings.StartEnding = LineEndEnum.FilledTriangle;
+                Line.StartEnding = LineEndEnum.FilledTriangle;
+
+                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
+            }
+
+            if (EndAnchor == "FilledTriangle")
+            {
+                LineEndings.EndEnding = LineEndEnum.FilledTriangle;
+                Line.EndEnding = LineEndEnum.FilledTriangle;
+
+                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
+            }
+
+            if (StartAnchor == "Diamond")
+            {
+                LineEndings.StartEnding = LineEndEnum.Diamond;
+                Line.StartEnding = LineEndEnum.Diamond;
+
+                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+            }
+
+            if (EndAnchor == "Diamond")
+            {
+                LineEndings.EndEnding = LineEndEnum.Diamond;
+                Line.EndEnding = LineEndEnum.Diamond;
+
+                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+            }
+
+            if (StartAnchor == "FilledDiamond")
+            {
+                LineEndings.StartEnding = LineEndEnum.FilledDiamond;
+                Line.StartEnding = LineEndEnum.FilledDiamond;
+
+                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
+            }
+
+            if (EndAnchor == "FilledDiamond")
+            {
+                LineEndings.EndEnding = LineEndEnum.FilledDiamond;
+                Line.EndEnding = LineEndEnum.FilledDiamond;
+
+                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
+            }
+
+
+            if (FillBrush != null)
+                LineEndings.Fill = FillBrush;
         }
 
         Brush FillBrush=null;

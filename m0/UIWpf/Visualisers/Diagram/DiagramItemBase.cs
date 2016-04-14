@@ -43,6 +43,9 @@ namespace m0.UIWpf.Visualisers.Diagram
                 ForegroundColor = UIWpf.GetBrushFromColorVertex(Vertex.Get("ForegroundColor:"));
             else
                 ForegroundColor = (Brush)FindResource("0ForegroundBrush");
+
+            if (GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:")) != GraphUtil.NullDouble)
+                LineWidth = GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:"));
         }
 
         public bool IsSelected;
@@ -266,9 +269,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             IsSelected = true;
 
-            //this.Background = (Brush)FindResource("0SelectionBrush");
-
-            GeneralUtil.SetPropertyIfPresent(this.Content, "Foreground", (Brush)FindResource("0BackgroundBrush"));
+            GeneralUtil.SetPropertyIfPresent(this.Content, "Foreground", BackgroundColor);
 
             Panel.SetZIndex(this, 99999);            
 
@@ -294,10 +295,8 @@ namespace m0.UIWpf.Visualisers.Diagram
         public virtual void Unselect()
         {
             IsSelected = false;
-
-           // this.Background = (Brush)FindResource("0BackgroundBrush");
             
-            GeneralUtil.SetPropertyIfPresent(this.Content, "Foreground", (Brush)FindResource("0ForegroundBrush"));
+            GeneralUtil.SetPropertyIfPresent(this.Content, "Foreground", ForegroundColor);
 
             Panel.SetZIndex(this, 0);
 
@@ -313,16 +312,12 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             this.Foreground = (Brush)FindResource("0HighlightBrush");
 
-           // this.Background = (Brush)FindResource("0HighlightBrush");
-
             Panel.SetZIndex(this, 99999); 
         }
 
         public virtual void Unhighlight()
         {
             IsHighlighted = false;
-
-            //this.Foreground = (Brush)FindResource("0ForegroundBrush");
 
             if (IsSelected)
                 Select();
@@ -366,10 +361,6 @@ namespace m0.UIWpf.Visualisers.Diagram
         public DiagramItemBase() 
         {
             Anchors = new List<FrameworkElement>();
-
-            //this.BorderBrush = (Brush)FindResource("0LightGrayBrush");
-
-          //  this.Background = (Brush)FindResource("0BackgroundBrush");
 
             if (Vertex != null)
                 PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
