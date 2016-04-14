@@ -17,6 +17,14 @@ namespace m0.UIWpf.Visualisers.Diagram
             this.MouseLeftButtonDown += MouseLeftButtonDownHandler;                        
         }
 
+        public override void VisualiserUpdate() {
+            if (GraphUtil.GetDoubleValue(Vertex.Get(@"SizeX:")) != GraphUtil.NullInt && GraphUtil.GetDoubleValue(Vertex.Get(@"SizeY:")) != GraphUtil.NullInt)
+            {
+                this.Width = GraphUtil.GetDoubleValue(Vertex.Get(@"SizeX:"));
+                this.Height = GraphUtil.GetDoubleValue(Vertex.Get(@"SizeY:"));
+            }
+        }
+
         public override Point GetLineAnchorLocation(DiagramItemBase toItem, int toItemDiagramLinesCount, int toItemDiagramLinesNumber, bool isSelfStart)
         {
             Point p = new Point();

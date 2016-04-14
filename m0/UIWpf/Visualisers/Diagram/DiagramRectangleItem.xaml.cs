@@ -50,6 +50,18 @@ namespace m0.UIWpf.Visualisers.Diagram
             else
                 InternalFrame.BorderThickness = new Thickness(0);
 
+            VisualiserUpdate();
+
+            base.VertexSetedUp();
+
+            if (Vertex.Get("VisualiserVertex:") != null && ContentVisualiser != null)
+                Diagram.AddEdgesFromDefintion(ContentVisualiser.Vertex, Vertex.Get("VisualiserVertex:"));
+        }
+
+        public override void VisualiserUpdate()
+        {
+            base.VisualiserUpdate();
+
             if (Vertex.Get("ShowMeta:False") != null)
             {
                 if (Vertex.Get(@"BaseEdge:\To:").Value != null)
@@ -74,11 +86,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 this.Title.Text = mtext + " : " + ttext;
             }
 
-            if (GraphUtil.GetDoubleValue(Vertex.Get(@"SizeX:")) != GraphUtil.NullInt && GraphUtil.GetDoubleValue(Vertex.Get(@"SizeY:")) != GraphUtil.NullInt)
-            {
-                this.Width = GraphUtil.GetDoubleValue(Vertex.Get(@"SizeX:"));
-                this.Height = GraphUtil.GetDoubleValue(Vertex.Get(@"SizeY:"));
-            }
+
 
             if (Vertex.Get("RoundEdgeSize:") != null)
             {
@@ -104,16 +112,12 @@ namespace m0.UIWpf.Visualisers.Diagram
 
                     TheGrid.Children.Remove(InternalFrame);
                 }
-            }            
-       
-            base.VertexSetedUp();
+            }
+
+           
         }
 
-        public override void UpdateVisualiserVertex()
-        {
-            if (Vertex.Get("VisualiserVertex:") != null && ContentVisualiser!=null)
-                Diagram.AddEdgesFromDefintion(ContentVisualiser.Vertex, Vertex.Get("VisualiserVertex:"));
-        }
+      
 
         public DiagramRectangleItem()
         {
@@ -121,7 +125,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             this.Frame.Background = (Brush)FindResource("0BackgroundBrush");
 
-            this.Title.Foreground = (Brush)FindResource("0BackgroundBrush");
+            this.Title.Foreground = (Brush)FindResource("0ErrorBrush");
         }
 
         public override void Select()

@@ -11,6 +11,7 @@ using m0.UIWpf.Commands;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Controls;
+using m0.Graph;
 
 
 namespace m0.UIWpf
@@ -24,6 +25,19 @@ namespace m0.UIWpf
         {
             Dnd.MinimumHorizontalDragDistance = SystemParameters.MinimumHorizontalDragDistance * 2;
             Dnd.MinimumVerticalDragDistance = SystemParameters.MinimumVerticalDragDistance * 2;
+        }
+
+        public static Brush GetBrushFromColorVertex(IVertex colorVertex)
+        {
+            if(colorVertex.Get("Opacity:")==null)
+                return new SolidColorBrush(Color.FromArgb(0,(byte)GraphUtil.GetIntegerValue(colorVertex.Get("Red:"))
+                    ,(byte)GraphUtil.GetIntegerValue(colorVertex.Get("Green:"))
+                    ,(byte)GraphUtil.GetIntegerValue(colorVertex.Get("Blue:"))));
+            else
+                return new SolidColorBrush(Color.FromArgb((byte)GraphUtil.GetIntegerValue(colorVertex.Get("Opacity:"))
+                    , (byte)GraphUtil.GetIntegerValue(colorVertex.Get("Red:"))
+                    , (byte)GraphUtil.GetIntegerValue(colorVertex.Get("Green:"))
+                    , (byte)GraphUtil.GetIntegerValue(colorVertex.Get("Blue:"))));
         }
 
         public static double GetHorizontalSizeOfCharacterString(int Characters)

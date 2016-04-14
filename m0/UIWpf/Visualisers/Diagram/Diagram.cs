@@ -100,7 +100,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
                 item.VertexSetedUp();
 
-                item.UpdateVisualiserVertex();
+           
 
                 Items.Add(item);
 

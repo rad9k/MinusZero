@@ -33,13 +33,23 @@ namespace m0.UIWpf.Visualisers.Diagram
             PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
         } // to be called after Vertex is setted up
 
+        public virtual void VisualiserUpdate()       {
+            if(Vertex.Get("BackgroundColor:")!=null)
+                BackgroundColor = UIWpf.GetBrushFromColorVertex(Vertex.Get("BackgroundColor:"));
+            else
+                BackgroundColor = (Brush)FindResource("0BackgroundBrush");
+
+            if (Vertex.Get("ForegroundColor:") != null)
+                ForegroundColor = UIWpf.GetBrushFromColorVertex(Vertex.Get("ForegroundColor:"));
+            else
+                ForegroundColor = (Brush)FindResource("0ForegroundBrush");
+        }
+
         public bool IsSelected;
 
         public bool IsHighlighted;
 
         double AnchorSize = 11;
-
-        public virtual void UpdateVisualiserVertex() { }
 
         public virtual Point GetLineAnchorLocation(DiagramItemBase toItem, int toItemDiagramLinesCount, int toItemDiagramLinesNumber, bool isSelfStart){
             Point p = new Point();
@@ -408,7 +418,15 @@ namespace m0.UIWpf.Visualisers.Diagram
             if (sender == Vertex.Get(@"BaseEdge:\To:") && e.Type == VertexChangeType.EdgeAdded && CanAutomaticallyAddEdges)
             {
                 Diagram.CheckAndUpdateDiagramLinesForItem(this); 
-            }    
+            }
+
+            if (sender == Vertex.Get(@"LineWidth:") ||
+                sender == Vertex.Get(@"BackgroundColor:") ||
+                sender == Vertex.Get(@"ForegroundColor:"))
+                    VisualiserUpdate();
+
+            if (sender == Vertex || e.Type == VertexChangeType.EdgeAdded)
+                    VisualiserUpdate();
         }
 
         public void AddToSelectedEdges()
