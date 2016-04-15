@@ -14,14 +14,105 @@ using m0.UIWpf.Foundation;
 using m0.UIWpf.Controls;
 using m0.UIWpf.Commands;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace m0.UIWpf.Visualisers
 {
-    public class VertexVisualiser : TextBlock, IPlatformClass, IDisposable, IHasLocalizableEdges
+    public class VertexVisualiser : Grid, IPlatformClass, IDisposable, IHasLocalizableEdges
     {
+        TextBlock TextBlock;
+
+        Button Button;
+
+        bool buttonStateIsNew;
+
+        void ButtonSetNew()
+        {
+            Button.Content = "+";
+            buttonStateIsNew = true;
+        }
+
+        void ButtonSetOpen()
+        {
+            Button.Content = Image;
+            buttonStateIsNew = false;
+        }
+
+        Image Image;
+
+        void ButtonSetUp()
+        {
+            Button = new Button();
+
+            Grid.SetColumn(Button, 1);
+
+            Button.Style = (Style)Application.Current.FindResource("TransparentStyle");
+
+            Button.BorderThickness = new Thickness(0);
+            Button.Margin = new Thickness(2,0,0,0);
+            Button.Padding = new Thickness(0);
+
+            this.Children.Add(Button);
+
+            Image = new Image();
+            BitmapImage b = new BitmapImage(new Uri("mag.gif", UriKind.Relative));
+            int q = b.PixelHeight; // will not load without this
+            Image.Source = b;
+
+            Button.Foreground = (Brush)FindResource("0LightGrayBrush");
+
+            Button.Click += Button_Click;
+        }
+
+        void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (buttonStateIsNew) // new
+            {
+                IVertex baseVertex = Vertex.Get(@"BaseEdge:\From:");
+                IVertex meta = Vertex.Get(@"BaseEdge:\Meta:");
+
+                VertexOperations.AddInstance(baseVertex, meta);
+            }
+            else // open
+            {
+                FormVisualiser v = (FormVisualiser)UIWpf.getParentFormVisualiser(this);
+/*
+                if (v != null)
+                    Edge.ReplaceEdgeEdges(v.Vertex.Get("BaseEdge:"), Vertex.Get("BaseEdge:"));
+                else
+                {
+                    IVertex v2 = MinusZero.Instance.CreateTempVertex();
+                    Edge.AddEdgeEdges(v2, BaseEdge);
+
+                    BaseCommands.Open(v2, null);
+                }*/
+            }
+        }
+
+        void SetUpGrid()
+        {
+            ColumnDefinition cdd = new ColumnDefinition();
+            cdd.Width = new GridLength(1, GridUnitType.Star);
+            this.ColumnDefinitions.Add(cdd);
+
+            ColumnDefinition cdd2 = new ColumnDefinition();
+            cdd2.Width = new GridLength(10, GridUnitType.Pixel);
+            this.ColumnDefinitions.Add(cdd2);
+        }
+
         public VertexVisualiser()
         {
+            SetUpGrid();
+
             MinusZero mz = MinusZero.Instance;
+
+            TextBlock = new TextBlock();
+
+            Grid.SetColumn(TextBlock, 0);
+
+            this.Children.Add(TextBlock);
+
+            ButtonSetUp();
 
             if (mz != null && mz.IsInitialized)
             {
@@ -33,16 +124,16 @@ namespace m0.UIWpf.Visualisers
 
                 ClassVertex.AddIsClassAndAllAttributes(Vertex.Get("BaseEdge:"), mz.Root.Get(@"System\Meta\ZeroTypes\Edge"));
 
-                this.Background = (Brush)FindResource("0LightGrayBrush");                
+                TextBlock.Background = (Brush)FindResource("0LightGrayBrush");
 
-                this.Loaded += new RoutedEventHandler(OnLoad);
+                TextBlock.Loaded += new RoutedEventHandler(OnLoad);
 
-                this.PreviewMouseLeftButtonDown += dndPreviewMouseLeftButtonDown;
-                this.PreviewMouseMove += dndPreviewMouseMove;
-                this.Drop += dndDrop;
-                this.AllowDrop = true;
+                TextBlock.PreviewMouseLeftButtonDown += dndPreviewMouseLeftButtonDown;
+                TextBlock.PreviewMouseMove += dndPreviewMouseMove;
+                TextBlock.Drop += dndDrop;
+                TextBlock.AllowDrop = true;
 
-                this.MouseEnter += dndMouseEnter;
+                TextBlock.MouseEnter += dndMouseEnter;
             }
         }
 
@@ -57,12 +148,24 @@ namespace m0.UIWpf.Visualisers
             IVertex bv = Vertex.Get(@"BaseEdge:\To:");
 
             if (bv != null && bv.Value != null)
-                this.Text = bv.Value.ToString();
+            {
+                TextBlock.Text = bv.Value.ToString();
+
+                ButtonSetOpen();
+            }
             else
                 if (bv != null)
-                    this.Text = "ØØØ";
+                {
+                    TextBlock.Text = "ØØØ";
+
+                    ButtonSetOpen();
+                }
                 else
-                    this.Text = "Ø";
+                {
+                    TextBlock.Text = "Ø";
+
+                    ButtonSetNew();
+                }
         }
 
         protected void VertexChange(object sender, VertexChangeEventArgs e)

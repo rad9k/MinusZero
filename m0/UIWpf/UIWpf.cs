@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Controls;
 using m0.Graph;
+using m0.UIWpf.Visualisers;
 
 
 namespace m0.UIWpf
@@ -25,6 +26,17 @@ namespace m0.UIWpf
         {
             Dnd.MinimumHorizontalDragDistance = SystemParameters.MinimumHorizontalDragDistance * 2;
             Dnd.MinimumVerticalDragDistance = SystemParameters.MinimumVerticalDragDistance * 2;
+        }
+
+        public static DependencyObject getParentFormVisualiser(DependencyObject e)
+        {
+            if (e == null)
+                return null;
+
+            if (e is FormVisualiser)
+                return e;
+
+            return getParentFormVisualiser(VisualTreeHelper.GetParent(e));
         }
 
         public static Brush GetBrushFromColorVertex(IVertex colorVertex)

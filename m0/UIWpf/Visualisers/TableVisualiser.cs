@@ -41,14 +41,16 @@ namespace m0.UIWpf.Visualisers
 
             AddColumn("", ""); // Vertex level column
 
+            AddDeleteTemplateButton();
+            AddInfoTemplateButton();  
+
             if(ToShowEdgesMeta!=null)
             //foreach (IEdge e in ToShowEdgesMeta) // Old approach
             foreach(IEdge e in VertexOperations.GetChildEdges(ToShowEdgesMeta))
                 if (e.To.Get("$Hide:") == null)
                 AddColumn((string)e.To.Value, "To[" + (string)e.To.Value+"]");
 
-            AddDeleteTemplateButton();
-            AddInfoTemplateButton();  
+           
         }
 
         protected virtual void AddDeleteTemplateButton()

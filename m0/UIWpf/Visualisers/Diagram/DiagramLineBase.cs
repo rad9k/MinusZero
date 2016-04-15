@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
 
 namespace m0.UIWpf.Visualisers.Diagram
 {
@@ -17,6 +18,12 @@ namespace m0.UIWpf.Visualisers.Diagram
         public virtual IVertex Vertex { get; set; }
 
         public bool IsHighlighted;
+
+        public double LineWidth;
+
+        public Brush BackgroundColor;
+
+        public Brush ForegroundColor;
 
         public virtual void SetPosition(double FromX, double FromY, double ToX, double ToY, bool isSelfRelation, double selfRelationX, double selfRelationY)
         {

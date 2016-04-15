@@ -49,19 +49,10 @@ namespace m0.UIWpf.Visualisers.Controls
         
         }
 
-        protected DependencyObject getParentFormVisualiser(DependencyObject e)
-        {
-            if(e==null)
-                return null;
-
-            if(e is FormVisualiser)
-                return e;
-
-            return getParentFormVisualiser(VisualTreeHelper.GetParent(e));
-        }
+  
 
         protected override void OnClick(){
-            FormVisualiser v=(FormVisualiser)getParentFormVisualiser(this);
+            FormVisualiser v=(FormVisualiser)UIWpf.getParentFormVisualiser(this);
 
             if (v != null)
                 Edge.ReplaceEdgeEdges(v.Vertex.Get("BaseEdge:"), BaseEdge);

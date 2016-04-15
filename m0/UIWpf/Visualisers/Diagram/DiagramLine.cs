@@ -29,11 +29,20 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         private void VertexChange(object sender, VertexChangeEventArgs args)
         {
-            if (args.Type == VertexChangeType.EdgeAdded && GeneralUtil.CompareStrings(args.Edge.Meta.Value,"IsDashed")){
+            if ((args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value,"IsDashed")||GeneralUtil.CompareStrings(args.Edge.Meta.Value,"LineWidth")))
+                || (args.Type == VertexChangeType.ValueChanged && (sender == Vertex.Get(@"IsDashed:")||sender == Vertex.Get(@"LineWidth:"))))
+            {
                 UpdateLine();
             }
 
-            if (args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value,"StartAnchor") || GeneralUtil.CompareStrings(args.Edge.Meta.Value,"EndAnchor")))
+            if ((args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value,"StartAnchor") || GeneralUtil.CompareStrings(args.Edge.Meta.Value,"EndAnchor")))
+                || (args.Type == VertexChangeType.ValueChanged && (sender == Vertex.Get(@"StartAnchor:")||sender == Vertex.Get(@"EndAnchor:"))))
+            {
+                UpdateLineEnds();
+            }
+
+             if ((args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value,"BackgroundColor") || GeneralUtil.CompareStrings(args.Edge.Meta.Value,"ForeroundColor")))
+                || (args.Type == VertexChangeType.ValueChanged && (sender == Vertex.Get(@"BackgroundColor:")||sender == Vertex.Get(@"ForegroundColor:"))))
             {
                 UpdateLineEnds();
             }
@@ -41,12 +50,36 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         private void UpdateLine()
         {
+            if (GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:")) != GraphUtil.NullDouble)
+                LineWidth = GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:"));
+            else
+                LineWidth = 1;
+
+            Line.StrokeThickness = LineWidth;
+            LineEndings.StrokeThickness = LineWidth;
+
             if (GeneralUtil.CompareStrings(Vertex.Get("IsDashed:"), "True"))
                 Line.StrokeDashArray = new DoubleCollection(new double[] { 5, 3 });
+            else
+                Line.StrokeDashArray = null;
         }
 
         private void UpdateLineEnds()
         {
+            if (Vertex.Get("BackgroundColor:") != null)
+                BackgroundColor = UIWpf.GetBrushFromColorVertex(Vertex.Get("BackgroundColor:"));
+            else
+                BackgroundColor = (Brush)Line.FindResource("0BackgroundBrush");
+
+            if (Vertex.Get("ForegroundColor:") != null)
+                ForegroundColor = UIWpf.GetBrushFromColorVertex(Vertex.Get("ForegroundColor:"));
+            else
+                ForegroundColor = (Brush)Line.FindResource("0ForegroundBrush");
+
+            LineEndings.Stroke = ForegroundColor;
+            Line.Stroke = ForegroundColor;
+
+
             string StartAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"StartAnchor:"));
             string EndAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"EndAnchor:"));
 
