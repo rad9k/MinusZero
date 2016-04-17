@@ -30,8 +30,9 @@ namespace m0.ZeroTypes
                     ret.AddEdge(null,m0.MinusZero.Instance.Root.Get(@"System\Meta\UML\Vertex\$EdgeTarget"));
                 else
                     //if (!GeneralUtil.CompareStrings(e.Meta, "$Is") && !GeneralUtil.CompareStrings(e.Meta, "$Inherits")) // to be extanded
-                    if (GeneralUtil.CompareStrings(e.Meta, "$Empty")||((string)e.Meta.Value)[0] != '$') // is extanded
-                         ret.AddEdge(null,e.To);
+                    if (GeneralUtil.CompareStrings(e.Meta, "$Empty")||((string)e.Meta.Value)[0] != '$') // is extanded                    
+                        if (e.To.Get("$VertexTarget:") != null || e.To.Get("$EdgeTarget:") != null)
+                            ret.AddEdge(null,e.To);
             }
 
             return ret;

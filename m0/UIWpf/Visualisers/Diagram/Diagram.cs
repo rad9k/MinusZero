@@ -740,7 +740,8 @@ namespace m0.UIWpf.Visualisers.Diagram
                 if (VisualTreeHelper.HitTest(i, TranslatePoint(p, i)) != null)
                 {
                     IVertex v = MinusZero.Instance.CreateTempVertex();
-                    Edge.AddEdgeEdgesOnlyTo(v, i.Vertex.Get(@"BaseEdge:\To:"));
+                    //Edge.AddEdgeEdgesOnlyTo(v, i.Vertex.Get(@"BaseEdge:\To:"));
+                    Edge.AddEdgeEdgesOnlyMetaTo(v,i.Vertex.Get(@"BaseEdge:\Meta:"), i.Vertex.Get(@"BaseEdge:\To:"));
                     vertexByLocationToReturn = v;
                 }
             }          
@@ -881,7 +882,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             IVertex be = v.Get("BaseEdge:");
 
-            Edge.AddEdgeEdgesOnlyMetaTo(be, null, metaVertex, newVertex);
+            Edge.AddEdgeEdgesOnlyMetaTo(be, metaVertex, newVertex);
 
             AddItem(v);
 

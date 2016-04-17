@@ -71,9 +71,10 @@ namespace m0.UIWpf.Visualisers
                 IVertex baseVertex = Vertex.Get(@"BaseEdge:\From:");
                 IVertex meta = Vertex.Get(@"BaseEdge:\Meta:");
 
-                VertexOperations.AddInstanceByEdgeVertex(baseVertex, meta);
+                IVertex ret=VertexOperations.AddInstanceByEdgeVertex(baseVertex, meta);
 
-                ButtonSetOpen();
+                if(ret!=null)
+                    ButtonSetOpen();
             }
             else // open
             {
