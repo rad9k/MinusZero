@@ -71,21 +71,20 @@ namespace m0.UIWpf.Visualisers
                 IVertex baseVertex = Vertex.Get(@"BaseEdge:\From:");
                 IVertex meta = Vertex.Get(@"BaseEdge:\Meta:");
 
-                VertexOperations.AddInstance(baseVertex, meta);
+                VertexOperations.AddInstanceByEdgeVertex(baseVertex, meta);
+
+                ButtonSetOpen();
             }
             else // open
             {
                 FormVisualiser v = (FormVisualiser)UIWpf.getParentFormVisualiser(this);
-/*
-                if (v != null)
-                    Edge.ReplaceEdgeEdges(v.Vertex.Get("BaseEdge:"), Vertex.Get("BaseEdge:"));
-                else
-                {
-                    IVertex v2 = MinusZero.Instance.CreateTempVertex();
-                    Edge.AddEdgeEdges(v2, BaseEdge);
 
-                    BaseCommands.Open(v2, null);
-                }*/
+                if (v != null)                    
+                    Edge.CopyAndReplaceEdge(v.Vertex, "BaseEdge", Vertex.Get("BaseEdge:"));
+                else
+                    //BaseCommands.Open(Vertex.Get("BaseEdge:"), null); // want Form visualiser
+                    BaseCommands.OpenFormVisualiser(Vertex.Get("BaseEdge:"));
+                
             }
         }
 

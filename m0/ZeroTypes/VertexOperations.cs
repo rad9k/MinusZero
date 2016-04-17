@@ -139,6 +139,27 @@ namespace m0.ZeroTypes
             return nv;
         }
 
+        public static IVertex AddInstanceByEdgeVertex(IVertex baseVertex, IVertex edgeVertex) // by EdgeTarget or VertexTarget or by iself
+        {
+            IVertex edgeVertexEdgeTarget =edgeVertex.Get("$EdgeTarget:");
+
+            if (edgeVertexEdgeTarget != null)
+                return AddInstance(baseVertex, edgeVertexEdgeTarget, edgeVertex);
+
+            IVertex edgeVertexVertexTarget = edgeVertex.Get("$VertexTarget:");
+
+            if (edgeVertexVertexTarget != null)
+            {
+                IVertex ret=AddInstance(baseVertex, edgeVertex, edgeVertex);
+
+                GraphUtil.CreateOrReplaceEdge(ret, MinusZero.Instance.Root.Get(@"System\Meta\UML\Vertex\$EdgeTarget"), edgeVertexVertexTarget);
+
+                return ret;
+            }
+
+            return null; 
+        }
+
         public static IVertex AddInstance(IVertex baseVertex, IVertex metaVertex)
         {
             return AddInstance(baseVertex, metaVertex, metaVertex);

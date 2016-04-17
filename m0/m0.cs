@@ -227,7 +227,7 @@ namespace m0
             IVertex sm = Root.Get(@"System\Meta");
 
             //,Class:HasBaseVertex{Attribute:BaseVertex{$MinCardinality:1,$MaxCardinality:1}}
-            GeneralUtil.ParseAndExcute(sm, sm, "{ZeroTypes{AtomType:String,AtomType:Integer,AtomType:Decimal,AtomType:Float,AtomType:Boolean,Vertex:Vertex,Class:Edge{Attribute:From{$MinCardinality:0,$MaxCardinality:1},Attribute:Meta{$MinCardinality:1,$MaxCardinality:1},Attribute:To{$MinCardinality:1,$MaxCardinality:1}},Class:DateTime{Attribute:Year{$MinCardinality:1,$MaxCardinality:1},Attribute:Month{$MinCardinality:1,$MaxCardinality:1},Attribute:Day{$MinCardinality:1,$MaxCardinality:1},Attribute:Hour{$MinCardinality:1,$MaxCardinality:1},Attribute:Minute{$MinCardinality:1,$MaxCardinality:1},Attribute:Second{$MinCardinality:1,$MaxCardinality:1},Attribute:Millisecond{$MinCardinality:0,$MaxCardinality:1}},Enum:EnumBase,Class:$PlatformClass,Class:HasBaseEdge{Attribute:BaseEdge{$MinCardinality:1,$MaxCardinality:1}},Class:HasSelectedEdges{Attribute:SelectedEdges{$MinCardinality:1,$MaxCardinality:1}},Class:HasFilter{Attribute:FilterQuery{$MinCardinality:0,$MaxCardinality:1}},Class:Color{Attribute:Red{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Green{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Blue{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Opacity{$MinCardinality:0,$MaxCardinality:1}}}}");
+            GeneralUtil.ParseAndExcute(sm, sm, "{ZeroTypes{AtomType:String,AtomType:Integer,AtomType:Decimal,AtomType:Float,AtomType:Boolean,Vertex:Vertex,Class:Edge{Attribute:From{$MinCardinality:0,$MaxCardinality:1},Attribute:Meta{$MinCardinality:1,$MaxCardinality:1},Attribute:To{$MinCardinality:1,$MaxCardinality:1}},Class:DateTime{Attribute:Year{$MinCardinality:1,$MaxCardinality:1},Attribute:Month{$MinCardinality:1,$MaxCardinality:1},Attribute:Day{$MinCardinality:1,$MaxCardinality:1},Attribute:Hour{$MinCardinality:1,$MaxCardinality:1},Attribute:Minute{$MinCardinality:1,$MaxCardinality:1},Attribute:Second{$MinCardinality:1,$MaxCardinality:1},Attribute:Millisecond{$MinCardinality:0,$MaxCardinality:1}},Enum:EnumBase,Class:$PlatformClass,Class:HasBaseEdge{Attribute:BaseEdge{$MinCardinality:1,$MaxCardinality:1}},Class:HasSelectedEdges{Attribute:SelectedEdges{$MinCardinality:1,$MaxCardinality:1}},Class:HasFilter{Attribute:FilterQuery{$MinCardinality:0,$MaxCardinality:1}},Class:Color{Attribute:Red{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Green{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Blue{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Opacity{MinValue:0,MaxValue:255,$MinCardinality:0,$MaxCardinality:1}}}}");
 
             sm.Get(@"ZeroTypes\String").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\AtomType"));
             sm.Get(@"ZeroTypes\Integer").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\AtomType"));
@@ -448,7 +448,7 @@ namespace m0
             sm.Get(@"Visualiser\StringViewVisualiser").AddVertex(sm.Get("*$PlatformClassName"), @"m0.UIWpf.Visualisers.StringViewVisualiser, m0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
             sm.Get(@"Visualiser\StringViewVisualiser").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             sm.Get(@"ZeroTypes\String").AddEdge(sm.Get("UML*DefaultViewVisualiser"), sm.Get(@"Visualiser\StringViewVisualiser"));            
-            //sm.Get(@"UML\Class").AddEdge(sm.Get("UML*DefaultEditVisualiser"), sm.Get(@"Visualiser\StringViewVisualiser"));
+            
 
             sm.Get(@"Visualiser\VertexVisualiser").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\$PlatformClass"));
             sm.Get(@"Visualiser\VertexVisualiser").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\HasBaseEdge"));
@@ -460,6 +460,8 @@ namespace m0
             sm.Get(@"UML\Vertex\$EdgeTarget").AddEdge(sm.Get("UML*DefaultViewVisualiser"), sm.Get(@"Visualiser\VertexVisualiser"));
             sm.Get(@"UML\Vertex\$VertexTarget").AddEdge(sm.Get("UML*DefaultEditVisualiser"), sm.Get(@"Visualiser\VertexVisualiser"));
             sm.Get(@"UML\Vertex\$VertexTarget").AddEdge(sm.Get("UML*DefaultViewVisualiser"), sm.Get(@"Visualiser\VertexVisualiser"));
+            //sm.Get(@"UML\Class").AddEdge(sm.Get("UML*DefaultViewVisualiser"), sm.Get(@"Visualiser\VertexVisualiser"));
+            sm.Get(@"UML\Class").AddEdge(sm.Get("UML*DefaultEditVisualiser"), sm.Get(@"Visualiser\VertexVisualiser"));
 
             sm.Get(@"Visualiser\EdgeVisualiser").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\$PlatformClass"));
             sm.Get(@"Visualiser\EdgeVisualiser").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\HasBaseEdge"));

@@ -39,10 +39,11 @@ namespace m0.UIWpf.Visualisers
 
             ThisDataGrid.Columns.Clear();
 
-            AddColumn("", ""); // Vertex level column
 
+            AddInfoTemplateButton();
             AddDeleteTemplateButton();
-            AddInfoTemplateButton();  
+
+            AddColumn("", ""); // Vertex level column
 
             if(ToShowEdgesMeta!=null)
             //foreach (IEdge e in ToShowEdgesMeta) // Old approach

@@ -42,6 +42,12 @@ namespace m0.UIWpf
             if (defvis == null)
                 defvis = e.Meta.Get(@"$VertexTarget:\DefaultEditVisualiser:");
 
+            if (defvis == null)
+                defvis = e.Meta.Get(@"$EdgeTarget:\$Is:\DefaultEditVisualiser:");
+
+            if (defvis == null)
+                defvis = e.Meta.Get(@"$VertexTarget:\$Is:\DefaultEditVisualiser:");
+
             if (defvis == null && e.To!=null)
                 defvis = e.To.Get(@"$Is:\DefaultEditVisualiser:");
 

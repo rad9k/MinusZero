@@ -61,7 +61,8 @@ namespace m0.UIWpf.Visualisers.Controls
                 IVertex v2 = MinusZero.Instance.CreateTempVertex();
                 Edge.AddEdgeEdges(v2, BaseEdge);
 
-                BaseCommands.Open(v2,null);
+                //BaseCommands.Open(v2,null); // want Form Visuliser always
+                BaseCommands.OpenFormVisualiser(v2);
             }
         }
         

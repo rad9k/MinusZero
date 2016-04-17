@@ -186,6 +186,11 @@ namespace m0.UIWpf.Commands
             return OpenVisualiser(baseVertex,DefaultVis);
         }
 
+        public static IVertex OpenFormVisualiser(IVertex baseVertex)
+        {            
+            return OpenVisualiser(baseVertex, MinusZero.Instance.Root.Get(@"System\Meta\Visualiser\FormVisualiser"));
+        }
+
         public static IVertex OpenDiagram(IVertex baseVertex, IVertex inputVertex)
         {
             IPlatformClass sv = (IPlatformClass)PlatformClass.CreatePlatformObject(baseVertex.Get("To:"));

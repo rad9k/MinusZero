@@ -15,12 +15,7 @@ using m0.UIWpf.Commands;
 namespace m0.UIWpf.Visualisers.Controls
 {
     public class NewButton:Button
-    {
-       
-
-        
-       
-
+    {       
         public NewButton()
         {               
             Content = "+ Add New";
@@ -53,7 +48,8 @@ namespace m0.UIWpf.Visualisers.Controls
                 IVertex baseVertex=v.Vertex.Get(@"BaseEdge:\To:");
                 IVertex toShowEdgesMeta = v.Vertex.Get(@"ToShowEdgesMeta:\Meta:");
 
-                VertexOperations.AddInstance(baseVertex, toShowEdgesMeta);
+                //VertexOperations.AddInstance(baseVertex, toShowEdgesMeta);
+                VertexOperations.AddInstanceByEdgeVertex(baseVertex, toShowEdgesMeta);
 
             }
         }
