@@ -250,7 +250,7 @@ namespace m0.UIWpf.Commands
 
             BaseSelectedSynchronisedHelper helper = new BaseSelectedSynchronisedHelper(pc.Vertex, synchronisedVisualiser);
 
-            PlatformClass.RegisterVertexChangeListeners(synchronisedVisualiser,new VertexChange(helper.SynchronisedVisualiserChange));
+            PlatformClass.RegisterVertexChangeListeners(synchronisedVisualiser,new VertexChange(helper.SynchronisedVisualiserChange), new string[]{"BaseEdge","SelectedEdges"});
             
             IVertex firstSelectedVertex = synchronisedVisualiser.Get(@"SelectedEdges:\");
 

@@ -23,7 +23,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
                 VertexUpdated();
 
-                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[]{"BaseEdge","SelectedEdges"});
             }
         }
 

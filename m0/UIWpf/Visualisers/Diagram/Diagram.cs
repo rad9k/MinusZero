@@ -346,7 +346,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
                 // turn on Vertex.Change listener
 
-                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
 
                 //
 
@@ -694,7 +694,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
                 _Vertex = value;
 
-                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
 
                 //mz.Root.Get(@"System\Session\Visualisers").AddEdge(null, Vertex);
 

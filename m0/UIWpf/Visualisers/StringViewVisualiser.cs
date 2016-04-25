@@ -81,8 +81,8 @@ namespace m0.UIWpf.Visualisers
                     PlatformClass.RemoveVertexChangeListeners(this.Vertex, new VertexChange(VertexChange));
 
                 _Vertex = value;
-                
-                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange));
+
+                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
 
                 UpdateBaseEdge();
             }

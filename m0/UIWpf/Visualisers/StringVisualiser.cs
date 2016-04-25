@@ -131,7 +131,7 @@ namespace m0.UIWpf.Visualisers
 
                 _Vertex = value;
 
-                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
 
                 UpdateBaseEdge();
             }

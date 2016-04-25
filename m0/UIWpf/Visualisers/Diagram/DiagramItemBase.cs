@@ -30,7 +30,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         public Brush ForegroundColor;
 
         public virtual void VertexSetedUp() {
-            PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
+            PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
         } // to be called after Vertex is setted up
 
         public virtual void VisualiserUpdate()       {
@@ -363,7 +363,7 @@ namespace m0.UIWpf.Visualisers.Diagram
             Anchors = new List<FrameworkElement>();
 
             if (Vertex != null)
-                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
 
             this.SizeChanged+=DiagramItemBase_SizeChanged; 
 

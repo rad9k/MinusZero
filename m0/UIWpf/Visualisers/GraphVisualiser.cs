@@ -158,7 +158,7 @@ namespace m0.UIWpf.Visualisers
             this.Padding = new Thickness(1);
 
             if(baseVertex!=null)
-                PlatformClass.RegisterVertexChangeListeners(baseVertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(baseVertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
         }
 
         public void Dispose()
@@ -358,7 +358,7 @@ namespace m0.UIWpf.Visualisers
 
                 // turn on Vertex.Change listener
 
-                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
 
                 //
             }
@@ -755,7 +755,7 @@ namespace m0.UIWpf.Visualisers
 
                 _Vertex = value;
 
-                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange));
+                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
 
                 UpdateBaseEdge();
             }
