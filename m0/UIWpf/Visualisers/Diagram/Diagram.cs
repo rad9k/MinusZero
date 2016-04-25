@@ -741,7 +741,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 {
                     IVertex v = MinusZero.Instance.CreateTempVertex();
                     //Edge.AddEdgeEdgesOnlyTo(v, i.Vertex.Get(@"BaseEdge:\To:"));
-                    Edge.AddEdgeEdgesOnlyMetaTo(v,i.Vertex.Get(@"BaseEdge:\Meta:"), i.Vertex.Get(@"BaseEdge:\To:"));
+                    Edge.AddEdgeEdges(v,i.Vertex.Get(@"BaseEdge:\From:"),i.Vertex.Get(@"BaseEdge:\Meta:"), i.Vertex.Get(@"BaseEdge:\To:"));
                     vertexByLocationToReturn = v;
                 }
             }          

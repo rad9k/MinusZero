@@ -41,8 +41,8 @@ namespace m0.UIWpf.Visualisers.Diagram
                 UpdateLineEnds();
             }
 
-             if ((args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value,"BackgroundColor") || GeneralUtil.CompareStrings(args.Edge.Meta.Value,"ForeroundColor")))
-                || (args.Type == VertexChangeType.ValueChanged && (sender == Vertex.Get(@"BackgroundColor:")||sender == Vertex.Get(@"ForegroundColor:"))))
+            if ((args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value, "BackgroundColor") || GeneralUtil.CompareStrings(args.Edge.Meta.Value, "ForegroundColor")))
+                || (args.Type == VertexChangeType.ValueChanged && (sender == Vertex.Get(@"BackgroundColor:") || sender == Vertex.Get(@"ForegroundColor:"))))
             {
                 UpdateLineEnds();
             }
@@ -118,7 +118,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.StartEnding = LineEndEnum.FilledTriangle;
                 Line.StartEnding = LineEndEnum.FilledTriangle;
 
-                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                FillBrush = ForegroundColor;
                 HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
             }
 
@@ -127,7 +127,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.EndEnding = LineEndEnum.FilledTriangle;
                 Line.EndEnding = LineEndEnum.FilledTriangle;
 
-                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                FillBrush = ForegroundColor;
                 HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
             }
 
@@ -154,7 +154,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.StartEnding = LineEndEnum.FilledDiamond;
                 Line.StartEnding = LineEndEnum.FilledDiamond;
 
-                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                FillBrush = ForegroundColor;
                 HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
             }
 
@@ -163,7 +163,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.EndEnding = LineEndEnum.FilledDiamond;
                 Line.EndEnding = LineEndEnum.FilledDiamond;
 
-                FillBrush = (Brush)LineEndings.FindResource("0ForegroundBrush");
+                FillBrush = ForegroundColor;
                 HighlightFillBrush = (Brush)LineEndings.FindResource("0LightHighlightBrush");
             }
 
@@ -260,19 +260,22 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             IsHighlighted = false;
 
-            LineEndings.Stroke = (Brush)LineEndings.FindResource("0ForegroundBrush");
-            Line.Stroke = (Brush)LineEndings.FindResource("0ForegroundBrush");
+            LineEndings.Stroke = ForegroundColor;
+            Line.Stroke = ForegroundColor;
 
             if (FillBrush != null)
                 LineEndings.Fill = FillBrush;
 
-            Label.Foreground = (Brush)LineEndings.FindResource("0ForegroundBrush");
+            Label.Foreground = ForegroundColor;
 
             Panel.SetZIndex(LineEndings, 0);
             Panel.SetZIndex(Label, 0); 
         }
 
         public DiagramLine(){
+            ForegroundColor = (Brush)Line.FindResource("0ForegroundBrush");
+            BackgroundColor = (Brush)Line.FindResource("0BackgroundBrush");
+
             LineEndings.IsEndings = true;
             LineEndings.StrokeThickness = 1;
             LineEndings.Stroke = (Brush)LineEndings.FindResource("0ForegroundBrush");

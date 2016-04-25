@@ -71,9 +71,11 @@ namespace m0.UIWpf.Visualisers
                 IVertex baseVertex = Vertex.Get(@"BaseEdge:\From:");
                 IVertex meta = Vertex.Get(@"BaseEdge:\Meta:");
 
-                IVertex ret=VertexOperations.AddInstanceByEdgeVertex(baseVertex, meta);
+                IVertex newVertex=VertexOperations.AddInstanceByEdgeVertex(baseVertex, meta);
 
-                if(ret!=null)
+                GraphUtil.CreateOrReplaceEdge(Vertex.Get(@"BaseEdge:"), MinusZero.Instance.Root.Get(@"System\Meta\ZeroTypes\Edge\To"), newVertex);
+
+                if(newVertex!=null)
                     ButtonSetOpen();
             }
             else // open
@@ -96,7 +98,7 @@ namespace m0.UIWpf.Visualisers
             this.ColumnDefinitions.Add(cdd);
 
             ColumnDefinition cdd2 = new ColumnDefinition();
-            cdd2.Width = new GridLength(10, GridUnitType.Pixel);
+            cdd2.Width = new GridLength(12, GridUnitType.Pixel);
             this.ColumnDefinitions.Add(cdd2);
         }
 

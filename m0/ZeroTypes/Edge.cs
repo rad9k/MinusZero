@@ -132,6 +132,15 @@ namespace m0.ZeroTypes
             baseVertex.AddEdge(r.Get(@"System\Meta\ZeroTypes\Edge\To"), edge.To);
         }
 
+        static public void AddEdgeEdges(IVertex baseVertex, IVertex edgeFrom, IVertex edgeMeta, IVertex edgeTo)
+        {
+            IVertex r = MinusZero.Instance.Root;
+
+            baseVertex.AddVertex(r.Get(@"System\Meta\ZeroTypes\Edge\From"), edgeFrom);
+            baseVertex.AddEdge(r.Get(@"System\Meta\ZeroTypes\Edge\Meta"), edgeMeta);
+            baseVertex.AddEdge(r.Get(@"System\Meta\ZeroTypes\Edge\To"), edgeTo);
+        }
+
         static public void AddEdgeEdgesOnlyMetaTo(IVertex baseVertex, IVertex edgeMeta, IVertex edgeTo)
         {
             IVertex r = MinusZero.Instance.Root;

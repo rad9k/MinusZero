@@ -121,6 +121,8 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             this.InternalFrame.BorderBrush = ForegroundColor;
 
+            this.Frame.BorderBrush = ForegroundColor;
+
             if (LineWidth != 0)
             {
                 this.Frame.BorderThickness = new Thickness(LineWidth);
@@ -155,6 +157,10 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             this.Title.Foreground = ForegroundColor;
 
+            this.InternalFrame.BorderBrush = ForegroundColor;
+
+            this.Frame.BorderBrush = ForegroundColor;
+
             this.Title.Cursor = Cursors.Arrow;
         }
 
@@ -177,6 +183,10 @@ namespace m0.UIWpf.Visualisers.Diagram
             this.Frame.Background = BackgroundColor;
 
             this.Title.Foreground = ForegroundColor;
+
+            this.InternalFrame.BorderBrush = ForegroundColor;
+
+            this.Frame.BorderBrush = ForegroundColor;
 
             base.Unhighlight();
         }
