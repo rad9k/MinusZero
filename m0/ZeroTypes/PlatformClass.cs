@@ -9,6 +9,8 @@ using m0.Graph;
 namespace m0.ZeroTypes
 {
     class PlatformClassVertexChangeListener{
+        public List<string> WatchList = new List<string>();
+
         public event VertexChange Change;
 
         public virtual Delegate[] GetChangeDelegateInvocationList()
@@ -84,7 +86,7 @@ namespace m0.ZeroTypes
             }
         }
 
-        public static void RegisterVertexChangeListeners(IVertex PlatformClassVertex, VertexChange action){
+        public static void RegisterVertexChangeListeners(IVertex PlatformClassVertex, VertexChange action, string[] watchList){
             PlatformClassVertexChangeListener listener=new PlatformClassVertexChangeListener();
             listener.PlatformClassVertex = PlatformClassVertex;
             listener.Change += action;
@@ -117,6 +119,9 @@ namespace m0.ZeroTypes
             {
                 foreach (IEdge ee in PlatformClassVertex.GetAll(e.To.Value + ":"))                    
                     RemoveVertexChangeListeners_ForVertex(e.To, PlatformClassVertex,action);
+
+                foreach (IEdge ee in PlatformClassVertex.GetAll(e.To.Value + @":\"))
+                    RemoveVertexChangeListeners_ForVertex(e.To, PlatformClassVertex, action);
             }
         }
 
