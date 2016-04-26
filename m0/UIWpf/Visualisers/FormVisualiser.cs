@@ -65,9 +65,12 @@ namespace m0.UIWpf.Visualisers
         double controlLineVsControlLineSeparator = 4;
 
 
-        private bool isFormTyped()
+        private IVertex getMetaForForm()
         {
-            return Vertex.Get(@"BaseEdge:\Meta:") == null || Vertex.Get(@"BaseEdge:\Meta:").Count() == 0;
+            if(Vertex.Get(@"BaseEdge:\Meta:") == null || Vertex.Get(@"BaseEdge:\Meta:").Count() == 0)
+                return null;
+
+            return GraphUtil.GetMostInheritedMeta(Vertex.Get(@"BaseEdge:\To:"),Vertex.Get(@"BaseEdge:\To:"));
         }
 
         private string getGroup(IVertex meta)
@@ -137,7 +140,9 @@ namespace m0.UIWpf.Visualisers
 
             IVertex basTo = Vertex.Get(@"BaseEdge:\To:");
 
-            if (isFormTyped()) // if Form is not typed
+            IVertex metaForForm = getMetaForForm();
+
+            if (metaForForm==null) // if Form is not typed
             {
                 IList<IVertex> visited = new List<IVertex>();
 
@@ -155,7 +160,7 @@ namespace m0.UIWpf.Visualisers
             }
             else // Form is typed
             {
-                foreach (IEdge e in VertexOperations.GetChildEdges(Vertex.Get(@"BaseEdge:\Meta:")))
+                foreach (IEdge e in VertexOperations.GetChildEdges(metaForForm))
                     if (e.To.Get("$Hide:") == null)
                         if (GraphUtil.GetIntegerValue(e.To.Get("$MaxCardinality:")) > 1 || GraphUtil.GetIntegerValue(e.To.Get("$MaxCardinality:")) == -1)
                             PreFillFormAnalyseEdge(e.To, true);
@@ -191,8 +196,9 @@ namespace m0.UIWpf.Visualisers
 
                 InitializeControlContent();
 
-                
-                if (isFormTyped()) // if Form is not typed
+                IVertex metaForForm = getMetaForForm();
+
+                if (metaForForm==null) // if Form is not typed
                 {
                     IList<IVertex> visited = new List<IVertex>();
 
@@ -209,8 +215,8 @@ namespace m0.UIWpf.Visualisers
                     }
                 }
                 else // Form is typed
-                {                    
-                    foreach (IEdge e in VertexOperations.GetChildEdges(Vertex.Get(@"BaseEdge:\Meta:")))
+                {
+                    foreach (IEdge e in VertexOperations.GetChildEdges(metaForForm))
                         if (e.To.Get("$Hide:") == null)
                             if (GraphUtil.GetIntegerValue(e.To.Get("$MaxCardinality:")) > 1 || GraphUtil.GetIntegerValue(e.To.Get("$MaxCardinality:")) == -1)
                                 AddEdge(e.To, true);

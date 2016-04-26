@@ -38,7 +38,44 @@ namespace m0.Graph
 
     public class GraphUtil
     {
-       
+        public static IVertex GetMostInheritedMeta(IVertex baseVertex, IVertex startMeta)
+        {
+            IVertex _startMeta = startMeta;
+
+            if (startMeta.Get("$EdgeTarget") != null)
+                _startMeta = startMeta.Get("$EdgeTarget");
+
+            IVertex highestInheritanceLevel=null;
+            int highestInheritanceLevel_level = 0;
+
+            foreach (IEdge e in baseVertex.GetAll("$Is:"))
+            {
+                int tempLevel = getInheritanceLevel(e.To, _startMeta, 0);
+
+                if (tempLevel >= highestInheritanceLevel_level)
+                    highestInheritanceLevel = e.To;
+            }
+
+            return highestInheritanceLevel;
+        }
+
+        private static int getInheritanceLevel(IVertex testMeta, IVertex startMeta, int input)
+        {
+            if (testMeta == startMeta)
+                return input;
+
+            int biggest = 0;
+
+            foreach (IEdge e in testMeta.GetAll("$Inherits"))
+            {
+                int temp = getInheritanceLevel(e.To, startMeta, input + 1);
+                if (temp > biggest)
+                    biggest = temp;
+            }
+
+
+            return biggest;
+        }
 
         public static object GetValue(IVertex vertex)
         {
