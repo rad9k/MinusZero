@@ -26,10 +26,24 @@ namespace m0.ZeroTypes
 
         public IVertex PlatformClassVertex;
 
-        public void Listener(object sender, VertexChangeEventArgs e){
-            if ((sender == PlatformClassVertex) && (e.Type==VertexChangeType.EdgeAdded) && (!GeneralUtil.CompareStrings(e.Edge.Meta.Value,"$Is")))
+        private bool CheckSender(object sender)
+        {
+            if (sender == PlatformClassVertex)
+                return true;
+
+            foreach (string metaFromWatchList in WatchList)
+                foreach (IEdge e in PlatformClassVertex.GetAll(metaFromWatchList + ":"))
+                    if (sender == e.To)
+                        return true;
+
+            return false;
+        }
+
+        public void Listener(object sender, VertexChangeEventArgs e){            
+            if (CheckSender(sender) && (e.Type==VertexChangeType.EdgeAdded) && (!GeneralUtil.CompareStrings(e.Edge.Meta.Value,"$Is")))
             {
-                IVertex AttributeVertexes = PlatformClassVertex.GetAll(@"$Is:{$Inherits:$PlatformClass}\Selector:");
+                IVertex AttributeVertexes = ((IVertex)sender).GetAll(@"$Is:\Selector:");
+                //IVertex AttributeVertexes = ((IVertex)sender).GetAll(@"$Is:{$Inherits:$PlatformClass}\Selector:");
 
                 foreach (IEdge ed in AttributeVertexes)
                     if (e.Edge.Meta == ed.To)                    
@@ -49,9 +63,10 @@ namespace m0.ZeroTypes
                 if ((sender == PlatformClassVertex.Get(metaFromWatchList+":")) && (e.Type == VertexChangeType.EdgeAdded) && (!GeneralUtil.CompareStrings(e.Edge.Meta.Value,"$Is")))
                     GraphUtil.AddHandlerIfDelegateListDoesNotContainsIt(e.Edge.To, this.Listener);
 
-            if ((sender == PlatformClassVertex) && (e.Type == VertexChangeType.EdgeRemoved) && (!GeneralUtil.CompareStrings(e.Edge.Meta.Value, "$Is")))
+            if (CheckSender(sender) && (e.Type == VertexChangeType.EdgeRemoved) && (!GeneralUtil.CompareStrings(e.Edge.Meta.Value, "$Is")))
             {
-                IVertex AttributeVertexes = PlatformClassVertex.GetAll(@"$Is:{$Inherits:$PlatformClass}\Selector:");
+                IVertex AttributeVertexes = ((IVertex)sender).GetAll(@"$Is:\Selector:");
+                //IVertex AttributeVertexes = ((IVertex)sender).GetAll(@"$Is:{$Inherits:$PlatformClass}\Selector:");
 
                 foreach (IEdge ed in AttributeVertexes)
                     if (e.Edge.Meta == ed.To)

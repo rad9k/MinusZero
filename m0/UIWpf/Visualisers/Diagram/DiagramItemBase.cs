@@ -30,7 +30,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         public Brush ForegroundColor;
 
         public virtual void VertexSetedUp() {
-            PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
+            PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges", "ForegroundColor", "BackgroundColor" });
         } // to be called after Vertex is setted up
 
         public virtual void VisualiserUpdate()       {
@@ -363,7 +363,7 @@ namespace m0.UIWpf.Visualisers.Diagram
             Anchors = new List<FrameworkElement>();
 
             if (Vertex != null)
-                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
+                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges","ForegroundColor","BackgroundColor" });
 
             this.SizeChanged+=DiagramItemBase_SizeChanged; 
 
@@ -412,8 +412,8 @@ namespace m0.UIWpf.Visualisers.Diagram
             }
 
             if (sender == Vertex.Get(@"LineWidth:") ||
-                sender == Vertex.Get(@"BackgroundColor:") ||
-                sender == Vertex.Get(@"ForegroundColor:"))
+                sender == Vertex.Get(@"BackgroundColor:") || sender == Vertex.Get(@"BackgroundColor:\Red:") || sender == Vertex.Get(@"BackgroundColor:\Green:") || sender == Vertex.Get(@"BackgroundColor:\Blue:") || sender == Vertex.Get(@"BackgroundColor:\Opacity:") ||
+                sender == Vertex.Get(@"ForegroundColor:") || sender == Vertex.Get(@"ForegroundColor:\Red:") || sender == Vertex.Get(@"ForegroundColor:\Green:") || sender == Vertex.Get(@"ForegroundColor:\Blue:") || sender == Vertex.Get(@"ForegroundColor:\Opacity:"))
                     VisualiserUpdate();
 
             if (sender == Vertex || e.Type == VertexChangeType.EdgeAdded)
