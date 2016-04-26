@@ -23,7 +23,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
                 VertexUpdated();
 
-                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[]{"BaseEdge","SelectedEdges"});
+                PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges", "ForegroundColor", "BackgroundColor" });
             }
         }
 
@@ -42,7 +42,10 @@ namespace m0.UIWpf.Visualisers.Diagram
             }
 
             if ((args.Type == VertexChangeType.EdgeAdded && (GeneralUtil.CompareStrings(args.Edge.Meta.Value, "BackgroundColor") || GeneralUtil.CompareStrings(args.Edge.Meta.Value, "ForegroundColor")))
-                || (args.Type == VertexChangeType.ValueChanged && (sender == Vertex.Get(@"BackgroundColor:") || sender == Vertex.Get(@"ForegroundColor:"))))
+                || (args.Type == VertexChangeType.ValueChanged && (
+                  sender == Vertex.Get(@"BackgroundColor:") || sender == Vertex.Get(@"BackgroundColor:\Red:") || sender == Vertex.Get(@"BackgroundColor:\Green:") || sender == Vertex.Get(@"BackgroundColor:\Blue:") || sender == Vertex.Get(@"BackgroundColor:\Opacity:") ||
+                   sender == Vertex.Get(@"ForegroundColor:") || sender == Vertex.Get(@"ForegroundColor:\Red:") || sender == Vertex.Get(@"ForegroundColor:\Green:") || sender == Vertex.Get(@"ForegroundColor:\Blue:") || sender == Vertex.Get(@"ForegroundColor:\Opacity:")       
+                )))
             {
                 UpdateLineEnds();
             }
@@ -78,6 +81,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             LineEndings.Stroke = ForegroundColor;
             Line.Stroke = ForegroundColor;
+            Label.Foreground = ForegroundColor;
 
 
             string StartAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"StartAnchor:"));
@@ -100,8 +104,8 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.StartEnding = LineEndEnum.Triangle;
                 Line.StartEnding = LineEndEnum.Triangle;
 
-                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                FillBrush = BackgroundColor;
+                HighlightFillBrush = BackgroundColor;
             }
 
             if (EndAnchor == "Triangle")
@@ -109,8 +113,8 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.EndEnding = LineEndEnum.Triangle;
                 Line.EndEnding = LineEndEnum.Triangle;
 
-                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                FillBrush = BackgroundColor;
+                HighlightFillBrush = BackgroundColor;
             }
 
             if (StartAnchor == "FilledTriangle")
@@ -136,8 +140,8 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.StartEnding = LineEndEnum.Diamond;
                 Line.StartEnding = LineEndEnum.Diamond;
 
-                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                FillBrush = BackgroundColor;
+                HighlightFillBrush = BackgroundColor;
             }
 
             if (EndAnchor == "Diamond")
@@ -145,8 +149,8 @@ namespace m0.UIWpf.Visualisers.Diagram
                 LineEndings.EndEnding = LineEndEnum.Diamond;
                 Line.EndEnding = LineEndEnum.Diamond;
 
-                FillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
-                HighlightFillBrush = (Brush)LineEndings.FindResource("0BackgroundBrush");
+                FillBrush = BackgroundColor;
+                HighlightFillBrush = BackgroundColor;
             }
 
             if (StartAnchor == "FilledDiamond")
