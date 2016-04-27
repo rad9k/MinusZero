@@ -271,6 +271,24 @@ namespace m0
 
             Edge.AddEdgeByToVertex(i2, r.Get(@"System\Meta\ZeroTypes\HasBaseEdge\BaseEdge"), r.Get(@"TEST\Person4"));
 
+            /////////////////////
+
+           /* GeneralUtil.ParseAndExcute(r.Get("TEST"), r.Get(@"System\Meta"), "{Class:X1,Class:X2,Class:X3,Class:X4,Class:PersonA,Class:PersonB,Class:PersonB2{Attribute:New}}");
+
+            r.Get(@"TEST\PersonB2\New").AddEdge(r.Get(@"System\Meta*$EdgeTarget"), r.Get(@"System\Meta*String"));
+
+            VertexOperations.AddInstance(r.Get("TEST"), r.Get(@"TEST\PersonB2"), r.Get(@"TEST\Person")).Value="XXX";
+
+            r.Get(@"TEST\X2").AddEdge(r.Get(@"System\Meta*$Inherits"), r.Get(@"TEST\Person"));
+            r.Get(@"TEST\X3").AddEdge(r.Get(@"System\Meta*$Inherits"), r.Get(@"TEST\X2"));
+            r.Get(@"TEST\X4").AddEdge(r.Get(@"System\Meta*$Inherits"), r.Get(@"TEST\X3"));
+
+            r.Get(@"TEST\PersonA").AddEdge(r.Get(@"System\Meta*$Inherits"), r.Get(@"TEST\Person"));
+            r.Get(@"TEST\PersonB").AddEdge(r.Get(@"System\Meta*$Inherits"), r.Get(@"TEST\Person"));
+            r.Get(@"TEST\PersonB2").AddEdge(r.Get(@"System\Meta*$Inherits"), r.Get(@"TEST\PersonB"));
+
+            r.Get(@"TEST\XXX").AddEdge(r.Get(@"System\Meta*$Is"), r.Get(@"TEST\PersonA"));
+            r.Get(@"TEST\XXX").AddEdge(r.Get(@"System\Meta*$Is"), r.Get(@"TEST\X4"));*/
 
             //////////////////////
 

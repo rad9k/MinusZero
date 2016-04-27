@@ -43,20 +43,25 @@ namespace m0.Graph
             IVertex _startMeta = startMeta;
 
             if (startMeta.Get("$EdgeTarget") != null)
-                _startMeta = startMeta.Get("$EdgeTarget");
+                _startMeta = startMeta.Get("$EdgeTarget:");
 
             IVertex highestInheritanceLevel=null;
             int highestInheritanceLevel_level = 0;
 
+            int tempLevel;
+
             foreach (IEdge e in baseVertex.GetAll("$Is:"))
             {
-                int tempLevel = getInheritanceLevel(e.To, _startMeta, 0);
+                tempLevel = getInheritanceLevel(e.To, _startMeta, 0);
 
                 if (tempLevel >= highestInheritanceLevel_level)
+                {
+                    highestInheritanceLevel_level = tempLevel;
                     highestInheritanceLevel = e.To;
+                }
             }
 
-            return highestInheritanceLevel;
+            return highestInheritanceLevel; // if highestInheritanceLevel_level==0 then startMeta was not found
         }
 
         private static int getInheritanceLevel(IVertex testMeta, IVertex startMeta, int input)
@@ -66,7 +71,7 @@ namespace m0.Graph
 
             int biggest = 0;
 
-            foreach (IEdge e in testMeta.GetAll("$Inherits"))
+            foreach (IEdge e in testMeta.GetAll("$Inherits:"))
             {
                 int temp = getInheritanceLevel(e.To, startMeta, input + 1);
                 if (temp > biggest)

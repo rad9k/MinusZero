@@ -70,7 +70,7 @@ namespace m0.UIWpf.Visualisers
             if(Vertex.Get(@"BaseEdge:\Meta:") == null || Vertex.Get(@"BaseEdge:\Meta:").Count() == 0)
                 return null;
 
-            return GraphUtil.GetMostInheritedMeta(Vertex.Get(@"BaseEdge:\To:"),Vertex.Get(@"BaseEdge:\To:"));
+            return GraphUtil.GetMostInheritedMeta(Vertex.Get(@"BaseEdge:\To:"),Vertex.Get(@"BaseEdge:\Meta:"));
         }
 
         private string getGroup(IVertex meta)
@@ -576,9 +576,6 @@ namespace m0.UIWpf.Visualisers
             }
 
             if ((sender == Vertex) && (e.Type == VertexChangeType.EdgeAdded) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "BaseEdge")))
-                UpdateBaseEdge();
-
-            if ((sender == Vertex.Get("BaseEdge:")) && (e.Type == VertexChangeType.EdgeAdded) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "To")))
                 UpdateBaseEdge();
 
             if (sender == Vertex.Get(@"BaseEdge:\To:") && (/*e.Type == VertexChangeType.EdgeAdded ||*/ e.Type == VertexChangeType.EdgeRemoved))
