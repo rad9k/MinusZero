@@ -190,5 +190,13 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             base.Unhighlight();
         }
+
+        public override void VertexChange(object sender, VertexChangeEventArgs e)
+        {
+            if (sender == Vertex.Get(@"RoundEdgeSize:"))
+                VisualiserUpdate();
+
+            base.VertexChange(sender, e);
+        }
     }
 }

@@ -140,7 +140,7 @@ namespace m0
             r.Get(@"TEST3\Basket").AddEdge(r.Get(@"System\Meta*$Is"), r.Get(@"System\Meta\UML\Class"));
             r.Get(@"TEST3\Item").AddEdge(r.Get(@"System\Meta*$Is"), r.Get(@"System\Meta\UML\Class"));
 
-            GeneralUtil.ParseAndExcute(r, r.Get(@"System\Meta"), "{TEST2,TEST{Class:Person{Association:Spouse{$MaxCardinality:1,$MaxTargetCardinality:1},Aggregation:Child{$MaxCardinality:3},Attribute:Name,Attribute:Surname,Attribute:Age{MinValue:0,MaxValue:40},Attribute:NoseLength{MinValue:0,MaxValue:40},Attribute:Money{MinValue:0,MaxValue:1000},Attribute:IsGood,Attribute:IsPretty},Enum:Pretty{EnumValue:Yes,EnumValue:No,EnumValue:Maybe}}}");
+            GeneralUtil.ParseAndExcute(r, r.Get(@"System\Meta"), "{TEST2,TEST{Class:Person{Association:Spouse{$MaxCardinality:1,$MaxTargetCardinality:1},Aggregation:Child{$MaxCardinality:3},Attribute:Name,Attribute:Surname,Attribute:Age{MinValue:0,MaxValue:40},Attribute:NoseLength{MinValue:0,MaxValue:40},Attribute:Money{MinValue:0,MaxValue:1000},Attribute:IsGood,Attribute:IsPretty,Attribute:IsPretty2,Attribute:IsPretty3},Enum:Pretty{EnumValue:Yes,EnumValue:No,EnumValue:Maybe}}}");
 
             r.Get(@"TEST\Pretty").AddEdge(r.Get(@"System\Meta*$Inherits"), r.Get(@"System\Meta\ZeroTypes\EnumBase"));
             r.Get(@"TEST\Person").AddEdge(r.Get(@"System\Meta*$Is"), r.Get(@"System\Meta\UML\Class"));
@@ -162,6 +162,8 @@ namespace m0
             Person.Get("Money").AddEdge(EdgeTarget, smzt.Get("Decimal"));
             Person.Get("IsGood").AddEdge(EdgeTarget, smzt.Get("Boolean"));
             Person.Get("IsPretty").AddEdge(EdgeTarget, r.Get(@"TEST\Pretty"));
+            Person.Get("IsPretty2").AddEdge(EdgeTarget, r.Get(@"TEST\Pretty"));
+            Person.Get("IsPretty3").AddEdge(EdgeTarget, r.Get(@"TEST\Pretty"));
 
             GeneralUtil.ParseAndExcute(r.Get("TEST"), r.Get(@"TEST"), "{Person:Person1{Name:Radek,Surname:Tereszczuk,Age:34,NoseLength:\"2,3\",Money:999,IsGood:False,IsPretty:},Person:Person2{Name:Maurycy,Surname:Tereszczuk,Age:1,NoseLength:1.1,Money:9999,IsGood:True,IsPretty:}}");
 

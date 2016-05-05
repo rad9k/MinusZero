@@ -109,7 +109,7 @@ namespace m0.UIWpf.Visualisers
                     i.Tag = e.To;
                     this.Items.Add(i);
 
-                    if(tov==e.To)
+                    if(tov.Value==e.To.Value)
                         SelectedItem = i;
                 }
 
@@ -142,7 +142,7 @@ namespace m0.UIWpf.Visualisers
 
                 _Vertex = value;
 
-                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges" });
+                PlatformClass.RegisterVertexChangeListeners(this.Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge"/*, "SelectedEdges" */});
 
                 UpdateBaseEdge();
             }
