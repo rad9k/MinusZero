@@ -174,6 +174,11 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             if (FillBrush != null)
                 LineEndings.Fill = FillBrush;
+
+            LineEndings.UpdateLayout();
+            Line.UpdateLayout();
+
+           
         }
 
         Brush FillBrush=null;

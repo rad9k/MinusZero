@@ -158,10 +158,10 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             DiagramLineBase newline = (DiagramLineBase)PlatformClass.CreatePlatformObject(l);
 
-            if (newline.Vertex.Get(@"Definition:\DiagramLineVertex:") != null)
-                Diagram.AddEdgesFromDefintion(newline.Vertex, newline.Vertex.Get(@"Definition:\DiagramLineVertex:"));
-
             newline.Diagram = this.Diagram;
+
+            if (newline.Vertex.Get(@"Definition:\DiagramLineVertex:") != null)
+                Diagram.AddEdgesFromDefintion(newline.Vertex, newline.Vertex.Get(@"Definition:\DiagramLineVertex:"));        
 
             newline.FromDiagramItem = this;
 
