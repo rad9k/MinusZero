@@ -87,6 +87,18 @@ namespace m0.UIWpf.Visualisers.Diagram
             string StartAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"StartAnchor:"));
             string EndAnchor = (string)GraphUtil.GetValue(Vertex.Get(@"EndAnchor:"));
 
+            if (StartAnchor == "Straight")
+            {
+                LineEndings.StartEnding = LineEndEnum.Straight;
+                Line.StartEnding = LineEndEnum.Straight;
+            }
+
+            if (EndAnchor == "Straight")
+            {
+                LineEndings.EndEnding = LineEndEnum.Straight;
+                Line.EndEnding = LineEndEnum.Straight;
+            }
+
             if (StartAnchor == "Arrow")
             {
                 LineEndings.StartEnding = LineEndEnum.Arrow;
@@ -174,11 +186,12 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             if (FillBrush != null)
                 LineEndings.Fill = FillBrush;
+            
+            LineEndings.ArrowLength=0;
+            Line.ArrowLength = 0;
+            LineEndings.ArrowLength=15;
+            Line.ArrowLength = 15;            
 
-            LineEndings.UpdateLayout();
-            Line.UpdateLayout();
-
-           
         }
 
         Brush FillBrush=null;

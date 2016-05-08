@@ -49,7 +49,7 @@ namespace m0.UIWpf.Controls
             DependencyProperty.Register("ArrowLength",
                 typeof(double), typeof(ArrowLineBase),
                 new FrameworkPropertyMetadata(12.0,
-                        FrameworkPropertyMetadataOptions.AffectsMeasure));
+                        FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
         ///     Gets or sets the length of the two sides of the arrowhead.

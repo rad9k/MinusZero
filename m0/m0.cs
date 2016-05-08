@@ -226,7 +226,7 @@ namespace m0
         {
             IVertex sm = Root.Get(@"System\Meta");
 
-            //,Class:HasBaseVertex{Attribute:BaseVertex{$MinCardinality:1,$MaxCardinality:1}}
+            
             GeneralUtil.ParseAndExcute(sm, sm, "{ZeroTypes{AtomType:String,AtomType:Integer,AtomType:Decimal,AtomType:Float,AtomType:Boolean,Vertex:Vertex,Class:Edge{Attribute:From{$MinCardinality:0,$MaxCardinality:1},Attribute:Meta{$MinCardinality:1,$MaxCardinality:1},Attribute:To{$MinCardinality:1,$MaxCardinality:1}},Class:DateTime{Attribute:Year{$MinCardinality:1,$MaxCardinality:1},Attribute:Month{$MinCardinality:1,$MaxCardinality:1},Attribute:Day{$MinCardinality:1,$MaxCardinality:1},Attribute:Hour{$MinCardinality:1,$MaxCardinality:1},Attribute:Minute{$MinCardinality:1,$MaxCardinality:1},Attribute:Second{$MinCardinality:1,$MaxCardinality:1},Attribute:Millisecond{$MinCardinality:0,$MaxCardinality:1}},Enum:EnumBase,Class:$PlatformClass,Class:HasBaseEdge{Attribute:BaseEdge{$MinCardinality:1,$MaxCardinality:1}},Class:HasSelectedEdges{Attribute:SelectedEdges{$MinCardinality:1,$MaxCardinality:1}},Class:HasFilter{Attribute:FilterQuery{$MinCardinality:0,$MaxCardinality:1}},Class:Color{Attribute:Red{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Green{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Blue{MinValue:0,MaxValue:255,$MinCardinality:1,$MaxCardinality:1},Attribute:Opacity{MinValue:0,MaxValue:255,$MinCardinality:0,$MaxCardinality:1}}}}");
 
             sm.Get(@"ZeroTypes\String").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\AtomType"));
@@ -237,8 +237,7 @@ namespace m0
             sm.Get(@"ZeroTypes\Vertex").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Vertex"));            
             sm.Get(@"ZeroTypes\Edge").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             sm.Get(@"ZeroTypes\EnumBase").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Enum"));
-            sm.Get(@"ZeroTypes\DateTime").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
-            //sm.Get(@"ZeroTypes\HasBaseVertex").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));          
+            sm.Get(@"ZeroTypes\DateTime").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));            
             sm.Get(@"ZeroTypes\HasBaseEdge").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));            
             sm.Get(@"ZeroTypes\HasSelectedEdges").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             sm.Get(@"ZeroTypes\HasFilter").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
@@ -256,8 +255,7 @@ namespace m0
             sm.Get(@"ZeroTypes\Edge\From").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Vertex"));
             sm.Get(@"ZeroTypes\Edge\Meta").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Vertex"));
             sm.Get(@"ZeroTypes\Edge\To").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Vertex"));
-
-           // sm.Get(@"ZeroTypes\HasBaseVertex\BaseVertex").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Vertex"));
+           
             sm.Get(@"ZeroTypes\HasBaseEdge\BaseEdge").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Edge"));
             sm.Get(@"ZeroTypes\HasSelectedEdges\SelectedEdges").AddEdge(sm.Get(@"*$VertexTarget"), sm.Get(@"ZeroTypes\Edge"));
             sm.Get(@"ZeroTypes\HasFilter\FilterQuery").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\String"));
