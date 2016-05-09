@@ -257,6 +257,8 @@ namespace m0
             sm.Get(@"ZeroTypes\Edge\To").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Vertex"));
            
             sm.Get(@"ZeroTypes\HasBaseEdge\BaseEdge").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Edge"));
+            sm.Get(@"ZeroTypes\HasBaseEdge\BaseEdge").AddVertex(sm.Get(@"*$Section"), "Base");
+
             sm.Get(@"ZeroTypes\HasSelectedEdges\SelectedEdges").AddEdge(sm.Get(@"*$VertexTarget"), sm.Get(@"ZeroTypes\Edge"));
             sm.Get(@"ZeroTypes\HasFilter\FilterQuery").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\String"));
 
@@ -288,18 +290,29 @@ namespace m0
             IVertex definitionSection = smv.Get(@"DiagramInternal\DiagramItemBase\Definition").AddVertex(sm.Get(@"*$Section"), "Definition");
             
             smv.Get(@"DiagramInternal\DiagramItemBase\PositionX").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
-            IVertex positionAndSizeSection = smv.Get(@"DiagramInternal\DiagramItemBase\Definition").AddVertex(sm.Get(@"*$Section"), "Position and size");
+            IVertex positionAndSizeSection = smv.Get(@"DiagramInternal\DiagramItemBase\PositionX").AddVertex(sm.Get(@"*$Section"), "Position and size");
 
             smv.Get(@"DiagramInternal\DiagramItemBase\PositionY").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
-            smv.Get(@"DiagramInternal\DiagramItemBase\PositionY").AddEdge(sm.Get(@"$Section"), positionAndSizeSection);
+            smv.Get(@"DiagramInternal\DiagramItemBase\PositionY").AddEdge(sm.Get(@"*$Section"), positionAndSizeSection);
 
             smv.Get(@"DiagramInternal\DiagramItemBase\SizeX").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
+            smv.Get(@"DiagramInternal\DiagramItemBase\SizeX").AddEdge(sm.Get(@"*$Section"), positionAndSizeSection);
+
             smv.Get(@"DiagramInternal\DiagramItemBase\SizeY").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
+            smv.Get(@"DiagramInternal\DiagramItemBase\SizeY").AddEdge(sm.Get(@"*$Section"), positionAndSizeSection);
+
             smv.Get(@"DiagramInternal\DiagramItemBase\LineWidth").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
+            IVertex lookSection = smv.Get(@"DiagramInternal\DiagramItemBase\LineWidth").AddVertex(sm.Get(@"*$Section"), "Look");
+
             smv.Get(@"DiagramInternal\DiagramItemBase\BackgroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
+            smv.Get(@"DiagramInternal\DiagramItemBase\BackgroundColor").AddEdge(sm.Get(@"*$Section"), lookSection);
+
             smv.Get(@"DiagramInternal\DiagramItemBase\ForegroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
+            smv.Get(@"DiagramInternal\DiagramItemBase\ForegroundColor").AddEdge(sm.Get(@"*$Section"), lookSection);
+
             smv.Get(@"DiagramInternal\DiagramItemBase\DiagramLine").AddEdge(sm.Get(@"*$EdgeTarget"), smv.Get(@"DiagramInternal\DiagramLineBase"));
-           
+            smv.Get(@"DiagramInternal\DiagramItemBase\DiagramLine").AddEdge(sm.Get(@"*$Section"), sm.Get(@"ZeroTypes\HasBaseEdge\BaseEdge\$Section:"));
+            
 
 
             smv.Get(@"DiagramInternal\DiagramItemDefinition").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
@@ -313,11 +326,21 @@ namespace m0
             smv.Get(@"DiagramInternal\DiagramLineBase").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             smv.Get(@"DiagramInternal\DiagramLineBase").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\$PlatformClass"));
             smv.Get(@"DiagramInternal\DiagramLineBase").AddEdge(sm.Get("*$Inherits"), sm.Get(@"ZeroTypes\HasBaseEdge"));
+
             smv.Get(@"DiagramInternal\DiagramLineBase\Definition").AddEdge(sm.Get(@"*$EdgeTarget"), smv.Get(@"DiagramInternal\DiagramLineDefinition"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\Definition").AddEdge(sm.Get(@"*$Section"), definitionSection);
+            
             smv.Get(@"DiagramInternal\DiagramLineBase\LineWidth").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Float"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\LineWidth").AddEdge(sm.Get(@"*$Section"), lookSection);
+
             smv.Get(@"DiagramInternal\DiagramLineBase\BackgroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\BackgroundColor").AddEdge(sm.Get(@"*$Section"), lookSection);
+
             smv.Get(@"DiagramInternal\DiagramLineBase\ForegroundColor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Color"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\ForegroundColor").AddEdge(sm.Get(@"*$Section"), lookSection);
+
             smv.Get(@"DiagramInternal\DiagramLineBase\ToDiagramItem").AddEdge(sm.Get(@"*$EdgeTarget"), smv.Get(@"DiagramInternal\DiagramItemBase"));
+            smv.Get(@"DiagramInternal\DiagramLineBase\ToDiagramItem").AddEdge(sm.Get(@"*$Section"), sm.Get(@"ZeroTypes\HasBaseEdge\BaseEdge\$Section:"));
 
             smv.Get(@"DiagramInternal\DiagramLineDefinition").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             smv.Get(@"DiagramInternal\DiagramLineDefinition\EdgeTestQuery").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\String"));
@@ -328,17 +351,32 @@ namespace m0
             smv.Get(@"DiagramInternal\DiagramRectangleItem").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             smv.Get(@"DiagramInternal\DiagramRectangleItem").AddEdge(sm.Get("*$Inherits"), smv.Get(@"DiagramInternal\DiagramItemBase"));
             smv.Get(@"DiagramInternal\DiagramRectangleItem").AddVertex(sm.Get("*$PlatformClassName"), @"m0.UIWpf.Visualisers.Diagram.DiagramRectangleItem, m0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+            
             smv.Get(@"DiagramInternal\DiagramRectangleItem\VisualiserClass").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"UML\Class"));
+            IVertex visualiserSection = smv.Get(@"DiagramInternal\DiagramRectangleItem\VisualiserClass").AddVertex(sm.Get(@"*$Section"), "Visualiser");
+            
             smv.Get(@"DiagramInternal\DiagramRectangleItem\VisualiserVertex").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Vertex"));
+            smv.Get(@"DiagramInternal\DiagramRectangleItem\VisualiserVertex").AddEdge(sm.Get(@"*$Section"), visualiserSection);
+            
+            
             smv.Get(@"DiagramInternal\DiagramRectangleItem\RoundEdgeSize").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Integer"));
+            smv.Get(@"DiagramInternal\DiagramRectangleItem\RoundEdgeSize").AddEdge(sm.Get(@"*$Section"), lookSection);
+
             smv.Get(@"DiagramInternal\DiagramRectangleItem\ShowMeta").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"ZeroTypes\Boolean"));
+            smv.Get(@"DiagramInternal\DiagramRectangleItem\ShowMeta").AddEdge(sm.Get(@"*$Section"), lookSection);
 
             smv.Get(@"DiagramInternal\DiagramLine").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             smv.Get(@"DiagramInternal\DiagramLine").AddEdge(sm.Get("*$Inherits"), smv.Get(@"DiagramInternal\DiagramLineBase"));
             smv.Get(@"DiagramInternal\DiagramLine").AddVertex(sm.Get("*$PlatformClassName"), @"m0.UIWpf.Visualisers.Diagram.DiagramLine, m0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+            
             smv.Get(@"DiagramInternal\DiagramLine\StartAnchor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"*LineEndEnum"));
+            smv.Get(@"DiagramInternal\DiagramLine\StartAnchor").AddEdge(sm.Get(@"*$Section"), lookSection);
+            
             smv.Get(@"DiagramInternal\DiagramLine\EndAnchor").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"*LineEndEnum"));
+            smv.Get(@"DiagramInternal\DiagramLine\EndAnchor").AddEdge(sm.Get(@"*$Section"), lookSection);
+            
             smv.Get(@"DiagramInternal\DiagramLine\IsDashed").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"*Boolean"));
+            smv.Get(@"DiagramInternal\DiagramLine\IsDashed").AddEdge(sm.Get(@"*$Section"), lookSection);
         }
 
         void CreateSystemMetaVisualiser()

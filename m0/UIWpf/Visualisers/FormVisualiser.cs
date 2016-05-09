@@ -396,6 +396,9 @@ namespace m0.UIWpf.Visualisers
                 //Expander g = new Expander();
 
                 g.BorderBrush = (Brush)FindResource("0ForegroundBrush");
+                g.FontWeight = UIWpf.BoldWeight;
+
+               // g.
 
                 toAdd.Children.Add(g);
 
