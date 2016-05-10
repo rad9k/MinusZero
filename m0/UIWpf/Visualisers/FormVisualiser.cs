@@ -396,9 +396,11 @@ namespace m0.UIWpf.Visualisers
                 //Expander g = new Expander();
 
                 g.BorderBrush = (Brush)FindResource("0ForegroundBrush");
-                g.FontWeight = UIWpf.BoldWeight;
 
-               // g.
+                TextBlock Header = new TextBlock();
+                Header.FontWeight = UIWpf.BoldWeight;
+                Header.Text = section;
+                g.Header = Header;
 
                 toAdd.Children.Add(g);
 
@@ -407,9 +409,6 @@ namespace m0.UIWpf.Visualisers
                 b.BorderThickness = new System.Windows.Thickness(0, controlLineVsControlLineSeparator, 0, 0);
 
                 toAdd.Children.Add(b);
-
-
-                g.Header = section;
 
                 StackPanel gp = new StackPanel();
 
