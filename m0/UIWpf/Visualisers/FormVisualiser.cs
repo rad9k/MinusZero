@@ -402,6 +402,8 @@ namespace m0.UIWpf.Visualisers
                 Header.Text = section;
                 g.Header = Header;
 
+                g.BorderThickness = new Thickness(2); // can be 1, but 2 is more separated
+
                 toAdd.Children.Add(g);
 
                 Border b = new Border(); // separator

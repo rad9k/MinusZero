@@ -303,14 +303,18 @@ namespace m0
                     tta.AddVertex(r.Get("System*$Group"), x.ToString());
                     tta.AddVertex(r.Get("System*$Section"), y.ToString());
 
+                    tta.AddEdge(r.Get("System*$EdgeTarget"), r.Get("System*String"));
+
                     IVertex ttb = tt.AddVertex(r.Get("System*Attribute"), "b" + x + " " + y + ";" + randomChars());
                     ttb.AddVertex(r.Get("System*$Group"), x.ToString());
                     //ttb.AddVertex(r.Get("System*$Section"), y.ToString());
+                    ttb.AddEdge(r.Get("System*$EdgeTarget"), r.Get("System*String"));
 
                     IVertex ttc = tt.AddVertex(r.Get("System*Attribute"), "c" + x + " " + y + ";" + randomChars());
                     ttc.AddVertex(r.Get("System*$Group"), x.ToString());
                     ttc.AddVertex(r.Get("System*$Section"), y.ToString());
                     ttc.AddVertex(r.Get("System*$MaxCardinality"), 6);
+                    ttc.AddEdge(r.Get("System*$EdgeTarget"), r.Get("System*String"));
                 }
 
             VertexOperations.AddInstance(r.Get("TEST"), tt);
