@@ -916,7 +916,16 @@ namespace m0.UIWpf.Visualisers.Diagram
                         IVertex lineDef = GetLineDefinition(e,item.Vertex, toDiagramItem);
 
                         if (lineDef != null)
-                            item.AddDiagramLineVertex(e, lineDef, toDiagramItem);
+                        {
+                            bool canAdd = true;
+
+                            if (item.Vertex.Get(@"Definition:\DoNotShowInherited:True") != null)
+                                if (VertexOperations.IsInheritedEdge(item.Vertex.Get(@"BaseEdge:\To:"), e.Meta))
+                                    canAdd = false;
+
+                            if (canAdd)
+                                item.AddDiagramLineVertex(e, lineDef, toDiagramItem);
+                        }
                     }
                 }
             }

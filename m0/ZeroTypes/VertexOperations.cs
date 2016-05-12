@@ -11,6 +11,27 @@ namespace m0.ZeroTypes
 {
     public class VertexOperations
     {
+        public static bool IsInheritedEdge(IVertex baseVertex, IVertex metaVertex)
+        {
+            foreach (IEdge e in baseVertex.GetAll("$Inherits:"))
+                if (_IsInheritedEdge(e.To,metaVertex))
+                    return true;
+
+            return false;
+        }
+
+        private static bool _IsInheritedEdge(IVertex baseVertex, IVertex metaVertex)
+        {
+            if (baseVertex.Get(metaVertex.Value + ":") != null)
+                return true;
+
+            foreach (IEdge e in baseVertex.GetAll("$Inherits:"))
+                if (_IsInheritedEdge(e.To, metaVertex))
+                    return true;
+
+            return false;
+        }
+
         public static void DeleteEdge(IVertex source, IVertex metaVertex, IVertex toVertex)
         {
             GraphUtil.DeleteEdge(source, metaVertex, toVertex);
