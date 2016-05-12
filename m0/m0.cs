@@ -671,6 +671,8 @@ namespace m0
 
             IVertex crd = Root.Get(@"System\Data\Visualiser\Diagram\Class");
 
+            crd.AddVertex(sm.Get(@"*DoNotShowInherited"), "True");
+
             IVertex civ = crd.AddVertex(did.Get("DiagramItemVertex"), null);            
 
             civ.AddVertex(Root.Get(@"System\Meta*ShowMeta"), "True");
