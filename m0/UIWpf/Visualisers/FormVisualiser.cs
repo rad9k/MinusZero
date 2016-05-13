@@ -1,5 +1,6 @@
 ﻿using m0.Foundation;
 using m0.Graph;
+using m0.UIWpf.Commands;
 using m0.UML;
 using m0.Util;
 using m0.ZeroTypes;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace m0.UIWpf.Visualisers
@@ -541,6 +543,13 @@ namespace m0.UIWpf.Visualisers
 
                 // DO NOT WANT CONTEXTMENU HERE
                 // this.ContextMenu = new m0ContextMenu(this);
+
+                this.PreviewMouseLeftButtonDown += dndPreviewMouseLeftButtonDown;
+                this.PreviewMouseMove += dndPreviewMouseMove;                
+                this.Drop += dndDrop;
+                this.AllowDrop = true;
+
+                this.MouseEnter += dndMouseEnter;
             }
 
         }
@@ -615,5 +624,104 @@ namespace m0.UIWpf.Visualisers
                 UpdateBaseEdge();
             }
         }
+
+        // LOCATION STUFF
+
+        public IVertex GetEdgeByLocation(Point p)
+        {
+          /*  vertexByLocationToReturn = null;
+
+            GetVertexByLocation_Reccurent(this.Items, p);
+
+            // DO NOT WANT THIS FEATURE            
+            if (vertexByLocationToReturn == null && GeneralUtil.CompareStrings(MinusZero.Instance.Root.Get(@"User\CurrentUser:\Settings:\AllowBlankAreaDragAndDrop:").Value, "StartAndEnd"))
+                vertexByLocationToReturn = Vertex.Get(@"BaseEdge:");
+
+            return vertexByLocationToReturn;*/
+        }
+
+        
+
+        public IVertex GetEdgeByVisualElement(FrameworkElement visualElement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FrameworkElement GetVisualElementByEdge(IVertex vertex)
+        {
+            throw new NotImplementedException();
+        }
+
+        ///// DRAG AND DROP
+
+        Point dndStartPoint;
+        bool hasButtonBeenDown;
+
+        private void dndPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            dndStartPoint = e.GetPosition(this);
+            hasButtonBeenDown = true;
+
+            MinusZero.Instance.IsGUIDragging = false;
+        }
+
+        bool isDraggin = false;
+
+        private void dndPreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            Point mousePos = e.GetPosition(this);
+            Vector diff = dndStartPoint - mousePos;
+
+            if (hasButtonBeenDown &&
+                !UIWpf.IsMouseOverScrollbar(sender, dndStartPoint) &&
+                (e.LeftButton == MouseButtonState.Pressed) && (
+                (Math.Abs(diff.X) > Dnd.MinimumHorizontalDragDistance) ||
+                (Math.Abs(diff.Y) > Dnd.MinimumVerticalDragDistance)))
+            {
+                isDraggin = true;
+
+                IVertex dndVertex = MinusZero.Instance.CreateTempVertex();
+
+                if (Vertex.Get(@"SelectedEdges:\") != null)
+                    foreach (IEdge ee in Vertex.GetAll(@"SelectedEdges:\"))
+                        dndVertex.AddEdge(null, ee.To);
+                else
+                {
+                    IVertex v = GetEdgeByLocation(dndStartPoint);
+                    if (v != null)
+                        dndVertex.AddEdge(null, v);
+                }
+
+                if (dndVertex.Count() > 0)
+                {
+                    DataObject dragData = new DataObject("Vertex", dndVertex);
+                    dragData.SetData("DragSource", this);
+
+                    Dnd.DoDragDrop(this, dragData);
+                }
+
+                isDraggin = false;
+            }
+        }
+
+        private void dndDrop(object sender, DragEventArgs e)
+        {
+            IVertex v = GetEdgeByLocation(e.GetPosition(this));
+
+            if (v == null && GeneralUtil.CompareStrings(MinusZero.Instance.Root.Get(@"User\CurrentUser:\Settings:\AllowBlankAreaDragAndDrop:").Value, "OnlyEnd"))
+                v = Vertex.Get("BaseEdge:");
+
+            if (v != null)
+                Dnd.DoDrop(null, v.Get("To:"), e);
+
+            e.Handled = true;
+        }
+
+        private void dndMouseEnter(object sender, MouseEventArgs e)
+        {
+            hasButtonBeenDown = false;
+        }
+
+
     }
 }
