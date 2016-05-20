@@ -660,7 +660,7 @@ namespace m0.UIWpf.Visualisers
             IVertex v = GetEdgeByLocation(e.GetPosition(this));
 
             if (v != null)
-                Dnd.DoFormDrop(null, v.Get("To:"), e);
+                Dnd.DoFormDrop(null, Vertex.Get(@"BaseEdge:\To:"), v.Get("Meta:"), e);
 
             e.Handled = true;
         }        

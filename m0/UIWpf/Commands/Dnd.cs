@@ -92,6 +92,29 @@ namespace m0.UIWpf.Commands
             MinusZero.Instance.IsGUIDragging = false;
         }
 
+        public static void DoFormDrop(object orgin, IVertex baseVertex, IVertex metaVertex, DragEventArgs e)
+        {
+            object sender = e.Data.GetData("DragSource");
+
+            if (sender == null || orgin == sender)
+                return;
+
+            if (e.Data.GetDataPresent("Vertex"))
+            {
+                IVertex dndVertex = e.Data.GetData("Vertex") as IVertex;
+
+                foreach (IEdge ee in dndVertex)
+                    baseVertex.AddEdge(metaVertex, ee.To.Get("To:"));
+
+                if (sender is IHasSelectableEdges)
+                    ((IHasSelectableEdges)sender).UnselectAllEdges();
+
+                GraphUtil.RemoveAllEdges(dndVertex);
+            }
+
+            MinusZero.Instance.IsGUIDragging = false;
+        }
+
         public static void DoDrop(object orgin, IVertex baseVertex, DragEventArgs e)
         {
             object sender = e.Data.GetData("DragSource");
