@@ -66,6 +66,21 @@ namespace m0.UIWpf.Visualisers
         double metaVsDataSeparator = 4;
         double controlLineVsControlLineSeparator = 4;
 
+        private TabInfo getActiveTabInfo()
+        {
+            if (HasTabs)
+            {
+                TabItem i = (TabItem)TabControl.SelectedItem;                
+
+                foreach (TabInfo tie in TabList.Values)
+                    if (tie.TabItem == i)
+                        return tie;
+
+                return null;
+            }
+            else
+                return TabList[""];
+        }
 
         private IVertex getMetaForForm()
         {
@@ -546,9 +561,7 @@ namespace m0.UIWpf.Visualisers
 
                 
                 this.Drop += dndDrop; // only drop. no drag start from here
-                this.AllowDrop = true;
-
-                this.MouseEnter += dndMouseEnter;
+                this.AllowDrop = true;                
             }
 
         }
@@ -628,15 +641,10 @@ namespace m0.UIWpf.Visualisers
 
         public IVertex GetEdgeByLocation(Point p)
         {
-          /*  vertexByLocationToReturn = null;
+            TabInfo t = getActiveTabInfo();
 
-            GetVertexByLocation_Reccurent(this.Items, p);
-
-            // DO NOT WANT THIS FEATURE            
-            if (vertexByLocationToReturn == null && GeneralUtil.CompareStrings(MinusZero.Instance.Root.Get(@"User\CurrentUser:\Settings:\AllowBlankAreaDragAndDrop:").Value, "StartAndEnd"))
-                vertexByLocationToReturn = Vertex.Get(@"BaseEdge:");
-
-            return vertexByLocationToReturn;*/
+            foreach(ControlInfo ci in t.ControlInfos
+               
 
             return null;
         }
