@@ -103,8 +103,14 @@ namespace m0.UIWpf.Commands
             {
                 IVertex dndVertex = e.Data.GetData("Vertex") as IVertex;
 
-                foreach (IEdge ee in dndVertex)
-                    baseVertex.AddEdge(metaVertex, ee.To.Get("To:"));
+                IVertex maxCardinality = metaVertex.Get("$MaxCardinality");
+
+                if (maxCardinality != null && GraphUtil.GetIntegerValue(maxCardinality) == -1) // ADD
+                    foreach (IEdge ee in dndVertex)
+                        baseVertex.AddEdge(metaVertex, ee.To.Get("To:"));
+                else // REPLACE
+                    GraphUtil.ReplaceEdge(baseVertex, metaVertex, dndVertex.First().To.Get("To:"));
+                    
 
                 if (sender is IHasSelectableEdges)
                     ((IHasSelectableEdges)sender).UnselectAllEdges();

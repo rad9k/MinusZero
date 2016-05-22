@@ -643,7 +643,13 @@ namespace m0.UIWpf.Visualisers
         {
             TabInfo t = getActiveTabInfo();
 
-            foreach(ControlInfo ci in t.ControlInfos
+            foreach(KeyValuePair<IVertex,ControlInfo> kvp in t.ControlInfos)
+                if (VisualTreeHelper.HitTest(kvp.Value.MetaControl, TranslatePoint(p, kvp.Value.MetaControl)) != null)
+                {
+                    IVertex v = MinusZero.Instance.CreateTempVertex();
+                    Edge.AddEdgeEdgesOnlyTo(v, kvp.Key);
+                    return(v);
+                }
                
 
             return null;
@@ -668,7 +674,7 @@ namespace m0.UIWpf.Visualisers
             IVertex v = GetEdgeByLocation(e.GetPosition(this));
 
             if (v != null)
-                Dnd.DoFormDrop(null, Vertex.Get(@"BaseEdge:\To:"), v.Get("Meta:"), e);
+                Dnd.DoFormDrop(null, Vertex.Get(@"BaseEdge:\To:"), v.Get("To:"), e);
 
             e.Handled = true;
         }        
