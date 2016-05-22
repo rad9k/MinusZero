@@ -603,8 +603,8 @@ namespace m0.UIWpf.Visualisers
             if ((sender == Vertex) && (e.Type == VertexChangeType.EdgeAdded) && (GeneralUtil.CompareStrings(e.Edge.Meta.Value, "BaseEdge")))
                 UpdateBaseEdge();
 
-           // if (sender == Vertex.Get(@"BaseEdge:\To:") && (/*e.Type == VertexChangeType.EdgeAdded ||*/ e.Type == VertexChangeType.EdgeRemoved))
-             //   UpdateBaseEdge();
+            if (sender == Vertex.Get(@"BaseEdge:\To:") && (e.Type == VertexChangeType.EdgeAdded || e.Type == VertexChangeType.EdgeRemoved))
+                UpdateBaseEdge();
 
             if (sender == Vertex.Get(@"ColumnNumber:") && (e.Type == VertexChangeType.ValueChanged))
                 UpdateBaseEdge();

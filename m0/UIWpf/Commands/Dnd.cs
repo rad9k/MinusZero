@@ -103,9 +103,9 @@ namespace m0.UIWpf.Commands
             {
                 IVertex dndVertex = e.Data.GetData("Vertex") as IVertex;
 
-                IVertex maxCardinality = metaVertex.Get("$MaxCardinality");
+                IVertex maxCardinality = metaVertex.Get("$MaxCardinality:");
 
-                if (maxCardinality != null && GraphUtil.GetIntegerValue(maxCardinality) == -1) // ADD
+                if (maxCardinality != null && (GraphUtil.GetIntegerValue(maxCardinality) == -1 || GraphUtil.GetIntegerValue(maxCardinality) > 1)) // ADD
                     foreach (IEdge ee in dndVertex)
                         baseVertex.AddEdge(metaVertex, ee.To.Get("To:"));
                 else // REPLACE
