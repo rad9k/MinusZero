@@ -138,6 +138,7 @@
     <Compile Include="UIWpf\Visualisers\Controls\NewButton.cs" />
     <Compile Include="UIWpf\Visualisers\Controls\InfoButton.cs" />
     <Compile Include="UIWpf\Visualisers\Controls\DeleteButton.cs" />
+    <Compile Include="UIWpf\Visualisers\Diagram\DiagramMetaExtendedLine.cs" />
     <Compile Include="UIWpf\Visualisers\FormVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\TableFastVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\VertexVisualiser.cs" />
