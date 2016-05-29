@@ -67,7 +67,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             base.UpdateLine();
 
-            Line.StrokeThickness = LineWidth;            
+            MetaLine.StrokeThickness = LineWidth;            
         }
 
         protected override void UpdateLineEnds()
