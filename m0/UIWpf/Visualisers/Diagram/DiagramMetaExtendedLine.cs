@@ -63,7 +63,7 @@ namespace m0.UIWpf.Visualisers.Diagram
             MetaLine.StrokeDashArray = new DoubleCollection(new double[] { 5, 3 });
         }
 
-        protected virtual void UpdateLine()
+        protected override void UpdateLine()
         {
             base.UpdateLine();
 
@@ -90,7 +90,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             base.Unhighlight();
             
-            Line.Stroke = ForegroundColor;
+            MetaLine.Stroke = ForegroundColor;
             
             Panel.SetZIndex(MetaLine, 0);
         }
