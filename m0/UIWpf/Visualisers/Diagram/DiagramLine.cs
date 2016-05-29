@@ -51,7 +51,7 @@ namespace m0.UIWpf.Visualisers.Diagram
             }
         }
 
-        private void UpdateLine()
+        protected virtual void UpdateLine()
         {
             if (GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:")) != GraphUtil.NullDouble)
                 LineWidth = GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:"));
@@ -67,7 +67,7 @@ namespace m0.UIWpf.Visualisers.Diagram
                 Line.StrokeDashArray = null;
         }
 
-        private void UpdateLineEnds()
+        protected virtual void UpdateLineEnds()
         {
             if (Vertex.Get("BackgroundColor:") != null)
                 BackgroundColor = UIWpf.GetBrushFromColorVertex(Vertex.Get("BackgroundColor:"));

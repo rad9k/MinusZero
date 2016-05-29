@@ -54,7 +54,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         double AnchorSize = 11;
 
-        public virtual Point GetLineAnchorLocation(DiagramItemBase toItem, int toItemDiagramLinesCount, int toItemDiagramLinesNumber, bool isSelfStart){
+        public virtual Point GetLineAnchorLocation(DiagramItemBase toItem, Point toPoint, int toItemDiagramLinesCount, int toItemDiagramLinesNumber, bool isSelfStart){
             Point p = new Point();
            
             p.X = Canvas.GetLeft(this) + this.ActualWidth / 2;
@@ -218,9 +218,9 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             foreach (DiagramLineBase l in sameToItemLines)
             {
-                Point start = GetLineAnchorLocation(toItem, allCnt, cnt,toItem==this);
+                Point start = GetLineAnchorLocation(toItem, new Point(), allCnt, cnt,toItem==this);
 
-                Point end = toItem.GetLineAnchorLocation(this, allCnt, cnt, false);
+                Point end = toItem.GetLineAnchorLocation(this, new Point(), allCnt, cnt, false);
                 
                 if(toItem==this)
                     l.SetPosition(start.X, start.Y, end.X, end.Y, true, Canvas.GetLeft(this)+ this.ActualWidth+25*(allCnt-cnt),Canvas.GetTop(this) - 25*((allCnt-cnt)));
@@ -232,9 +232,9 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             foreach (DiagramLineBase l in sameFromItemLinesTo)
             {
-                Point end = GetLineAnchorLocation(toItem, allCnt, cnt, false);
+                Point end = GetLineAnchorLocation(toItem, new Point(), allCnt, cnt, false);
 
-                Point start = toItem.GetLineAnchorLocation(this, allCnt, cnt, false);
+                Point start = toItem.GetLineAnchorLocation(this, new Point(), allCnt, cnt, false);
 
                 if (toItem != this)
                     l.SetPosition(start.X, start.Y, end.X, end.Y,false,0,0);

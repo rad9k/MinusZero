@@ -28,14 +28,19 @@ namespace m0.UIWpf.Visualisers.Diagram
             }
         }
 
-        public override Point GetLineAnchorLocation(DiagramItemBase toItem, int toItemDiagramLinesCount, int toItemDiagramLinesNumber, bool isSelfStart)
+        public override Point GetLineAnchorLocation(DiagramItemBase toItem, Point toPoint, int toItemDiagramLinesCount, int toItemDiagramLinesNumber, bool isSelfStart)
         {
             Point p = new Point();
 
             Point pTo = new Point();
 
-            pTo.X = Canvas.GetLeft(toItem) + toItem.ActualWidth / 2;
-            pTo.Y = Canvas.GetTop(toItem) + toItem.ActualHeight / 2;
+            if (toItem != null)
+            {
+                pTo.X = Canvas.GetLeft(toItem) + toItem.ActualWidth / 2;
+                pTo.Y = Canvas.GetTop(toItem) + toItem.ActualHeight / 2;
+            }
+            else
+                pTo = toPoint;
 
             double tX = Canvas.GetLeft(this) + this.ActualWidth / 2;
             double tY = Canvas.GetTop(this) + this.ActualHeight / 2;
