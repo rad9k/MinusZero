@@ -135,10 +135,14 @@
       <DependentUpon>SelectDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIWpf\Geometry2D.cs" />
+    <Compile Include="UIWpf\Visualisers\ClassVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\Controls\NewButton.cs" />
     <Compile Include="UIWpf\Visualisers\Controls\InfoButton.cs" />
     <Compile Include="UIWpf\Visualisers\Controls\DeleteButton.cs" />
     <Compile Include="UIWpf\Visualisers\Diagram\DiagramMetaExtendedLine.cs" />
+    <Compile Include="UIWpf\Visualisers\Diagram\DiagramPictureItem.xaml.cs">
+      <DependentUpon>DiagramPictureItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIWpf\Visualisers\FormVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\TableFastVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\VertexVisualiser.cs" />
@@ -291,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIWpf\Dialog\SelectDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIWpf\Visualisers\Diagram\DiagramPictureItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
