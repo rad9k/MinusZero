@@ -15,8 +15,15 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         protected ArrowPolyline MetaLine = new ArrowPolyline();
 
-        public override void SetPosition(double FromX, double FromY, double ToX, double ToY, bool isSelfRelation, double selfRelationX, double selfRelationY)
+        double FromX, FromY, ToX, ToY;
+
+        public override void SetPosition(double _FromX, double _FromY, double _ToX, double _ToY, bool isSelfRelation, double selfRelationX, double selfRelationY)
         {
+            FromX = _FromX;
+            FromY = _FromY;
+            ToX = _ToX;
+            ToY = _ToY;
+
             base.SetPosition(FromX, FromY, ToX, ToY, isSelfRelation, selfRelationX, selfRelationY);
 
             if (MetaDiagramItem == null)
@@ -34,14 +41,26 @@ namespace m0.UIWpf.Visualisers.Diagram
                 pc.Add(MetaDiagramItem.GetLineAnchorLocation(null,p,1,1,false));
 
                 MetaLine.Points = pc;
-            }
-            
-            
+            }                        
+        }
+
+        public override void UpdateMetaPosition()
+        {
+            base.UpdateMetaPosition();
+
+            PointCollection pc = new PointCollection();
+
+            Point p = new Point(FromX + ((ToX - FromX) / 2), FromY + ((ToY - FromY) / 2));
+            pc.Add(p);
+            pc.Add(MetaDiagramItem.GetLineAnchorLocation(null, p, 1, 1, false));
+
+            MetaLine.Points = pc;
         }
 
         public override void AddToCanvas()
         {
-            base.AddToCanvas();
+            Diagram.TheCanvas.Children.Add(LineEndings);
+            Diagram.TheCanvas.Children.Add(Line);
 
             if(Vertex.Get(@"BaseEdge:\Meta:")==null)
                 return;
@@ -50,8 +69,13 @@ namespace m0.UIWpf.Visualisers.Diagram
                 if (i.Vertex.Get(@"BaseEdge:\To:") == Vertex.Get(@"BaseEdge:\Meta:"))
                     MetaDiagramItem = i;
 
-            if(MetaDiagramItem!=null)
+            if (MetaDiagramItem != null)
+            {
                 Diagram.TheCanvas.Children.Add(MetaLine);
+                MetaDiagramItem.AddAsToMetaLine(this);
+            }
+            else
+                Diagram.TheCanvas.Children.Add(Label);
             
         }
 

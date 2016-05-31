@@ -29,6 +29,10 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
         }
 
+        public virtual void UpdateMetaPosition()
+        { 
+        }
+
         public virtual void AddToCanvas()
         {
         }

@@ -29,6 +29,17 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         public Brush ForegroundColor;
 
+        protected List<DiagramLineBase> DiagramLines = new List<DiagramLineBase>();
+
+        protected List<DiagramLineBase> DiagramToLines = new List<DiagramLineBase>();
+
+        protected List<DiagramLineBase> DiagramToAsMetaLines = new List<DiagramLineBase>();
+
+        public void AddAsToMetaLine(DiagramLineBase line)
+        {
+            DiagramToAsMetaLines.Add(line);
+        }
+
         public virtual void VertexSetedUp() {
             PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges", "ForegroundColor", "BackgroundColor" });
         } // to be called after Vertex is setted up
@@ -133,11 +144,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             vv.AddEdge(r.Get(@"System\Meta\Visualiser\DiagramInternal\DiagramItemBase\OptionEdge"), e.To);
             vv.AddEdge(r.Get(@"System\Meta\Visualiser\DiagramInternal\DiagramItemBase\OptionDiagramLineDefinition"), def.To);
-        }
-
-        protected List<DiagramLineBase> DiagramLines = new List<DiagramLineBase>();
-
-        protected List<DiagramLineBase> DiagramToLines = new List<DiagramLineBase>();
+        }        
 
         public void AddDiagramLineVertex(IEdge edge, IVertex diagramLineDefinition, DiagramItemBase toItem)
         {
@@ -193,7 +200,7 @@ namespace m0.UIWpf.Visualisers.Diagram
             line.ToDiagramItem.DiagramToLines.Remove(line);
 
             line.RemoveFromCanvas();
-        }
+        }     
 
         protected void UpdateDiagramLines(DiagramItemBase toItem)
         {
@@ -245,6 +252,9 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         protected void UpdateDiagramLines()
         {
+            foreach (DiagramLineBase m in DiagramToAsMetaLines)
+                m.UpdateMetaPosition();
+
             List<DiagramItemBase> updatedItems = new List<DiagramItemBase>();
 
             foreach(DiagramLineBase l in DiagramLines)
