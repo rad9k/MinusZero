@@ -52,8 +52,25 @@ namespace m0.UIWpf.Visualisers
         {
             IVertex bv = Vertex.Get(@"BaseEdge:\To:");
 
-            if (bv != null && bv.Value != null /*&& ((String)bv.Value)!="$Empty"*/)
-                this.Text = bv.Value.ToString();
+            if (bv != null && bv.Value != null /*&& ((String)bv.Value)!="$Empty"*/){
+                StringBuilder sb=new StringBuilder();
+
+                bool isFirst=true;
+
+                foreach(IEdge e in bv.GetAll(@"Attribute:")){
+                    if(isFirst==false)
+                        sb.Append("\n");
+                    else
+                        isFirst=false;
+
+                    sb.Append(e.To.Value);
+
+                    if (e.To.Get("$EdgeTarget:") != null)
+                        sb.Append(" : " + e.To.Get(@"$EdgeTarget:"));
+                }
+
+                this.Text = sb.ToString();
+            }
             else
                 this.Text = "Ø";
         }
