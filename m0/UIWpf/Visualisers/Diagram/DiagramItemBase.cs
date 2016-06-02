@@ -57,6 +57,10 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             if (GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:")) != GraphUtil.NullDouble)
                 LineWidth = GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:"));
+
+            this.Foreground = ForegroundColor;
+
+            this.Background = BackgroundColor;
         }
 
         public bool IsSelected;
@@ -320,7 +324,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             IsHighlighted = true;
 
-            this.Foreground = (Brush)FindResource("0HighlightBrush");
+            //this.Foreground = (Brush)FindResource("0HighlightBrush");
 
             Panel.SetZIndex(this, 99999); 
         }

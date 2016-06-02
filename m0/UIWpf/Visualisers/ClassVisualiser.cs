@@ -26,6 +26,8 @@ namespace m0.UIWpf.Visualisers
 
             if (mz != null && mz.IsInitialized)
             {
+                Padding = new Thickness(3);
+
                 Vertex = mz.CreateTempVertex();
 
                 Vertex.Value = "ClassVisualiser" + this.GetHashCode();
@@ -67,6 +69,11 @@ namespace m0.UIWpf.Visualisers
 
                     if (e.To.Get("$EdgeTarget:") != null)
                         sb.Append(" : " + e.To.Get(@"$EdgeTarget:"));
+
+                    string cardinalites = ClassVertex.GetStringCardinalities(e.To);
+
+                    if(cardinalites!="")
+                        sb.Append(" "+cardinalites);
                 }
 
                 this.Text = sb.ToString();

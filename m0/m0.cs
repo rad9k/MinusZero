@@ -644,9 +644,9 @@ namespace m0
             // TEST
             /////////////////////////////////////////////////////////////////////////
 
-           // AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramPictureItem"), Direct);
+            AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramPictureItem"), Direct);
 
-            //IVertex tord = Root.Get(@"System\Data\Visualiser\Diagram\Test");
+            IVertex tord = Root.Get(@"System\Data\Visualiser\Diagram\Test");
 
             
 
