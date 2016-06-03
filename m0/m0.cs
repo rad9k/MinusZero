@@ -648,6 +648,11 @@ namespace m0
 
             IVertex tord = Root.Get(@"System\Data\Visualiser\Diagram\Test");
 
+            IVertex toriv = tord.AddVertex(did.Get("DiagramItemVertex"), null);
+
+            toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 50.0);
+            toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 50.0);
+
             
 
             /////////////////////////////////////////////////////////////////////////
