@@ -333,6 +333,8 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             IsHighlighted = false;
 
+            Panel.SetZIndex(this, 0); 
+
             if (IsSelected)
                 Select();
             else

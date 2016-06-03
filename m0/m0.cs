@@ -351,7 +351,7 @@ namespace m0
 
             smv.Get(@"DiagramInternal\DiagramPictureItem").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             smv.Get(@"DiagramInternal\DiagramPictureItem").AddEdge(sm.Get("*$Inherits"), smv.Get(@"DiagramInternal\DiagramItemBase"));
-            smv.Get(@"DiagramInternal\DiagramPictureItem").AddVertex(sm.Get("*$PlatformClassName"), @"m0.UIWpf.Visualisers.Diagram.DiagramRectangleItem, m0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+            smv.Get(@"DiagramInternal\DiagramPictureItem").AddVertex(sm.Get("*$PlatformClassName"), @"m0.UIWpf.Visualisers.Diagram.DiagramPictureItem, m0, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
 
             smv.Get(@"DiagramInternal\DiagramOvalItem").AddEdge(sm.Get(@"*$Is"), sm.Get(@"UML\Class"));
             smv.Get(@"DiagramInternal\DiagramOvalItem").AddEdge(sm.Get("*$Inherits"), smv.Get(@"DiagramInternal\DiagramItemBase"));

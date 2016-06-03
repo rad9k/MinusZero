@@ -143,7 +143,7 @@ namespace m0.UIWpf.Visualisers.Diagram
             base.Select();
 
             
-            //this.Title.Foreground = (Brush)FindResource("0BackgroundBrush");
+            this.Title.Foreground = (Brush)FindResource("0BackgroundBrush");
             this.Foreground = (Brush)FindResource("0BackgroundBrush");
 
             this.Frame.Background = (Brush)FindResource("0SelectionBrush");
@@ -157,7 +157,7 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             this.Frame.Background = BackgroundColor;
 
-            //this.Title.Foreground = ForegroundColor;
+            this.Title.Foreground = ForegroundColor;
             this.Foreground = ForegroundColor;
 
             this.InternalFrame.BorderBrush = ForegroundColor;
