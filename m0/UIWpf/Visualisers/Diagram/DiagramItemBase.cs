@@ -43,6 +43,11 @@ namespace m0.UIWpf.Visualisers.Diagram
         public virtual void VertexSetedUp() {
             PlatformClass.RegisterVertexChangeListeners(Vertex, new VertexChange(VertexChange), new string[] { "BaseEdge", "SelectedEdges", "ForegroundColor", "BackgroundColor" });
 
+            VisualiserUpdate();            
+        } // to be called after Vertex is setted up
+
+        public virtual void VisualiserUpdate()       {
+
             double sizeX = GraphUtil.GetDoubleValue(Vertex.Get("SizeX:"));
             double sizeY = GraphUtil.GetDoubleValue(Vertex.Get("SizeY:"));
 
@@ -52,9 +57,6 @@ namespace m0.UIWpf.Visualisers.Diagram
                 Height = sizeY;
             }
 
-        } // to be called after Vertex is setted up
-
-        public virtual void VisualiserUpdate()       {        
             if(Vertex.Get("BackgroundColor:")!=null)
                 BackgroundColor = UIWpf.GetBrushFromColorVertex(Vertex.Get("BackgroundColor:"));
             else

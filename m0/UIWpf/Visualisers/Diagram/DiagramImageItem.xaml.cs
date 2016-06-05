@@ -15,11 +15,20 @@ using System.Windows.Shapes;
 namespace m0.UIWpf.Visualisers.Diagram
 {
     /// <summary>
-    /// Interaction logic for DiagramPictureItem.xaml
+    /// Interaction logic for DiagramImageItem.xaml
     /// </summary>
-    public partial class DiagramPictureItem : DiagramRectangleItemBase
+    public partial class DiagramImageItem : DiagramRectangleItemBase
     {
-        public DiagramPictureItem()
+        public override void VisualiserUpdate()
+        {
+            base.VisualiserUpdate();
+            
+            BitmapImage b = new BitmapImage(new Uri("images\\"+Vertex.Get("Filename:"), UriKind.Relative));
+            int q = b.PixelHeight; // will not load without this
+            Image.Source = b; 
+        }
+
+        public DiagramImageItem()
         {
             InitializeComponent();
         }

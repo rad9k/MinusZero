@@ -50,12 +50,12 @@ namespace m0.UIWpf.Visualisers.Diagram
             else
                 InternalFrame.BorderThickness = new Thickness(0);
 
-            VisualiserUpdate();
-
-            base.VertexSetedUp();
-
+            //VisualiserUpdate(); done in base.VertexSetedUp();
+           
             if (Vertex.Get("VisualiserVertex:") != null && ContentVisualiser != null)
                 Diagram.AddEdgesFromDefintion(ContentVisualiser.Vertex, Vertex.Get("VisualiserVertex:"));
+
+            base.VertexSetedUp();
         }
 
         public override void VisualiserUpdate()

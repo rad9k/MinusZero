@@ -140,8 +140,8 @@
     <Compile Include="UIWpf\Visualisers\Controls\InfoButton.cs" />
     <Compile Include="UIWpf\Visualisers\Controls\DeleteButton.cs" />
     <Compile Include="UIWpf\Visualisers\Diagram\DiagramMetaExtendedLine.cs" />
-    <Compile Include="UIWpf\Visualisers\Diagram\DiagramPictureItem.xaml.cs">
-      <DependentUpon>DiagramPictureItem.xaml</DependentUpon>
+    <Compile Include="UIWpf\Visualisers\Diagram\DiagramImageItem.xaml.cs">
+      <DependentUpon>DiagramImageItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIWpf\Visualisers\FormVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\TableFastVisualiser.cs" />
@@ -298,7 +298,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIWpf\Visualisers\Diagram\DiagramPictureItem.xaml">
+    <Page Include="UIWpf\Visualisers\Diagram\DiagramImageItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
