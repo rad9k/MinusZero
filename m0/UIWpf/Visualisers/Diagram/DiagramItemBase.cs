@@ -322,7 +322,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             IsSelected = false;
             
-            GeneralUtil.SetPropertyIfPresent(this.Content, "Foreground", ForegroundColor);
+           GeneralUtil.SetPropertyIfPresent(this.Content, "Foreground", ForegroundColor);
 
             Panel.SetZIndex(this, 0);
 

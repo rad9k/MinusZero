@@ -4,7 +4,7 @@
         Title="-0 // version 0.4" Height="600" Width="800"  xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock" Icon="/m0;component/Images/Untitled1.png" WindowStartupLocation="CenterScreen">    
         <avalonDock:DockingManager x:Name="dockingManager" >
         <avalonDock:DockingManager.Theme>
-            <avalonDock:MetroTheme/>
+            <avalonDock:ExpressionDarkTheme/>
         </avalonDock:DockingManager.Theme>
         <avalonDock:LayoutRoot >
                 <avalonDock:LayoutPanel Orientation="Horizontal" >

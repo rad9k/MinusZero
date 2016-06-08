@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              >
 
-    <Image Name="Image" Stretch="Fill"></Image>
+   <!-- <Image Name="Image" Stretch="Fill"></Image>-->
 
 
 </my:DiagramRectangleItemBase>

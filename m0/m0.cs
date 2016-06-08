@@ -654,7 +654,7 @@ namespace m0
             toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 50.0);
             toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 50.0);
 
-            toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "testimage.gif");
+            toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "mag.gif");
 
             
 

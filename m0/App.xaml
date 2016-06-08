@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
             StartupUri="StartWindow.xaml">
     <Application.Resources>
-       <ResourceDictionary Source="ResourceDictionaryWhite.xaml"/> 
+       <ResourceDictionary Source="ResourceDictionaryBlack.xaml"/> 
          
     </Application.Resources>
 </Application>
