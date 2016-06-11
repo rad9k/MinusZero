@@ -25,7 +25,12 @@ namespace m0.UIWpf.Visualisers.Diagram
             
             BitmapImage b = new BitmapImage(new Uri("images\\"+Vertex.Get("Filename:"), UriKind.Relative));
             int q = b.PixelHeight; // will not load without this
-           // Image.Source = b; 
+            Image.Source = b; 
+        }
+
+        public override void SetBackAndForeground()
+        {
+            this.Foreground = ForegroundColor;
         }
 
         public DiagramImageItem()

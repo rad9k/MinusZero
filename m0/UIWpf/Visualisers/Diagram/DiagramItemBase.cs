@@ -70,6 +70,11 @@ namespace m0.UIWpf.Visualisers.Diagram
             if (GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:")) != GraphUtil.NullDouble)
                 LineWidth = GraphUtil.GetDoubleValue(Vertex.Get("LineWidth:"));
 
+            SetBackAndForeground();
+        }
+
+        public virtual void SetBackAndForeground()
+        {
             this.Foreground = ForegroundColor;
 
             this.Background = BackgroundColor;
