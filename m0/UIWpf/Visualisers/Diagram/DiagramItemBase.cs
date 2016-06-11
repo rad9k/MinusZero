@@ -424,6 +424,11 @@ namespace m0.UIWpf.Visualisers.Diagram
 
         private bool CanAutomaticallyAddEdges = true;
 
+        public virtual void VertexContentChange()
+        {
+            VisualiserUpdate();
+        }
+
         public virtual void VertexChange(object sender, VertexChangeEventArgs e)
         {
             if (sender == Vertex.Get(@"BaseEdge:\To:") && e.Type == VertexChangeType.EdgeRemoved)
@@ -438,6 +443,9 @@ namespace m0.UIWpf.Visualisers.Diagram
                 if(toRemove!=null)
                     RemoveDiagramLine(toRemove);
             }
+
+            if (sender == Vertex.Get(@"BaseEdge:\To:") && e.Type == VertexChangeType.ValueChanged)
+                VertexContentChange();
 
             if (sender == Vertex.Get(@"BaseEdge:\To:") && e.Type == VertexChangeType.EdgeAdded && CanAutomaticallyAddEdges)
             {

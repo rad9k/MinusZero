@@ -31,12 +31,44 @@ namespace m0.UIWpf.Visualisers.Diagram
         public override void SetBackAndForeground()
         {
             this.Foreground = ForegroundColor;
+            this.Background = null;
         }
 
         public DiagramImageItem()
         {
-            InitializeComponent();        
+            InitializeComponent();                    
+        }
+
+        public override void Select()
+        {
+            base.Select();
             
+            this.Background = (Brush)FindResource("0SelectionBrush");
+
+            this.Image.Cursor = Cursors.ScrollAll;
+        }
+
+        public override void Unselect()
+        {
+            base.Unselect();
+
+            SetBackAndForeground();
+
+            this.Image.Cursor = Cursors.Arrow;
+        }
+
+        public override void Highlight()
+        {
+            base.Highlight();
+            
+            this.Background = (Brush)FindResource("0HighlightBrush");
+        }
+
+        public override void Unhighlight()
+        {
+            SetBackAndForeground();
+
+            base.Unhighlight();
         }
     }
 }

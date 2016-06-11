@@ -646,6 +646,7 @@ namespace m0
             /////////////////////////////////////////////////////////////////////////
 
             AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramRhombusItem"), Direct);
+            //AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramImageItem"), Direct);
 
             IVertex tord = Root.Get(@"System\Data\Visualiser\Diagram\Test");
 
@@ -654,7 +655,20 @@ namespace m0
             toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 150.0);
             toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 150.0);
 
-            
+            //toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "mag.gif");
+
+            // Test / Association
+
+            IVertex tcrda = tord.AddVertex(dld, "Association");
+
+            tcrda.AddVertex(dld.Get("EdgeTestQuery"), @"$Is:\");            
+
+            tcrda.AddEdge(dld.Get("DiagramLineClass"), sm.Get(@"*DiagramInternal\DiagramLine"));
+
+            IVertex tordadlv = tcrda.AddVertex(dld.Get("DiagramLineVertex"), null);
+
+            tordadlv.AddEdge(sm.Get("*EndAnchor"), sm.Get(@"*DiagramInternal\LineEndEnum\Arrow"));
+            tordadlv.AddEdge(sm.Get("*StartAnchor"), sm.Get(@"*DiagramInternal\LineEndEnum\Arrow"));            
 
             
 
