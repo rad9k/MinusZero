@@ -143,6 +143,12 @@
     <Compile Include="UIWpf\Visualisers\Diagram\DiagramImageItem.xaml.cs">
       <DependentUpon>DiagramImageItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIWpf\Visualisers\Diagram\DiagramOvalItem.xaml.cs">
+      <DependentUpon>DiagramOvalItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIWpf\Visualisers\Diagram\DiagramRhombusItem.xaml.cs">
+      <DependentUpon>DiagramRhombusItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIWpf\Visualisers\FormVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\TableFastVisualiser.cs" />
     <Compile Include="UIWpf\Visualisers\VertexVisualiser.cs" />
@@ -302,6 +308,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UIWpf\Visualisers\Diagram\DiagramOvalItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIWpf\Visualisers\Diagram\DiagramRectangleItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -327,6 +337,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIWpf\PlatformClassSimpleWrapper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIWpf\Visualisers\Diagram\DiagramRhombusItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

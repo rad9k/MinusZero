@@ -123,6 +123,12 @@ namespace m0.UIWpf.Visualisers.Diagram
 
             this.Frame.BorderBrush = ForegroundColor;
 
+            if (ContentVisualiser != null) // not always works, but can
+            {
+                GeneralUtil.SetPropertyIfPresent(ContentVisualiser, "Foreground", ForegroundColor);
+                GeneralUtil.SetPropertyIfPresent(ContentVisualiser, "Background", BackgroundColor);
+            }
+
             if (LineWidth != 0)
             {
                 this.Frame.BorderThickness = new Thickness(LineWidth);

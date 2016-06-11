@@ -15,28 +15,30 @@ using System.Windows.Shapes;
 namespace m0.UIWpf.Visualisers.Diagram
 {
     /// <summary>
-    /// Interaction logic for DiagramImageItem.xaml
+    /// Interaction logic for DiagramRhombusItem.xaml
     /// </summary>
-    public partial class DiagramImageItem : DiagramRectangleItemBase
+    public partial class DiagramRhombusItem : DiagramRectangleItemBase
     {
-        public override void VisualiserUpdate()
-        {
-            base.VisualiserUpdate();
-            
-            BitmapImage b = new BitmapImage(new Uri("images\\"+Vertex.Get("Filename:"), UriKind.Relative));
-            int q = b.PixelHeight; // will not load without this
-            Image.Source = b; 
-        }
 
         public override void SetBackAndForeground()
         {
             this.Foreground = ForegroundColor;
+            this.Rhombus.Stroke = ForegroundColor;
+            this.Rhombus.Fill = BackgroundColor;            
         }
 
-        public DiagramImageItem()
+        public override void VisualiserUpdate()
         {
-            InitializeComponent();        
-            
+            base.VisualiserUpdate();
+
+
+            if(LineWidth!=-1&&LineWidth!=0)
+                this.Rhombus.StrokeThickness = LineWidth;
+        }
+
+        public DiagramRhombusItem()
+        {
+            InitializeComponent();
         }
     }
 }

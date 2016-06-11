@@ -77,7 +77,7 @@ namespace m0.UIWpf.Visualisers.Diagram
         {
             this.Foreground = ForegroundColor;
 
-            this.Background = BackgroundColor;
+           // this.Background = BackgroundColor;
         }
 
         public bool IsSelected;

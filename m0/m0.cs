@@ -645,16 +645,16 @@ namespace m0
             // TEST
             /////////////////////////////////////////////////////////////////////////
 
-            AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramImageItem"), Direct);
+            AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramRhombusItem"), Direct);
 
             IVertex tord = Root.Get(@"System\Data\Visualiser\Diagram\Test");
 
             IVertex toriv = tord.AddVertex(did.Get("DiagramItemVertex"), null);
 
-            toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 50.0);
-            toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 50.0);
+            toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 150.0);
+            toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 150.0);
 
-            toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "mag.gif");
+            
 
             
 
