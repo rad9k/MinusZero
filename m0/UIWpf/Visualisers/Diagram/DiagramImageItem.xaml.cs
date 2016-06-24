@@ -34,9 +34,13 @@ namespace m0.UIWpf.Visualisers.Diagram
             this.Background = null;
         }
 
+        public TextBlock Label;
+
         public DiagramImageItem()
         {
-            InitializeComponent();                    
+            InitializeComponent();   
+            
+     
         }
 
         public override void Select()
