@@ -652,10 +652,10 @@ namespace m0
 
             IVertex toriv = tord.AddVertex(did.Get("DiagramItemVertex"), null);
 
-            toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 150.0);
-            toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 150.0);
+           // toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 150.0);
+            //toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 150.0);
 
-            toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "mag.gif");
+            toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "testimage.gif");
 
             // Test / Association
 

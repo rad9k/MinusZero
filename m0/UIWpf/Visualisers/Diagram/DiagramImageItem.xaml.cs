@@ -25,23 +25,26 @@ namespace m0.UIWpf.Visualisers.Diagram
             
             BitmapImage b = new BitmapImage(new Uri("images\\"+Vertex.Get("Filename:"), UriKind.Relative));
             int q = b.PixelHeight; // will not load without this
-            Image.Source = b; 
+            Image.Source = b;
+
+            if (Vertex.Get(@"BaseEdge:\To:").Value != null)
+                this.Title.Text = Vertex.Get(@"BaseEdge:\To:").Value.ToString();
+            else
+                this.Title.Text = "Ø";
         }
 
         public override void SetBackAndForeground()
         {
             this.Foreground = ForegroundColor;
             this.Background = null;
-        }
-
-        public TextBlock Label;
+        }        
 
         public DiagramImageItem()
         {
-            InitializeComponent();   
-            
-     
+            InitializeComponent();
         }
+
+        
 
         public override void Select()
         {
