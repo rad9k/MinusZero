@@ -645,23 +645,27 @@ namespace m0
             // TEST
             /////////////////////////////////////////////////////////////////////////
 
-            //AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramRhombusItem"), Direct);
-            AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramImageItem"), Direct);
+            AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramRhombusItem"), Direct);
+            //AddDiagramItemDefinition("Test", @"", null, sm.Get(@"*DiagramImageItem"), Direct);
 
             IVertex tord = Root.Get(@"System\Data\Visualiser\Diagram\Test");
 
             IVertex toriv = tord.AddVertex(did.Get("DiagramItemVertex"), null);
 
-           // toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 150.0);
-            //toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 150.0);
+            toriv.AddVertex(Root.Get(@"System\Meta*SizeX"), 150.0);
+            toriv.AddVertex(Root.Get(@"System\Meta*SizeY"), 150.0);
 
-            toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "testimage.gif");
+            //toriv.AddVertex(Root.Get(@"System\Meta*Filename"), "testimage.gif");
 
             // Test / Association
 
-            IVertex tcrda = tord.AddVertex(dld, "Association");
+            IVertex tcrda = tord.AddVertex(dld, "Edgee");
 
-            tcrda.AddVertex(dld.Get("EdgeTestQuery"), @"$Is:\");            
+            tcrda.AddEdge(sm.Get("*$Is"), dld);
+
+            tcrda.AddVertex(dld.Get("EdgeTestQuery"), @"$Is:\");
+
+            tcrda.AddVertex(dld.Get("ToDiagramItemTestQuery"), @"");
 
             tcrda.AddEdge(dld.Get("DiagramLineClass"), sm.Get(@"*DiagramInternal\DiagramLine"));
 
