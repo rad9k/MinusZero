@@ -53,6 +53,8 @@ namespace m0.UIWpf.Visualisers.Diagram
             this.Background = (Brush)FindResource("0SelectionBrush");
 
             this.Image.Cursor = Cursors.ScrollAll;
+
+            this.Title.Foreground = BackgroundColor;
         }
 
         public override void Unselect()
@@ -62,6 +64,8 @@ namespace m0.UIWpf.Visualisers.Diagram
             SetBackAndForeground();
 
             this.Image.Cursor = Cursors.Arrow;
+
+            this.Title.Foreground = ForegroundColor;
         }
 
         public override void Highlight()

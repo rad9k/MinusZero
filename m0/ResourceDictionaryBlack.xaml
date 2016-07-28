@@ -105,12 +105,12 @@
         <Setter Property="Foreground" Value="{StaticResource 0ForegroundBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource 0BackgroundBrush}" />
-                <Setter Property="Background" Value="{StaticResource 0GrayBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource 0GrayBrush}" />
+                <Setter Property="Background" Value="{StaticResource 0VeryLightGrayBrush}" />
                 <Setter Property="BorderBrush" Value="{StaticResource 0BackgroundBrush}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource 0BackgroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource 0GrayBrush}" />
                 <Setter Property="Background" Value="{StaticResource 0SelectionBrush}" />
                 <Setter Property="BorderBrush" Value="{StaticResource 0BackgroundBrush}" />
             </Trigger>
