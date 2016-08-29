@@ -195,7 +195,9 @@ namespace m0
 
             GeneralUtil.ParseAndExcute(sm.Get(@"UML\Selector"), sm, "{$MinCardinality:0,$MaxCardinality:-1}");
 
-            GeneralUtil.ParseAndExcute(sm.Get(@"UML\Enum\EnumValue"), sm, "{$MinCardinality:0,$MaxCardinality:-1}");            
+            GeneralUtil.ParseAndExcute(sm.Get(@"UML\Enum\EnumValue"), sm, "{$MinCardinality:0,$MaxCardinality:-1}");
+
+            sm.Get(@"UML\Enum\EnumValue").AddEdge(sm.Get(@"*$EdgeTarget"), sm.Get(@"UML\Vertex"));
 
             sm.Get(@"UML\Vertex\$Is").AddVertex(sm.Get(@"Presentation\$Hide"),"");
 
